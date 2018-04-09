@@ -1,4 +1,4 @@
-//  
+//    
 //  GPWHomeVierticalView.swift
 //  GangPiaoWang
 //

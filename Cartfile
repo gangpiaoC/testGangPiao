@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire"
+github "SnapKit/SnapKit"
+github "SwiftyJSON/SwiftyJSON"
+github "onevcat/Kingfisher"

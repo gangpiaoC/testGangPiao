@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "05f06c34-aa13-41f4-ad93-7c6f2bee2927++9236",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "05f06c34-aa13-41f4-ad93-7c6f2bee2927++9236" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "05f06c34-aa13-41f4-ad93-7c6f2bee2927++9236" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D7F016AE-B75D-41FE-8EC7-5B605AC2892E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "05f06c34-aa13-41f4-ad93-7c6f2bee2927++9236" : "GangPiaoWang1.0\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "GangPiaoWang",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GangPiaoWang.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/119.254.209.214",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "05f06c34-aa13-41f4-ad93-7c6f2bee2927++9236"
+    }
+  ]
+}

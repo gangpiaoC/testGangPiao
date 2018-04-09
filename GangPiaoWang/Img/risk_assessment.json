@@ -1,0 +1,256 @@
+{
+  "code": 1000,
+  "msg": "风险评估",
+  "data": [
+    {
+      "question": "1.您的年龄：",
+      "an_list": [
+        {
+          "an_content": "20岁以下或60岁以上",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "51岁至60岁",
+          "score": 7,
+          "is_select": 0
+        },
+        {
+          "an_content": "21岁至30岁",
+          "score": 9,
+          "is_select": 0
+        },
+        {
+          "an_content": "31岁至50岁",
+          "score": 5,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "2.您的健康情况：",
+      "an_list": [
+        {
+          "an_content": "较差",
+          "score": 1,
+          "is_select": 0
+        },
+        {
+          "an_content": "一般",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "良好",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "很好",
+          "score": 6,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "3.您目前的职业状况：",
+      "an_list": [
+        {
+          "an_content": "自由职业者或已退休",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "公司职员",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "事业单位职员",
+          "score": 7,
+          "is_select": 0
+        },
+        {
+          "an_content": "公务员",
+          "score": 9,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "4.您目前的年收入状况（折合人民币）：",
+      "an_list": [
+        {
+          "an_content": "10万元以下",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "10-30万元",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "30-50万元",
+          "score": 7,
+          "is_select": 0
+        },
+        {
+          "an_content": "50万元以上",
+          "score": 9,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "5.您进行出借的主要目的是：",
+      "an_list": [
+        {
+          "an_content": "确保资产的安全性，同时获得固定收益",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "希望投资能获得一定的增值，同时获得波动适度的年回报",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "倾向于长期的成长，较少关心短期的回报和波动",
+          "score": 7,
+          "is_select": 0
+        },
+        {
+          "an_content": "只关心长期的高回报，能够接受短期的资产价值波动",
+          "score": 9,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "6.您的投资经验：",
+      "an_list": [
+        {
+          "an_content": "无投资经验",
+          "score": 1,
+          "is_select": 0
+        },
+        {
+          "an_content": "少于2年",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "2年至5年",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "5年以上",
+          "score": 7,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "7.您进行出借的资金占家庭自有资金的比例：",
+      "an_list": [
+        {
+          "an_content": "50%以上",
+          "score": 7,
+          "is_select": 0
+        },
+        {
+          "an_content": "30-50%",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "15-30%",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "15%以下",
+          "score": 1,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "8.您计划的出借期限一般是：",
+      "an_list": [
+        {
+          "an_content": "1年以下",
+          "score": 1,
+          "is_select": 0
+        },
+        {
+          "an_content": "1-3年",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "3-5年",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "5年以上",
+          "score": 7,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "9.您期望的投资年收益率：",
+      "an_list": [
+        {
+          "an_content": "高于同期定期存款",
+          "score": 1,
+          "is_select": 0
+        },
+        {
+          "an_content": "5%左右，要求相对风险较低",
+          "score": 5,
+          "is_select": 0
+        },
+        {
+          "an_content": "5%-15%，可承受中等风险",
+          "score": 7,
+          "is_select": 0
+        },
+        {
+          "an_content": "15%以上，可承担较高风险",
+          "score": 9,
+          "is_select": 0
+        }
+      ]
+    },
+    {
+      "question": "10.您如何看待投资亏损 ：",
+      "an_list": [
+        {
+          "an_content": "很难接受，影响正常的生活",
+          "score": 1,
+          "is_select": 0
+        },
+        {
+          "an_content": "受到一定的影响，但不影响正常生活",
+          "score": 3,
+          "is_select": 0
+        },
+        {
+          "an_content": "平常心看待，对情绪没有明显的影响",
+          "score": 7,
+          "is_select": 0
+        },
+        {
+          "an_content": "正常，没有人只赚不赔",
+          "score": 9,
+          "is_select": 0
+        }
+      ]
+    }
+  ]
+}

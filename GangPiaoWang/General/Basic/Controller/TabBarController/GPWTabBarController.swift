@@ -36,7 +36,7 @@ class GPWTabBarController: UITabBarController {
         var index = 0
         for vc in controllers {
             vc.title = titles[index]
-            vc.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: redColor], for: .selected)
+            vc.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.hex("fa713d")], for: .selected)
             vc.tabBarItem.image = UIImage(named: "tabBar_\(index)")
             vc.tabBarItem.imageInsets = UIEdgeInsets(top: -3, left: 0, bottom: 3, right: 0)
             vc.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -4)

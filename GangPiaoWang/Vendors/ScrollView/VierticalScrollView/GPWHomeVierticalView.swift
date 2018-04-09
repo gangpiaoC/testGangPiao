@@ -1,6 +1,6 @@
 //    
 //  GPWHomeVierticalView.swift
-//  GangPiaoWang
+//  GangPiaoWang  
 //
 //  Created by gangpiaowang on 2017/4/7.
 //  Copyright © 2017年 GC. All rights reserved.

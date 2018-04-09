@@ -88,7 +88,7 @@ class GPWQuirstView: UIView,RTLabelDelegate {
             let acountNum = (self.viewWithTag(1000) as! UITextField).text!
             let codeStr = (self.viewWithTag(1001) as! UITextField).text!
             if GPWHelper.judgePhoneNum(acountNum){
-                if codeStr.characters.count == 0 {
+                if codeStr.count == 0 {
                     self.makeToast("请输入验证码")
                     return
                 }else{

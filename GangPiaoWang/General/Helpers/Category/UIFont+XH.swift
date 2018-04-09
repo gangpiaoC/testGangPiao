@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIFont {
-    static func customFont(ofSize fontSize: CGFloat) -> UIFont {
+    @objc static func customFont(ofSize fontSize: CGFloat) -> UIFont {
         return self.systemFont(ofSize: fontSize)
         //return self.systemFont(ofSize: fontSize, weight: UIFontWeightLight)
     }

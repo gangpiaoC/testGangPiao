@@ -58,7 +58,7 @@ class GPWUserRechargeViewController: GPWSecBaseViewController ,UITextFieldDelega
         }
         
         if GPWUser.sharedInstance().is_valid == "1" {
-            let str = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.characters.count)! - 4,length: 4))
+            let str = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.count)! - 4,length: 4))
             bankNumStr = "尾号" + str
         }
         

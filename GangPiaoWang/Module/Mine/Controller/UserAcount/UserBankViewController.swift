@@ -48,7 +48,7 @@ class UserBankViewController: GPWSecBaseViewController {
         let bankNumLabel = UILabel(frame: CGRect(x: 0, y: bankIconView.maxY + 27, width: imgView.width, height: 24))
         bankNumLabel.text = "**** **** **** 6666"
         if GPWUser.sharedInstance().is_valid == "1" {
-            let str = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.characters.count)! - 4,length: 4))
+            let str = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.count)! - 4,length: 4))
              bankNumLabel.text = "**** **** **** " + str
         }
     

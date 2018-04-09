@@ -58,7 +58,7 @@ class GPWFTTZHController: GPWSecBaseViewController,WKNavigationDelegate{
         
         var louLingArray = [String]()
         let strkl = "\(GPWUser.sharedInstance().kouling)"
-        for i in 0 ..< strkl.characters.count {
+        for i in 0 ..< strkl.count {
              let tempNum = (strkl as NSString).substring(with: NSRange(location: i,length: 1))
             louLingArray.append(tempNum)
         }
@@ -124,15 +124,15 @@ class GPWFTTZHController: GPWSecBaseViewController,WKNavigationDelegate{
         bgView.addSubview(sureBtn)
     }
     
-    func codeBtnClick( _ sender:UIButton) {
+    @objc func codeBtnClick( _ sender:UIButton) {
          let wid = UIApplication.shared.keyWindow
         wid?.viewWithTag(10000)?.removeFromSuperview()
         if sender.tag == 1001{
             //调用接口去详情
-            if codeFiled.text?.characters.count == 0 {
+            if codeFiled.text?.count == 0 {
                 self.view.makeToast("请输入正确口令")
                 return
-            }else if codeFiled.text?.characters.count != 6 {
+            }else if codeFiled.text?.count != 6 {
                 self.view.makeToast("请输入正确口令")
                 return
             }
@@ -140,7 +140,7 @@ class GPWFTTZHController: GPWSecBaseViewController,WKNavigationDelegate{
         }
     }
     
-    func btnClick() {
+    @objc func btnClick() {
         if GPWUser.sharedInstance().isLogin {
             if GPWUser.sharedInstance().identity == 1{
                 self.navigationController?.pushViewController(GPWVipListViewController(), animated: true)

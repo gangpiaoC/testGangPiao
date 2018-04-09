@@ -32,11 +32,11 @@ class GPWGetFriendsHeadView: UITableViewHeaderFooterView {
         didSet {
             yaotypeLabel.text = sectionModel?.yaotypeStr
             if  let name = sectionModel?.nameStr {
-                if name.characters.count == 3 {
+                if name.count == 3 {
                     let index = name.index(after: name.startIndex)
                     let  tempName = name.substring(to: index)
                     nameLabel.text = tempName + "**"
-                }else if name.characters.count == 2 {
+                }else if name.count == 2 {
                     let index = name.index(after: name.startIndex)
                     let  tempName = name.substring(to: index)
                     nameLabel.text = tempName + "*"
@@ -48,7 +48,7 @@ class GPWGetFriendsHeadView: UITableViewHeaderFooterView {
                   nameLabel.text = "未实名"
             }
             if let phone = sectionModel?.phoneStr  {
-                if phone.characters.count > 4 {
+                if phone.count > 4 {
                     let index = phone.index(phone.endIndex, offsetBy: -4)
                     phoneLabel.text = phone.substring(from: index)
                 }else{
@@ -62,9 +62,9 @@ class GPWGetFriendsHeadView: UITableViewHeaderFooterView {
             moneyLabel.text = sectionModel?.moneyStr
             //设置test
             if ((self.sectionModel!.isExpanded) != false) {
-                self.directionImageView.transform =  CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
+                self.directionImageView.transform =  CGAffineTransform(rotationAngle: CGFloat(Double.pi * 2))
             } else {
-                self.directionImageView.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                self.directionImageView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
             }
             if (sectionModel?.cellModels.count)! > 0 {
                 self.directionImageView.isHidden = false
@@ -126,7 +126,7 @@ class GPWGetFriendsHeadView: UITableViewHeaderFooterView {
         self.backgroundView?.backgroundColor = UIColor.clear
     }
     
-    @objc @discardableResult //不接受返回值
+    @objc //不接受返回值
     func clickHeader(sender: UIButton) {
         sectionModel?.isExpanded = !((sectionModel?.isExpanded)!)
 //        UIView.animate(withDuration: 0.25) {

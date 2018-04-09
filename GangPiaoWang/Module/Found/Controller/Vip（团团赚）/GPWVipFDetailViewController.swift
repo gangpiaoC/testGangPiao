@@ -150,7 +150,7 @@ class GPWVipFDetailViewController: UIViewController, UITableViewDelegate, UITabl
         })
     }
     
-    func shareViewShow() {
+    @objc func shareViewShow() {
         if !isCanShare {
             return
         }
@@ -229,7 +229,7 @@ class GPWVipFDetailViewController: UIViewController, UITableViewDelegate, UITabl
         bgView.addSubview(cancelBtn)
     }
     
-    func cancelClick() {
+    @objc func cancelClick() {
         let wid = UIApplication.shared.keyWindow
         wid?.viewWithTag(10000)?.removeFromSuperview()
     }

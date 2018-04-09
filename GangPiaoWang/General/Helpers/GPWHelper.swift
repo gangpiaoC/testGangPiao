@@ -307,7 +307,7 @@ class GPWHelper {
         }
         
         if (url.range(of: "https")) != nil{
-            if(url.characters.count) > 6 {
+            if(url.count) > 6 {
                  _ = GPWHelper.selectedNavController()?.pushViewController(GPWWebViewController(subtitle: "", url: url), animated: true)
             }
         }else{

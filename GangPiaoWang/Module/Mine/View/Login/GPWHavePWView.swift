@@ -109,7 +109,7 @@ class GPWHavePWView: UIView {
             let acountNum = (self.viewWithTag(100) as! UITextField).text!
             let pw = (self.viewWithTag(101) as! UITextField).text!
             if GPWHelper.judgePhoneNum(acountNum){
-                if pw.characters.count == 0 {
+                if pw.count == 0 {
                     self.makeToast("请输入密码")
                     return
                 }

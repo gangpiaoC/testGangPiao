@@ -135,7 +135,7 @@ class GPWUserForgetPwViewController: GPWSecBaseViewController,RTLabelDelegate {
                 bgView.makeToast("手机未注册")
             }else if GPWHelper.judgePhoneNum(phone) {
                 let code = (self.bgView.viewWithTag(101) as! UITextField).text ?? ""
-                if code.characters.count == 0 {
+                if code.count == 0 {
                     bgView.makeToast("请输入验证码")
                     return
                 }

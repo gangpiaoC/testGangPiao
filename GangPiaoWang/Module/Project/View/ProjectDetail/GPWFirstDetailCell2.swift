@@ -93,7 +93,7 @@ class GPWFirstDetailCell2: UITableViewCell {
     @objc func click()  {
         if leftLabel.text == "计息规则" {
              self.superVC?.navigationController?.pushViewController(GPWProjectIRuleController(), animated: true)
-        }else if (self.clickUrl?.characters.count)! > 5 {
+        }else if (self.clickUrl?.count)! > 5 {
             let vc = GPWWebViewController(subtitle: "", url: self.clickUrl!)
             self.superVC?.navigationController?.pushViewController(vc, animated: true)
         }
@@ -110,7 +110,7 @@ class GPWFirstDetailCell2: UITableViewCell {
         self.superVC = superVC
         self.clickUrl = url
         
-        if url.characters.count > 7 {
+        if url.count > 7 {
             rightLabel.textColor = urlColor
         }else{
              rightLabel.textColor = titleColor

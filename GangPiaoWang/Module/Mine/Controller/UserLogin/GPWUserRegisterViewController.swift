@@ -217,14 +217,14 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         //验证密码是否符合
         let regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        if  phoneNum.characters.count != 11 {
+        if  phoneNum.count != 11 {
             self.bgView.makeToast("请输入正确手机号")
         }else if self.flag == false {
             self.bgView.makeToast("手机已注册过")
         }else{
             if predicate.evaluate(with: pw) {
                 if GPWHelper.judgePhoneNum(phoneNum){
-                    if code.characters.count > 0{
+                    if code.count > 0{
                         GPWNetwork.requetWithPost(url: Register_next, parameters: ["mobile":phoneNum,"news_captcha":code], responseJSON: { [weak self]  (json, msg) in
                             guard let strongSelf = self else { return }
                             printLog(message: json)
@@ -251,7 +251,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         var dic = ["mobile":phoneNum]
         dic["password"] = pw
         let yaostr = yaoCodeTextField.text ?? ""
-        if yaostr.characters.count > 1 {
+        if yaostr.count > 1 {
             dic["invite_code"] = yaostr
         }
         GPWNetwork.requetWithPost(url: Depose_register, parameters: dic, responseJSON:  {

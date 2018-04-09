@@ -59,7 +59,7 @@ extension GPWHomeTopCell{
         MobClick.event("home", label:  "banner_\(index)")
         let url = dic["link"].string ?? ""
         if (url.range(of: "https")) != nil{
-            if(url.characters.count) > 6 {
+            if(url.count) > 6 {
                 _indexControl?.navigationController?.pushViewController(GPWWebViewController(dic: dic), animated: true)
             }
         }else if url == "ttz"{

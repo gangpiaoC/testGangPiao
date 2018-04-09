@@ -281,7 +281,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         var dic = [String:String]()
         //姓名
         let temp1Str = (self.tempBgView.viewWithTag(NAMETAG) as! UITextField).text ?? ""
-        if temp1Str.characters.count < 2 {
+        if temp1Str.count < 2 {
             bgView.makeToast("请输入真实姓名")
             return
         }
@@ -301,7 +301,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         //银行卡
         let temp3Str = (self.tempBgView.viewWithTag(BANKTAG) as! UITextField).text ?? ""
 
-        if temp3Str.characters.count >= 15 && temp3Str.characters.count <= 19 {
+        if temp3Str.count >= 15 && temp3Str.characters.count <= 19 {
             dic["banck"] = temp3Str
         }else{
             bgView.makeToast("不支持或错误的银行卡号")
@@ -328,7 +328,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
 
         //开户城市
         let temp5Str = (self.bottomView.viewWithTag(AREATAG) as! UITextField).text ?? ""
-        if temp5Str.characters.count > 2  {
+        if temp5Str.count > 2  {
             //城市id
             dic["city_id"] = "\(cityCode ?? 0)"
         }else{
@@ -413,7 +413,7 @@ extension UserReadInfoViewController{
         let  tempStr = textField.text ?? ""
         var maxHeight:CGFloat = 0.00
 
-        if tempStr.characters.count < 15 || tempStr.characters.count > 19 {
+        if tempStr.count < 15 || tempStr.count > 19 {
             bankLabel.height = 0
             maxHeight = bankLabel.maxY + 5
             tempBgView.height = maxHeight

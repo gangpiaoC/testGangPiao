@@ -400,8 +400,6 @@ extension GestureViewController: GYCircleViewDelegate {
             break
         case EditGesturepwType.change:
             break
-        default:
-            break
         }
     }
     

@@ -26,11 +26,11 @@ class GPWGetFriendsCell: UITableViewCell {
             //设置text
             yaotypeLabel.text = cellModel?.yaotypeStr
             if  let name = cellModel?.nameStr {
-                if name.characters.count == 3 {
+                if name.count == 3 {
                     let index = name.index(after: name.startIndex)
                     let  tempName = name.substring(to: index)
                     nameLabel.text = tempName + "**"
-                }else if name.characters.count == 2 {
+                }else if name.count == 2 {
                     let index = name.index(after: name.startIndex)
                     let  tempName = name.substring(to: index)
                     nameLabel.text = tempName + "*"
@@ -42,7 +42,7 @@ class GPWGetFriendsCell: UITableViewCell {
                 nameLabel.text = "未实名"
             }
             if let phone = cellModel?.phoneStr  {
-                if phone.characters.count > 4 {
+                if phone.count > 4 {
                     let index = phone.index(phone.endIndex, offsetBy: -4)
                     phoneLabel.text = phone.substring(from: index)
                 }else{

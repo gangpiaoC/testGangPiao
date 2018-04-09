@@ -60,8 +60,8 @@ class GPWUserFackViewController: GPWSecBaseViewController,RTLabelDelegate ,UITex
         }
     }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let  num1 = textView.text.characters.count
-        let num2 = text.characters.count
+        let  num1 = textView.text.count
+        let num2 = text.count
         if num1 + num2 < 1 {
             palceLabel.isHidden = false
         }else{
@@ -73,12 +73,12 @@ class GPWUserFackViewController: GPWSecBaseViewController,RTLabelDelegate ,UITex
     @objc func btnClick() {
         printLog(message: "确定")
         var dic = [String:String]()
-        if textView.text.characters.count == 0 {
+        if textView.text.count == 0 {
             self.bgView.makeToast("请输入问题或者意见")
             return
         }
         dic["content"] = textView.text
-        if (textField.text?.characters.count)! > 0 {
+        if (textField.text?.count)! > 0 {
             if GPWHelper.judgePhoneNum(textField.text) {
                 dic["phone"] = textField.text
             }else{

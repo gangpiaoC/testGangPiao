@@ -74,7 +74,7 @@ class GPWTiorChongSucessController: GPWBaseViewController {
             
         }
         
-        var bankNum = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.characters.count)! - 4,length: 4))
+        var bankNum = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.count)! - 4,length: 4))
         bankNum = "尾号" + bankNum
         
         var array = [[String:String]]()

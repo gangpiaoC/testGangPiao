@@ -57,11 +57,11 @@ class GPWUserChangepwViewController: GPWSecBaseViewController {
         
         let oldPw = (self.bgView.viewWithTag(100) as! UITextField).text!
         let newPw = (self.bgView.viewWithTag(101) as! UITextField).text!
-        if oldPw.characters.count == 0 {
+        if oldPw.count == 0 {
             bgView.makeToast("请输入原密码")
             return
         }
-        if newPw.characters.count == 0 {
+        if newPw.count == 0 {
             bgView.makeToast("请输入新密码")
             return
         }else if  GPWHelper.judgePw(pw: newPw){

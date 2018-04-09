@@ -15,7 +15,7 @@ class GPWSafeMangerController: GPWSecBaseViewController ,UITableViewDelegate,UIT
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let password = GYCircleConst.getGestureWithKey(gestureFinalSaveKey) ?? ""
-        if password.characters.count >= 4 {
+        if password.count >= 4 {
             self.titleArray = [["修改登录密码","修改支付密码"],["手势密码","修改手势密码"]]
             if GPWUser.sharedInstance().set_pwd == 1 {
                  self.titleArray = [["设置登录密码","修改支付密码"],["手势密码","修改手势密码"]]
@@ -78,7 +78,7 @@ class GPWSafeMangerController: GPWSecBaseViewController ,UITableViewDelegate,UIT
             cell?.swicth.addTarget(self, action: #selector(switchDidChange(sender:)), for:.valueChanged)
             let password = GYCircleConst.getGestureWithKey(gestureFinalSaveKey) ?? ""
             var flag:Bool = false
-            if password.characters.count >= 4 {
+            if password.count >= 4 {
                 flag = true
             }
             cell?.changSwitchValue(title: titleArray[indexPath.section][indexPath.row], bool: flag, superc: self)

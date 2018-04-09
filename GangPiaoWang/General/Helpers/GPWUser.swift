@@ -1,7 +1,7 @@
 //
 //  GPWUser.swift
 //  GangPiaoWang
-//  
+//     
 //  Created by GC on 16/11/29.
 //  Copyright © 2016年 GC. All rights reserved.
 //

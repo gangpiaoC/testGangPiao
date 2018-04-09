@@ -1442,7 +1442,6 @@
 			isa = PBXGroup;
 			children = (
 				5BE67F541DE59CF2004DA71F /* Controller */,
-				5BE67F551DE59CF2004DA71F /* Model */,
 				5BE67F561DE59CF2004DA71F /* View */,
 			);
 			path = Home;
@@ -1464,13 +1463,6 @@
 				80E6967F1F7CEFE20088A880 /* GPWFailController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		5BE67F551DE59CF2004DA71F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		5BE67F561DE59CF2004DA71F /* View */ = {

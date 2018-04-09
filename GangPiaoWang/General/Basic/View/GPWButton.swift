@@ -13,7 +13,7 @@ class GPWButton: UIButton {
     //创建文字navigation bar按钮
     open class func barButton(title: String) -> GPWButton {
         let font = UIFont.customFont(ofSize: 17.0)
-        let buttonSize = (title as NSString).size(attributes: [NSFontAttributeName: font])
+        let buttonSize = (title as NSString).size(withAttributes: [NSAttributedStringKey.font: font])
         let frame = CGRect(x: 0, y: 0, width: buttonSize.width, height: 44)
         let button = self.button(frame: frame, title: title, fontSize: 17.0, backgroundColor: nil, cornerRadius: nil)
         button.tintColor = UIColor.white

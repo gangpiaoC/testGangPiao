@@ -213,7 +213,7 @@ class GPWHProjectCell: UITableViewCell {
     }
     func getWith(str:String,font:UIFont) -> CGFloat{
         let options:NSStringDrawingOptions = .usesLineFragmentOrigin
-        let boundingRect = str.boundingRect(with:  CGSize(width: 300, height: 22), options: options, attributes:[NSFontAttributeName:font], context: nil)
+        let boundingRect = str.boundingRect(with:  CGSize(width: 300, height: 22), options: options, attributes:[NSAttributedStringKey.font:font], context: nil)
         return boundingRect.width
     }
 }

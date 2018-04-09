@@ -169,7 +169,7 @@ extension GPWFHelpViewController{
     
     func getLabelSizeFortextFont(font:UIFont,text:String) -> CGSize {
         let options:NSStringDrawingOptions = .usesLineFragmentOrigin
-        let boundingRect = text.boundingRect(with:  CGSize(width: SCREEN_WIDTH - 32, height: 1000), options: options, attributes:[NSFontAttributeName:font], context: nil)
+        let boundingRect = text.boundingRect(with:  CGSize(width: SCREEN_WIDTH - 32, height: 1000), options: options, attributes:[NSAttributedStringKey.font:font], context: nil)
         return boundingRect.size
     }
     

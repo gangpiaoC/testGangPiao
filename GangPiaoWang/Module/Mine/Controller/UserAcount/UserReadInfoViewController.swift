@@ -271,11 +271,11 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         bgscrollview.contentSize = CGSize(width: SCREEN_WIDTH , height: SCREEN_HEIGHT + 140)
     }
 
-    func bankQ() {
+    @objc func bankQ() {
         self.navigationController?.pushViewController(GPWBankQuotaViewController(), animated: true)
     }
 
-    func btnClick() {
+    @objc func btnClick() {
 
         //Auth_user
         var dic = [String:String]()
@@ -378,7 +378,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         }
     }
 
-    func pickShowOrHideClick() {
+    @objc func pickShowOrHideClick() {
         for subView in tempBgView.subviews {
             if subView.isKind(of: UITextField.self){
                 subView.resignFirstResponder()

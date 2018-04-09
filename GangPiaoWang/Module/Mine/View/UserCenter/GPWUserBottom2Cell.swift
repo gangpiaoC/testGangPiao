@@ -28,7 +28,7 @@ class GPWUserBottom2Cell: UITableViewCell {
         self.contentView.addSubview(btn)
     }
     
-    func  btnClick(){
+    @objc func  btnClick(){
         MobClick.event("mine", label: "在线客服")
         let initInfo = ZCLibInitInfo()
         initInfo.appKey = "0c7bf5fc11374541be663008ec7d4b8d"

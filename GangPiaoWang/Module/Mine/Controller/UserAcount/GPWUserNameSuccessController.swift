@@ -62,7 +62,7 @@ class GPWUserNameSuccessController:  GPWSecBaseViewController {
         }
     }
     
-    func btnClick() {
+    @objc func btnClick() {
         (navigationController as! GPWNavigationController).canDrag = true
         //设置手势密码
         let gesture = GestureViewController()

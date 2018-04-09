@@ -139,7 +139,7 @@ class GPWTiorChongSucessController: GPWBaseViewController {
         self.bgView.addSubview(btn)
     }
   
-    func btnClick()  {
+    @objc func btnClick()  {
          (navigationController as! GPWNavigationController).canDrag = true
         if type ==  .CHONGZHI {
             for vc in self.navigationController!.viewControllers {

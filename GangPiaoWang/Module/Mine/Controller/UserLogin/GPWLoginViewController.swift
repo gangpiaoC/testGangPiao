@@ -54,7 +54,7 @@ class GPWLoginViewController: GPWSecBaseViewController {
         self.bgView.addSubview(quiretView)
     }
     
-    func changBtn(sender:UIButton) {
+    @objc func changBtn(sender:UIButton) {
         sender.setTitleColor(redColor, for: .normal)
         sender.backgroundColor = UIColor.white
         var  btnTag = 1000

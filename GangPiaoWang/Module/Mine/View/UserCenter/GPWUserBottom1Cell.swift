@@ -33,7 +33,7 @@ class GPWUserBottom1Cell: UITableViewCell {
     func lineisHidden( _ flag:Bool) {
        line.isHidden = flag
     }
-    func btnClick() {
+    @objc func btnClick() {
         let index:IndexPath?
         MobClick.event("mine_chat", label: nil)
         if superControl?.flag == false {

@@ -273,7 +273,7 @@ class GPWHomeGetBageController: GPWSecBaseViewController {
     }
     
     //取消
-    func cancelClick() {
+    @objc func cancelClick() {
         if self.num == 0 {
             self.qiangBtn.isHidden = true
             self.chanceLabel.text = "今天机会已用完，明天再来哦"
@@ -451,7 +451,7 @@ class GPWHomeGetBageController: GPWSecBaseViewController {
         
     }
     
-    func priseClick( _ sender:UIButton) {
+    @objc func priseClick( _ sender:UIButton) {
         self.cancelClick()
         if sender.tag == 1000 {
             if self.num == 0 {

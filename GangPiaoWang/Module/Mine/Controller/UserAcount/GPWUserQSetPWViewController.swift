@@ -101,7 +101,7 @@ class GPWUserQSetPWViewController: GPWSecBaseViewController {
         maxHeiht = sureBtn.maxY + 21
     }
 
-    func yaoBtnClick(sender:UIButton) {
+    @objc func yaoBtnClick(sender:UIButton) {
         yaoCodeTextField.resignFirstResponder()
         let  tempImgView = sender.viewWithTag(10000) as! UIImageView
         let tempPoint = tempImgView.center
@@ -132,16 +132,16 @@ class GPWUserQSetPWViewController: GPWSecBaseViewController {
         }
     }
     //网络请求
-    func btnClick(){
+    @objc func btnClick(){
         let  temp1Str = (self.bgView.viewWithTag(100) as! UITextField).text
          let  temp2Str = (self.bgView.viewWithTag(101) as! UITextField).text
 
-        if (temp1Str?.characters.count)! < 6 {
+        if (temp1Str?.count)! < 6 {
             self.bgView.makeToast("密码不正确")
             return
         }
 
-        if (temp2Str?.characters.count)! < 6 {
+        if (temp2Str?.count)! < 6 {
             self.bgView.makeToast("密码不正确")
             return
         }

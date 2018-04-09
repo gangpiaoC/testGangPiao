@@ -84,7 +84,7 @@ class UserThridCell: UITableViewCell {
         let doubleNum = tempformat.number(from: array[1])
         label.changNum(toNumber: doubleNum as! Double, withDurTime: 1, withStrnumber: num)
     }
-    func btnClick(_ sender:UIButton) {
+    @objc func btnClick(_ sender:UIButton) {
         switch sender.tag {
         case 10000:
             //出借记录

@@ -153,7 +153,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         bottomView.height = bottomLabel.maxY
     }
 
-    func yaoBtnClick(sender:UIButton) {
+    @objc func yaoBtnClick(sender:UIButton) {
         yaoCodeTextField.resignFirstResponder()
         let  tempImgView = sender.viewWithTag(10000) as! UIImageView
         let tempPoint = tempImgView.center
@@ -180,7 +180,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         }
     }
     
-    func loginClick() {
+    @objc func loginClick() {
         let vc = GPWLoginViewController()
         vc.flag = "1"
         self.navigationController?.pushViewController(vc, animated: true)
@@ -198,7 +198,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
-    func updateTimer(timer:Timer) {
+    @objc func updateTimer(timer:Timer) {
         num  = num! - 1
         if (num == 0) {
             timer.invalidate()
@@ -209,7 +209,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         }
     }
     
-    func btnClick() {
+    @objc func btnClick() {
         let phoneNum = (self.bgView.viewWithTag(100) as! UITextField).text!
         let code = (self.bgView.viewWithTag(101) as! UITextField).text!
         let pw = (self.bgView.viewWithTag(102) as! UITextField).text ?? ""

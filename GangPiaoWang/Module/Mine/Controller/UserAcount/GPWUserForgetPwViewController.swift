@@ -87,7 +87,7 @@ class GPWUserForgetPwViewController: GPWSecBaseViewController,RTLabelDelegate {
         RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
-    func updateTimer(timer:Timer) {
+    @objc func updateTimer(timer:Timer) {
         num  = num! - 1
         if (num == 0) {
             timer.invalidate()
@@ -127,7 +127,7 @@ class GPWUserForgetPwViewController: GPWSecBaseViewController,RTLabelDelegate {
             }
         }
     }
-    func btnClick() {
+    @objc func btnClick() {
         let phone = (self.bgView.viewWithTag(100) as! UITextField).text ?? ""
 
         if GPWHelper.judgePhoneNum(phone){

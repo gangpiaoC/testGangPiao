@@ -25,7 +25,7 @@ class GPWSecBaseViewController: GPWBaseViewController {
         self.navigationBar.addSubview(self.leftButton)
     }
     
-    open func back(sender: GPWButton) {
+    @objc open func back(sender: GPWButton) {
         let _ = self.navigationController?.popViewController(animated: true)
     }
 }

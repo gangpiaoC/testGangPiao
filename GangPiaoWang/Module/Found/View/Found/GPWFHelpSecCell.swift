@@ -70,7 +70,7 @@ class GPWFHelpSecCell: UITableViewCell {
         self.contentView.addSubview(line)
     }
     
-    func btnClick(sender:UIButton) {
+    @objc func btnClick(sender:UIButton) {
         for btn in btnArray {
             let tempImgView = btn.viewWithTag(1000) as! UIImageView
             tempImgView.isHidden = true

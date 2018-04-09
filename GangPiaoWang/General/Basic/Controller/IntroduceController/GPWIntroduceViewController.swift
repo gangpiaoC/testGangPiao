@@ -61,7 +61,7 @@ class GPWIntroduceViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func buttonAction() {
+    @objc func buttonAction() {
         UserDefaults.standard.set(true, forKey: "isInstalled")
         remove()
     }

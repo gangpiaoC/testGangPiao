@@ -62,7 +62,7 @@ class GPWHomeSecViewCell: UITableViewCell {
         imgView.image = UIImage.gif(name: "redbag")
     }
     
-    func btnClick(sender:UIButton) {
+    @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
             MobClick.event("home", label: "菜单栏-新手指引")
            self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: HTML_SERVER +  (self.dataDic?["new_head"].string)!), animated: true)

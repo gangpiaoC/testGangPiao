@@ -49,7 +49,7 @@ class GPWFoundSecCell: UITableViewCell {
         self.superControl = superControl
     }
     
-    func btnClick(sender:UIButton) {
+    @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
             MobClick.event("found", label: "菜单-热门活动")
              self.superControl?.navigationController?.pushViewController(GPWActiveViewController(), animated: true)

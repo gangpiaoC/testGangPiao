@@ -188,7 +188,7 @@ class GestureViewController: GPWSecBaseViewController {
         self.resetBtn?.isHidden = false
     }
     
-    func didClickBtn(_ sender:UIButton){
+    @objc func didClickBtn(_ sender:UIButton){
         switch sender.tag {
         case buttonTag.rest.rawValue:
             //1.隐藏按钮

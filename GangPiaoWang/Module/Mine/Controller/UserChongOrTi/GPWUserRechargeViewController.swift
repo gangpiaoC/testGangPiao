@@ -154,11 +154,11 @@ class GPWUserRechargeViewController: GPWSecBaseViewController ,UITextFieldDelega
         })
     }
     
-    func helpClick() {
+    @objc func helpClick() {
         self.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
     }
 
-    func btnClick(sender:UIButton)  {
+    @objc func btnClick(sender:UIButton)  {
         if sender.tag == 100 {
             printLog(message: "银行")
             self.navigationController?.pushViewController(UserBankViewController(), animated: true)

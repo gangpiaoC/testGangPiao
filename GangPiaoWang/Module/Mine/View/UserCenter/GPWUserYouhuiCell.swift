@@ -61,7 +61,7 @@ class GPWUserYouhuiCell: UITableViewCell {
         tiyanLabel.text = "\(GPWUser.sharedInstance().data_exper)元"
     }
 
-    func btnClick(sender:UIButton) {
+    @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
             MobClick.event("mine", label: "菜单栏-红包")
         }else if sender.tag == 101 {

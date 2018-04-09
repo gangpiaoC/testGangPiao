@@ -39,7 +39,7 @@ class UserRewardViewController: GPWSecBaseViewController,LazyScrollViewDelegate 
         navigationBar.addSubview(button)
     }
     
-    func rightAction()  {
+    @objc func rightAction()  {
         MobClick.event("mine_reward", label: "使用规则")
         self.navigationController?.pushViewController(GPWUserRUseRuleViewController(), animated: true)
     }

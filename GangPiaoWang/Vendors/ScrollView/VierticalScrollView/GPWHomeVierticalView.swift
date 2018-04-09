@@ -64,7 +64,7 @@ class GPWHomeVierticalView: UIView {
         }
     }
     
-    func nextButton() {
+    @objc func nextButton() {
         let  firstBtn = self.viewWithTag(self.index!) as! UIButton
         let modelBtn = UIButton(type: .custom)
         modelBtn.frame = CGRect(x: firstBtn.x, y: firstBtn.height, width: firstBtn.width, height: firstBtn.height)

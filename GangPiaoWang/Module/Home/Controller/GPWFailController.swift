@@ -87,7 +87,7 @@ class GPWFailController: GPWBaseViewController {
         }
     }
 
-    func btnClick() {
+    @objc func btnClick() {
          (navigationController as! GPWNavigationController).canDrag = true
         if type == FailType.CHONGTYPE {
             for vc in self.navigationController!.viewControllers {

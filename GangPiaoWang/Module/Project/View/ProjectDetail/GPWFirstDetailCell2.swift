@@ -90,7 +90,7 @@ class GPWFirstDetailCell2: UITableViewCell {
         }
     }
     
-    func click()  {
+    @objc func click()  {
         if leftLabel.text == "计息规则" {
              self.superVC?.navigationController?.pushViewController(GPWProjectIRuleController(), animated: true)
         }else if (self.clickUrl?.characters.count)! > 5 {

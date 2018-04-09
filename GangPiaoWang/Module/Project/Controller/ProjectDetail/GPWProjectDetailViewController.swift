@@ -201,7 +201,7 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
         tempBgView.addSubview(verLine)
     }
 
-    func safeClick(_ sender:UIButton) {
+    @objc func safeClick(_ sender:UIButton) {
         UIApplication.shared.keyWindow?.viewWithTag(10001)?.removeFromSuperview()
         if sender.tag == 1000 {
             //取消

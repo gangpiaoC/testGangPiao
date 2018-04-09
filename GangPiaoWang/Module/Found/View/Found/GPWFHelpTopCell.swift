@@ -67,7 +67,7 @@ class GPWFHelpTopCell: UITableViewCell {
         self.contentView.addSubview(bottomBlock)
     }
     
-    func btnClick( _ sender:UIButton) {
+    @objc func btnClick( _ sender:UIButton) {
         if sender.tag == 1000 {
             //在线客服
             self.myCustem()

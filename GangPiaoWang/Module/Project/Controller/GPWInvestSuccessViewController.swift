@@ -129,7 +129,7 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
     }
     
     //分享视图
-    func shareViewShow() {
+    @objc func shareViewShow() {
         cancelClick()
         if let json = shareJson {
             MobClick.event("biao", label: "分享")
@@ -235,7 +235,7 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
         //self.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: <#T##Bool#>)
     }
     
-    func btnClick() {
+    @objc func btnClick() {
         if let viewControllers = self.navigationController?.viewControllers {
             for vc in viewControllers {
                 if vc.isKind(of: GPWProjectDetailViewController.self) {

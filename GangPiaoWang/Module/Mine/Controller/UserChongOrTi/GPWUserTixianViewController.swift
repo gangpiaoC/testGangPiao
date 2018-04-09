@@ -32,7 +32,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         
     }
     
-    func helpClick() {
+    @objc func helpClick() {
         self.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
     }
     
@@ -190,7 +190,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         return numberOfMatches != 0
     }
     
-    func btnClick(sender:UIButton)  {
+    @objc func btnClick(sender:UIButton)  {
         tixianMoneyTextField.resignFirstResponder()
         if sender.tag == 100 {
             printLog(message: "银行")
@@ -233,7 +233,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
     }
     
     //提现规则
-    func roleClick() {
+    @objc func roleClick() {
         tixianMoneyTextField.resignFirstResponder()
         let wid = UIApplication.shared.keyWindow
         let tempView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH , height: SCREEN_HEIGHT))
@@ -287,7 +287,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
     }
     
     //取消
-    func cancelClick() {
+    @objc func cancelClick() {
         tixianMoneyTextField.resignFirstResponder()
         let wid = UIApplication.shared.keyWindow
         wid?.viewWithTag(DELEVIEWTAG)?.removeFromSuperview()
@@ -305,7 +305,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         }
     }
     
-    func valueChanged(sender: UITextField) {
+    @objc func valueChanged(sender: UITextField) {
         if self.dic == nil {
             return
         }

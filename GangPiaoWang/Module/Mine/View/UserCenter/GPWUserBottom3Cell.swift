@@ -27,7 +27,7 @@ class GPWUserBottom3Cell: UITableViewCell  {
         btn.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
         self.contentView.addSubview(btn)
     }
-    func btnClick(){
+    @objc func btnClick(){
         MobClick.event("mine", label: "客服电话")
         UIApplication.shared.openURL(URL(string: "tel://4009009017")!)
     }

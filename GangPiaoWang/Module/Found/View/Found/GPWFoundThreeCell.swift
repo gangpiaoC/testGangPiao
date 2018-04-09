@@ -33,7 +33,7 @@ class GPWFoundThreeCell: UITableViewCell {
         self.superControl = superControl
     }
     
-    func imgClick()  {
+    @objc func imgClick()  {
          MobClick.event("found", label: "广告位")
         if self.dataDic != nil {
             let url = self.dataDic?["link"].string ?? ""

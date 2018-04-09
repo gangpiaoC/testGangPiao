@@ -71,7 +71,7 @@ class GPWGetFriendRcordController: GPWSecBaseViewController,UITableViewDelegate,
         bottomBtn.setTitle("邀请好友一起赚钱", for: .normal)
         self.bgView.addSubview(bottomBtn)
     }
-    func shareYao() {
+    @objc func shareYao() {
         GPWShare.shared.shareYao()
     }
     override func getNetData() {

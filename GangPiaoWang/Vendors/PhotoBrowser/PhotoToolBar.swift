@@ -108,10 +108,10 @@ class PhotoToolBar: UIView {
         addSubview(extraBtn)
     }
     
-    func saveBtnOnClick(_ btn: UIButton) {
+    @objc func saveBtnOnClick(_ btn: UIButton) {
         saveBtnOnClick?(btn)
     }
-    func extraBtnOnClick(_ btn: UIButton) {
+    @objc func extraBtnOnClick(_ btn: UIButton) {
         extraBtnOnClick?(btn)
     }
     

@@ -187,7 +187,7 @@ class UserTopCell: UITableViewCell {
         }
     }
     
-    func setClick(_ sender:UIButton) {
+    @objc func setClick(_ sender:UIButton) {
         if sender.tag == 102 {
             MobClick.event("mine", label: "资金统计")
             superController?.navigationController?.pushViewController(GPWUserMoneyFundViewController(), animated: true)
@@ -196,7 +196,7 @@ class UserTopCell: UITableViewCell {
         }
     }
 
-    func eyeClick( _sender:UIButton) {
+    @objc func eyeClick( _sender:UIButton) {
         let temp = UserDefaults.standard.value(forKey: "eyeFlag") as? String
             if temp == "0" {
                 eyeBtn.setImage(UIImage(named:"user_center_eye_open"), for: .normal)

@@ -62,7 +62,7 @@ class GPWUserRegisterSViewController: GPWSecBaseViewController {
         
     }
     
-    func btnclick(sender:UIButton) {
+    @objc func btnclick(sender:UIButton) {
         (navigationController as! GPWNavigationController).canDrag = true
         if sender.tag == 100 {
             //身份验证

@@ -66,7 +66,7 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
         fatalError("init(coder:) has not been implemented")
     }
     
-    func shareClick() {
+    @objc func shareClick() {
             let title = self.shareJson?["ad_name"].stringValue
             let subtitle = self.shareJson?["descion"].stringValue
             let toUrl = self.shareJson?["share_link"].stringValue

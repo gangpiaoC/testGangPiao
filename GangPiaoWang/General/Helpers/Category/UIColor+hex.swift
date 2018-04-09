@@ -16,7 +16,7 @@ extension UIColor {
     
     class func hex(_ colorStr: String, alpha: CGFloat) -> UIColor {
         var colorString = colorStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
-        if colorString.characters.count < 6 {
+        if colorString.count < 6 {
             return UIColor.clear
         }
         if colorString.hasPrefix("0X") {
@@ -27,7 +27,7 @@ extension UIColor {
             let index = colorString.index(colorString.startIndex, offsetBy: 1)
             colorString = colorString.substring(from: index)
         }
-        if colorString.characters.count != 6 {
+        if colorString.count != 6 {
             return UIColor.clear
         }
         

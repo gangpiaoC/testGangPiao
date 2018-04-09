@@ -50,7 +50,7 @@ class GPWFoundFourCell: UITableViewCell {
         self.contentView.addSubview(bottom)
     }
     
-    func btnClick( _ sender:UIButton) {
+    @objc func btnClick( _ sender:UIButton) {
         if sender.tag == 10000 {
             //钢票学院
              MobClick.event("found", label: "钢票学院")

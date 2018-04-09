@@ -51,7 +51,7 @@ class GPWUserMessageController: GPWSecBaseViewController,UITableViewDelegate,UIT
         self.getNetData()
     }
     
-    func btnClick()  {
+    @objc func btnClick()  {
         //消息全读
         GPWNetwork.requetWithPost(url: Update_messages, parameters: ["auto_id":"all"], responseJSON:  {
             [weak self] (json, msg) in

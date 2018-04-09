@@ -151,7 +151,7 @@ class SimpleHUD: UIView {
         addSubview(messageLabel)
         messageLabel.text = text
         
-        let textSize = (text as NSString).boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: 0.0), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: messageLabel.font], context: nil)
+        let textSize = (text as NSString).boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: 0.0), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: messageLabel.font], context: nil)
         messageLabel.frame = CGRect(x: (self.bounds.width - textSize.width - 16)*0.5, y: (self.bounds.height - 40.0)*0.5, width: textSize.width + 16, height: 40.0)
         
         messageLabel.layer.cornerRadius = messageLabel.bounds.height / 2

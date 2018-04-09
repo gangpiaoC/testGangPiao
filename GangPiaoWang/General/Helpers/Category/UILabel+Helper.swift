@@ -9,7 +9,7 @@
 import Foundation
 
 extension UILabel {
-    convenience init(title: String, color: UIColor, fontSize: CGFloat, weight: CGFloat = UIFontWeightRegular, textAlign: NSTextAlignment = .left, numberOfLines: Int = 1) {
+    convenience init(title: String, color: UIColor, fontSize: CGFloat, weight: CGFloat = SCREEN_WIDTH, textAlign: NSTextAlignment = .left, numberOfLines: Int = 1) {
         self.init()
         self.text = title
         self.textColor = color

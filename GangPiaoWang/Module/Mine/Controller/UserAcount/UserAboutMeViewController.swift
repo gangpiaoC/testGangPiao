@@ -42,7 +42,7 @@ class UserAboutMeViewController: GPWSecBaseViewController {
         cell.y = bgView.maxY + 10
         self.bgView.addSubview(cell)
     }
-    func click(sender:UITapGestureRecognizer) {
+    @objc func click(sender:UITapGestureRecognizer) {
         print("关于钢票")
     }
     override func didReceiveMemoryWarning() {

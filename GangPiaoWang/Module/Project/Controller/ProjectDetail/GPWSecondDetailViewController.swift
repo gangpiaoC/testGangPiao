@@ -195,7 +195,7 @@ class GPWSecondDetailViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func buttonAction(button: UIButton) {
+    @objc func buttonAction(button: UIButton) {
         moveTo(index: button.tag - 10000)
     }
     

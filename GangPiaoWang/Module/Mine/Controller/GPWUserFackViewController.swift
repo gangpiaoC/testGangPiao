@@ -70,7 +70,7 @@ class GPWUserFackViewController: GPWSecBaseViewController,RTLabelDelegate ,UITex
         return true
     }
     
-    func btnClick() {
+    @objc func btnClick() {
         printLog(message: "确定")
         var dic = [String:String]()
         if textView.text.characters.count == 0 {

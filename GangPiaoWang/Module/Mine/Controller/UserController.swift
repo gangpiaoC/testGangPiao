@@ -120,7 +120,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
         let quireLabel = RTLabel(frame: CGRect(x: 0, y: quireImgView.maxY + 16, width: quireView.width, height: 20))
 
         var tempTiyan:String = "\(GPWUser.sharedInstance().userTiyanMoney)"
-        if tempTiyan.characters.count < 10 {
+        if tempTiyan.count < 10 {
             tempTiyan = GPWGlobal.sharedInstance().app_exper_amount
         }
         quireLabel.text = "<font size=18 color='#f6390d'>\(tempTiyan)元体验金</font><font size=18 color='#666666'>已塞入您的账户</font>"
@@ -145,7 +145,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
         bgView.addSubview(cancelBtn)
     }
 
-    func quireClick(sender:UIButton) {
+    @objc func quireClick(sender:UIButton) {
         UIApplication.shared.keyWindow?.viewWithTag(10001)?.removeFromSuperview()
         if sender.tag == 1000 {
             self.navigationController?.pushViewController(UserReadInfoViewController(), animated: true)
@@ -179,7 +179,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
         })
     }
 
-    func toMessageControll() {
+    @objc func toMessageControll() {
         MobClick.event("index_message", label: nil)
         if GPWUser.sharedInstance().isLogin {
             self.navigationController?.pushViewController(GPWUserMessageController(), animated: true)
@@ -243,7 +243,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
         noLoginView.addSubview(bottomTitleLabel)
     }
     
-    func btnClick(sender:UIButton)  {
+    @objc func btnClick(sender:UIButton)  {
         if sender.tag == 100 {
              MobClick.event("mine_login", label: nil)
             self.navigationController?.pushViewController(GPWLoginViewController(), animated: true)

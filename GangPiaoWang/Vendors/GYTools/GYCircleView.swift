@@ -591,7 +591,7 @@ class GYCircleView: UIView {
         let last_2_y = lastTwo.center.y
         
         //1.计算角度（反正切函数）
-        let angle = atan2(Float(last_1_y) - Float(last_2_y), Float(last_1_x) - Float(last_2_x)) + Float( M_PI_2)
+        let angle = atan2(Float(last_1_y) - Float(last_2_y), Float(last_1_x) - Float(last_2_x)) + Float( Double.pi / 2)
         lastTwo.angle = CGFloat(angle)
         print(lastTwo.angle ?? "")
         //2.处理跳跃连线

@@ -139,7 +139,7 @@ class GPWSafeMangerController: GPWSecBaseViewController ,UITableViewDelegate,UIT
             }
         }
     }
-    func switchDidChange(sender:UISwitch){
+    @objc func switchDidChange(sender:UISwitch){
         if sender.isOn {
             let gesture = GestureViewController()
             gesture.type = GestureViewControllerType.setting

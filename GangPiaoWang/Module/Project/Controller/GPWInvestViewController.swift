@@ -494,11 +494,11 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
         
     }
     
-    func cancelClick() {
+    @objc func cancelClick() {
         showSureView?.removeFromSuperview()
     }
     
-    func showBtnClick(sender:UIButton) {
+    @objc func showBtnClick(sender:UIButton) {
         showSureView?.removeFromSuperview()
         MobClick.event("project", label: "详情-出借-立即加入")
         GPWNetwork.requetWithPost(url: Confirm_invest, parameters: ["item_id": itemID, "rate": dicJson["rate_loaner"].doubleValue, "amount": textField.text ?? "0", "award_id": currentRedEnvelop?.auto_id ?? "", "ticket_id": currentRateCoupon?.auto_id ?? ""], responseJSON:  { [weak self] (json, msg) in
@@ -524,7 +524,7 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
     }
     
     //键盘的出现
-    func keyBoardWillShow(_ notification: Notification){
+    @objc func keyBoardWillShow(_ notification: Notification){
         //获取userInfo
         let kbInfo = notification.userInfo
         //获取键盘的size
@@ -543,7 +543,7 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
     }
     
     //键盘的隐藏
-    func keyBoardWillHide(_ notification: Notification){
+    @objc func keyBoardWillHide(_ notification: Notification){
         let kbInfo = notification.userInfo
         let duration = kbInfo?[UIKeyboardAnimationDurationUserInfoKey] as! Double
         
@@ -815,7 +815,7 @@ extension GPWInvestViewController: UITextFieldDelegate {
         return true
     }
     
-    func valueChanged(sender: UITextField) {
+    @objc func valueChanged(sender: UITextField) {
         guard let money = sender.text, money != "" else {
             resetText()
             return

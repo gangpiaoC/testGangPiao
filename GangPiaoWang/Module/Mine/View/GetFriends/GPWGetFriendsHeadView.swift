@@ -126,7 +126,7 @@ class GPWGetFriendsHeadView: UITableViewHeaderFooterView {
         self.backgroundView?.backgroundColor = UIColor.clear
     }
     
-    @discardableResult //不接受返回值
+    @objc @discardableResult //不接受返回值
     func clickHeader(sender: UIButton) {
         sectionModel?.isExpanded = !((sectionModel?.isExpanded)!)
 //        UIView.animate(withDuration: 0.25) {

@@ -139,7 +139,7 @@ class GPWRulerScrollView: UIScrollView {
             guard let text = rule.text else {
                 return
             }
-            let textSize = text.size(attributes: [NSFontAttributeName: rule.font])
+            let textSize = text.size(withAttributes: [NSAttributedStringKey.font: rule.font])
             
             //主要刻度
             if index % 10 == 0 {

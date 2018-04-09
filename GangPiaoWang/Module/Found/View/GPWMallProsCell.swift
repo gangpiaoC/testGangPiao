@@ -52,7 +52,7 @@ class GPWMallProsCell: UITableViewCell {
         scrollview.contentSize = CGSize(width: 142 * 10, height: 201)
     }
 
-    func btnClick( _ sender:UIButton) {
+    @objc func btnClick( _ sender:UIButton) {
         printLog(message: sender.tag)
     }
     required init?(coder aDecoder: NSCoder) {

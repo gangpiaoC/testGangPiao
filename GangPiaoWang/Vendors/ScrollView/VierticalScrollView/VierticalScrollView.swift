@@ -64,7 +64,7 @@ class VierticalScrollView: UIView {
         }
     }
     
-    func btnCilck(sender:UIButton) {
+    @objc func btnCilck(sender:UIButton) {
         let tempDic = self.dicArray?[self.index! - 100]
         let autoid = tempDic!["auto_id"].intValue
         MobClick.event("home", label: "平台公告-第\(self.index! - 100)个")
@@ -73,13 +73,13 @@ class VierticalScrollView: UIView {
         self.superController?.navigationController?.pushViewController( vc, animated: true)
     }
     
-    func btnListClick() {
+    @objc func btnListClick() {
         printLog(message: "去往列表")
         MobClick.event("home", label: "平台公告-列表")
         superController?.navigationController?.pushViewController(GPWHomeMessageController(), animated: true)
     }
     
-    func nextButton() {
+    @objc func nextButton() {
         let  firstBtn = self.viewWithTag(self.index!) as! UIButton
         let modelBtn = UIButton(type: .custom)
         modelBtn.frame = CGRect(x: firstBtn.x, y: firstBtn.height, width: firstBtn.width, height: firstBtn.height)

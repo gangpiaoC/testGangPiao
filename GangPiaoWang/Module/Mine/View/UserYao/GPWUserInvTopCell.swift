@@ -47,7 +47,7 @@ class GPWUserInvTopCell: UITableViewCell {
         numLabel.text = "[\(intaNum)]"
         self.inUrl = inUrl
     }
-    func btnClick() {
+    @objc func btnClick() {
         if let url = self.inUrl {
             let navController = GPWHelper.selectedNavController()
             if let navC = navController {

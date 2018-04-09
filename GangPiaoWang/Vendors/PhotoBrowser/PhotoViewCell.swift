@@ -150,7 +150,7 @@ class PhotoViewCell: UICollectionViewCell {
     //MARK:- 点击处理
     
     // 单击手势, 给外界处理
-    func handleSingleTap(_ ges: UITapGestureRecognizer) {
+    @objc func handleSingleTap(_ ges: UITapGestureRecognizer) {
         // 首先缩放到最小倍数, 以便于执行退出动画时frame可以同步改变
         if scrollView.zoomScale != scrollView.minimumZoomScale {
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
@@ -159,7 +159,7 @@ class PhotoViewCell: UICollectionViewCell {
     }
     
     // 双击放大至最大 或者 缩小至最小
-    func handleDoubleTap(_ ges: UITapGestureRecognizer) {
+    @objc func handleDoubleTap(_ ges: UITapGestureRecognizer) {
         //        printLog(message: "double---------")
         if imageView.image == nil { return }
         

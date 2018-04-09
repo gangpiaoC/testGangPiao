@@ -24,13 +24,13 @@ class GPWFAQCell: UITableViewCell {
     }
     
     private func commonInit() {
-        let questionLabel = UILabel(title: "问", color: UIColor.hex("9013fe"), fontSize: 14, weight: UIFontWeightThin, numberOfLines: 0)
+        let questionLabel = UILabel(title: "问", color: UIColor.hex("9013fe"), fontSize: 14, weight: UIFont.Weight.thin.rawValue, numberOfLines: 0)
         contentView.addSubview(questionLabel)
-        let answerLabel = UILabel(title: "答", color: redTitleColor, fontSize: 14, weight: UIFontWeightThin, numberOfLines: 0)
+        let answerLabel = UILabel(title: "答", color: redTitleColor, fontSize: 14, weight: UIFont.Weight.thin.rawValue, numberOfLines: 0)
         contentView.addSubview(answerLabel)
-        questionInfoLabel = UILabel(title: "什么是票据质押借款类产品？", color: UIColor.hex("111111"), fontSize: 14, weight: UIFontWeightThin, numberOfLines: 0)
+        questionInfoLabel = UILabel(title: "什么是票据质押借款类产品？", color: UIColor.hex("111111"), fontSize: 14, weight: UIFont.Weight.thin.rawValue, numberOfLines: 0)
         contentView.addSubview(questionInfoLabel)
-        answerInfoLabel = UILabel(title: "票据产品收益=购买金额*预期年化收益率*产品期限/365", color: subTitleColor, fontSize: 14, weight: UIFontWeightThin, numberOfLines: 0)
+        answerInfoLabel = UILabel(title: "票据产品收益=购买金额*预期年化收益率*产品期限/365", color: subTitleColor, fontSize: 14, weight: UIFont.Weight.thin.rawValue, numberOfLines: 0)
         contentView.addSubview(answerInfoLabel)
 
         let lineView = UIView()

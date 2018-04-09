@@ -90,7 +90,7 @@ class GPWHavePWView: UIView {
         forgetPwBtn.tag = 102
         self.addSubview(forgetPwBtn)
     }
-    func eyeBtnClick(sender:UIButton)  {
+    @objc func eyeBtnClick(sender:UIButton)  {
          let pw = self.viewWithTag(101) as! UITextField
         if sender.tag == 1000 {
             sender.tag = 1001
@@ -103,7 +103,7 @@ class GPWHavePWView: UIView {
         }
         
     }
-    func btnClick(sender:UIButton) {
+    @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
             printLog(message: "登录")
             let acountNum = (self.viewWithTag(100) as! UITextField).text!

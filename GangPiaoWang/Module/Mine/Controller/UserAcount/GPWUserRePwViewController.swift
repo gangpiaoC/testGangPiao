@@ -55,7 +55,7 @@ class GPWUserRePwViewController: GPWSecBaseViewController {
         self.bgView.addSubview(btn)
     }
     
-    func btnClick() {
+    @objc func btnClick() {
         let newpw = (self.bgView.viewWithTag(100) as! UITextField).text 
         if newpw?.characters.count == 0 {
             self.bgView.makeToast("请输入新密码")

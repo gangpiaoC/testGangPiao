@@ -53,7 +53,7 @@ class GPWUserChangepwViewController: GPWSecBaseViewController {
         self.bgView.addSubview(btn)
     }
     
-    func btnClick() {
+    @objc func btnClick() {
         
         let oldPw = (self.bgView.viewWithTag(100) as! UITextField).text!
         let newPw = (self.bgView.viewWithTag(101) as! UITextField).text!

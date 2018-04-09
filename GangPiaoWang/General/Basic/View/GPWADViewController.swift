@@ -60,7 +60,7 @@ class GPWADViewController: UIViewController {
         RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
-    func updateTimer(timer:Timer) {
+    @objc func updateTimer(timer:Timer) {
         let title = btn.title(for: .normal)
         if  title == "跳过3s"{
             btn.setTitle("跳过2s", for: .normal)
@@ -87,7 +87,7 @@ class GPWADViewController: UIViewController {
         remove()
     }
     
-    func imgClick() {
+    @objc func imgClick() {
         MobClick.endLogPageView("广告界面")
         printLog(message: "图片点击")
         if GYCircleConst.getGestureWithKey(gestureFinalSaveKey) != nil {
@@ -119,7 +119,7 @@ class GPWADViewController: UIViewController {
         }
     }
     
-    func remove() {
+    @objc func remove() {
         isRemoved = true
         MobClick.endLogPageView("广告界面")
         let wid = UIApplication.shared.delegate?.window

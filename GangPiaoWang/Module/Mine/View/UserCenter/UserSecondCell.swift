@@ -70,7 +70,7 @@ class UserSecondCell: UITableViewCell {
         }
     }
     
-    func btnClick(_ sender:UIButton) {
+    @objc func btnClick(_ sender:UIButton) {
         if GPWUser.sharedInstance().isLogin == false{
             self.superControl?.navigationController?.pushViewController(GPWLoginViewController(), animated: true)
         }else if GPWUser.sharedInstance().is_idcard == 0{

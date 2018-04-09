@@ -99,7 +99,7 @@ class GPWBingPhoneController: GPWSecBaseViewController,RTLabelDelegate {
         }
 
     }
-    func btnClick()  {
+    @objc func btnClick()  {
         let phoneStr = (self.bgView.viewWithTag(PHONEFIELDTAG) as! UITextField).text ?? ""
         let codeStr = (self.bgView.viewWithTag(CODEFIELDTAG) as! UITextField).text ?? ""
         if codeStr.characters.count < 4 {
@@ -149,7 +149,7 @@ class GPWBingPhoneController: GPWSecBaseViewController,RTLabelDelegate {
         RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
-    func updateTimer(timer:Timer) {
+    @objc func updateTimer(timer:Timer) {
         num  = num! - 1
         if (num == 0) {
             timer.invalidate()

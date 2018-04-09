@@ -82,7 +82,7 @@ class GPWUserSetLoginPwViewController: GPWSecBaseViewController {
             self.bgView.makeToast("密码为6-16个字符，由字母+数字和符号两种以上组合")
         }
     }
-    func  btnClick() {
+    @objc func  btnClick() {
         self.getNetData()
     }
 

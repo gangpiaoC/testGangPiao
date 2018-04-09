@@ -67,7 +67,7 @@ class GPWAboutMeViewController: GPWSecBaseViewController {
         return btn
     }
     
-    func btnCilck(_ sender:UIButton)  {
+    @objc func btnCilck(_ sender:UIButton)  {
         if sender.tag == 100 {
             MobClick.event("info_about", label: "好评")
             let urlString = "https://itunes.apple.com/cn/app/%E9%92%A2%E7%A5%A8%E7%BD%91/id1197187486?mt=8"

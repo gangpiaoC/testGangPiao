@@ -149,7 +149,7 @@ class GPWRiskAssessmentViewController: GPWSecBaseViewController {
         }
     }
     
-    func btnClick(sender:UIButton)  {
+    @objc func btnClick(sender:UIButton)  {
         if sender.tag == BACKBTNTAG {
             selectNum = selectNum - 1
             if selectNum == 0 {
@@ -317,7 +317,7 @@ class GPWRiskAssessmentViewController: GPWSecBaseViewController {
         resultView.addSubview(resetBtn)
     }
     
-    func bottomBtnClick( _ sender:UIButton) {
+    @objc func bottomBtnClick( _ sender:UIButton) {
         
         //查看产品
         if sender.tag == 10000 {

@@ -47,7 +47,7 @@
     [self zeroOutTimeComponents:&components];
     
     // Generate a valid NSDate and return it.
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     return [gregorianCalendar dateFromComponents:components];
 }
 

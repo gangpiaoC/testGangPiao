@@ -350,7 +350,7 @@ extension GPWHomeViewController{
         }
     }
     
-    func gotoRegister(){
+    @objc func gotoRegister(){
         MobClick.event("home", label: "新手注册")
         self.navigationController?.pushViewController(GPWUserRegisterViewController(), animated: true)
     }

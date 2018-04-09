@@ -36,7 +36,7 @@ class GPWOutRcordDetailController: GPWSecBaseViewController {
 
         }
     }
-    func btnClick() {
+    @objc func btnClick() {
         let  control = DownHTongController()
         control.urlStr = self.dicJson!["contract"].stringValue
         print(control.urlStr)
@@ -220,7 +220,7 @@ class GPWOutRcordDetailController: GPWSecBaseViewController {
         scrollView.contentSize = CGSize(width: SCREEN_WIDTH, height: maxY + 30)
     }
 
-    func gotoPDetailControl() {
+    @objc func gotoPDetailControl() {
         let vc = GPWProjectDetailViewController(projectID: auto_id ?? "0")
         vc.title = self.pTitle
         self.navigationController?.show(vc, sender: nil)

@@ -82,7 +82,7 @@ class GPWQuirstView: UIView,RTLabelDelegate {
         maxHeiht = btn.maxY + 21
     }
     
-    func btnClick(sender:UIButton) {
+    @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
             printLog(message: "登录")
             let acountNum = (self.viewWithTag(1000) as! UITextField).text!
@@ -152,7 +152,7 @@ class GPWQuirstView: UIView,RTLabelDelegate {
         RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
-    func updateTimer(timer:Timer) {
+    @objc func updateTimer(timer:Timer) {
         num  = num! - 1
         if (num == 0) {
             timer.invalidate()

@@ -239,7 +239,7 @@ class GPWHTSecCell: UITableViewCell {
         }
     }
     
-    func Click(sender:UIButton) {
+    @objc func Click(sender:UIButton) {
         if sender.tag == 100 {
             let  dic =  ["exper_id":"\(self.dic!["auto_id"])" ,"exper_amount":"\(self.dic!["exper_amount"])"]
             GPWNetwork.requetWithPost(url: Exper_bid, parameters:dic, responseJSON: { [weak self] (json, msg) in

@@ -20,12 +20,17 @@
 		5B3EEC0A1E0E93790092014C /* PhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEC051E0E93790092014C /* PhotoViewCell.swift */; };
 		5B3EEC0B1E0E93790092014C /* SimpleHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEC061E0E93790092014C /* SimpleHUD.swift */; };
 		5B3EEC0C1E0E93790092014C /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEC071E0E93790092014C /* UIViewExtension.swift */; };
+		5B473BC8207C556B00B09054 /* GPWFTTZHController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BC4207C556B00B09054 /* GPWFTTZHController.swift */; };
+		5B473BC9207C556B00B09054 /* GPWVipPDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BC5207C556B00B09054 /* GPWVipPDetailViewController.swift */; };
+		5B473BCA207C556B00B09054 /* GPWVipFDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BC6207C556B00B09054 /* GPWVipFDetailViewController.swift */; };
+		5B473BCB207C556B00B09054 /* GPWVipListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BC7207C556B00B09054 /* GPWVipListViewController.swift */; };
+		5B473BCD207C673E00B09054 /* GPWFirstDetailCell4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BCC207C673E00B09054 /* GPWFirstDetailCell4.swift */; };
+		5B473BD1207C6A1A00B09054 /* UIButton+EX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BD0207C6A1900B09054 /* UIButton+EX.swift */; };
 		5B6115411E096FE9000BA2DC /* GPWProjectIntroduceCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6115401E096FE9000BA2DC /* GPWProjectIntroduceCell1.swift */; };
 		5B6115431E096FF7000BA2DC /* GPWProjectIntroduceCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6115421E096FF7000BA2DC /* GPWProjectIntroduceCell2.swift */; };
 		5B6115451E097006000BA2DC /* GPWProjectIntroduceCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6115441E097006000BA2DC /* GPWProjectIntroduceCell3.swift */; };
 		5B6115491E0974A7000BA2DC /* GPWIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6115481E0974A7000BA2DC /* GPWIndicatorView.swift */; };
 		5B68B65A1E08CA37000355B5 /* GPWProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68B6591E08CA37000355B5 /* GPWProjectDetailViewController.swift */; };
-		5B68B65C1E08CA5C000355B5 /* GPWFirstDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68B65B1E08CA5C000355B5 /* GPWFirstDetailViewController.swift */; };
 		5B68B65E1E08CA7E000355B5 /* GPWSecondDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68B65D1E08CA7E000355B5 /* GPWSecondDetailViewController.swift */; };
 		5B68B6601E08CA9E000355B5 /* GPWSubPageBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68B65F1E08CA9E000355B5 /* GPWSubPageBaseViewController.swift */; };
 		5B68B6641E08CE5A000355B5 /* GPWProjectIntroduceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B68B6631E08CE5A000355B5 /* GPWProjectIntroduceVC.swift */; };
@@ -183,8 +188,6 @@
 		807825C41FC41861006C94CC /* pullStart.gif in Resources */ = {isa = PBXBuildFile; fileRef = 807825C21FC41861006C94CC /* pullStart.gif */; };
 		807825C51FC41861006C94CC /* pulling.gif in Resources */ = {isa = PBXBuildFile; fileRef = 807825C31FC41861006C94CC /* pulling.gif */; };
 		808690461F5D312A008F4FB7 /* GPWFVListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808690451F5D312A008F4FB7 /* GPWFVListCell.swift */; };
-		808690491F5D35DD008F4FB7 /* GPWVipFDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808690471F5D35DC008F4FB7 /* GPWVipFDetailViewController.swift */; };
-		8086904A1F5D35DD008F4FB7 /* GPWVipPDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808690481F5D35DC008F4FB7 /* GPWVipPDetailViewController.swift */; };
 		808B98ED1EBB0F0B0066AA40 /* CALayer+Anim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B98E31EBB0F0B0066AA40 /* CALayer+Anim.swift */; };
 		808B98EE1EBB0F0B0066AA40 /* GYCommon+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B98E41EBB0F0B0066AA40 /* GYCommon+UIColor.swift */; };
 		808B98EF1EBB0F0B0066AA40 /* GYCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808B98E51EBB0F0B0066AA40 /* GYCircle.swift */; };
@@ -408,8 +411,6 @@
 		80D2080B1FC679C900D99C45 /* SFCalendarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 80D208011FC679C900D99C45 /* SFCalendarModel.m */; };
 		80D2080D1FC67EF200D99C45 /* SFCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80D2080C1FC67EF200D99C45 /* SFCalendarView.xib */; };
 		80D2080F1FC920C000D99C45 /* GPWHomeBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80D2080E1FC920C000D99C45 /* GPWHomeBottomCell.swift */; };
-		80DCE6271F594CB100FF8CC5 /* GPWFTTZHController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCE6261F594CB100FF8CC5 /* GPWFTTZHController.swift */; };
-		80DCE6291F594CC800FF8CC5 /* GPWVipListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DCE6281F594CC800FF8CC5 /* GPWVipListViewController.swift */; };
 		80E14506204EA8440051F918 /* GPWWDKTSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E14505204EA8440051F918 /* GPWWDKTSubview.swift */; };
 		80E696801F7CEFE20088A880 /* GPWFailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E6967F1F7CEFE20088A880 /* GPWFailController.swift */; };
 		80E737C81E9E22DF006BA745 /* GPWProjectIntroduceCell0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E737C71E9E22DF006BA745 /* GPWProjectIntroduceCell0.swift */; };
@@ -481,12 +482,17 @@
 		5B3EEC051E0E93790092014C /* PhotoViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewCell.swift; sourceTree = "<group>"; };
 		5B3EEC061E0E93790092014C /* SimpleHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleHUD.swift; sourceTree = "<group>"; };
 		5B3EEC071E0E93790092014C /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		5B473BC4207C556B00B09054 /* GPWFTTZHController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWFTTZHController.swift; sourceTree = "<group>"; };
+		5B473BC5207C556B00B09054 /* GPWVipPDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWVipPDetailViewController.swift; sourceTree = "<group>"; };
+		5B473BC6207C556B00B09054 /* GPWVipFDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWVipFDetailViewController.swift; sourceTree = "<group>"; };
+		5B473BC7207C556B00B09054 /* GPWVipListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWVipListViewController.swift; sourceTree = "<group>"; };
+		5B473BCC207C673E00B09054 /* GPWFirstDetailCell4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWFirstDetailCell4.swift; sourceTree = "<group>"; };
+		5B473BD0207C6A1900B09054 /* UIButton+EX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+EX.swift"; sourceTree = "<group>"; };
 		5B6115401E096FE9000BA2DC /* GPWProjectIntroduceCell1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceCell1.swift; sourceTree = "<group>"; };
 		5B6115421E096FF7000BA2DC /* GPWProjectIntroduceCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceCell2.swift; sourceTree = "<group>"; };
 		5B6115441E097006000BA2DC /* GPWProjectIntroduceCell3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceCell3.swift; sourceTree = "<group>"; };
 		5B6115481E0974A7000BA2DC /* GPWIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWIndicatorView.swift; sourceTree = "<group>"; };
 		5B68B6591E08CA37000355B5 /* GPWProjectDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectDetailViewController.swift; sourceTree = "<group>"; };
-		5B68B65B1E08CA5C000355B5 /* GPWFirstDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWFirstDetailViewController.swift; sourceTree = "<group>"; };
 		5B68B65D1E08CA7E000355B5 /* GPWSecondDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWSecondDetailViewController.swift; sourceTree = "<group>"; };
 		5B68B65F1E08CA9E000355B5 /* GPWSubPageBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWSubPageBaseViewController.swift; sourceTree = "<group>"; };
 		5B68B6631E08CE5A000355B5 /* GPWProjectIntroduceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceVC.swift; sourceTree = "<group>"; };
@@ -693,8 +699,6 @@
 		807825C21FC41861006C94CC /* pullStart.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pullStart.gif; sourceTree = "<group>"; };
 		807825C31FC41861006C94CC /* pulling.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pulling.gif; sourceTree = "<group>"; };
 		808690451F5D312A008F4FB7 /* GPWFVListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWFVListCell.swift; sourceTree = "<group>"; };
-		808690471F5D35DC008F4FB7 /* GPWVipFDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWVipFDetailViewController.swift; sourceTree = "<group>"; };
-		808690481F5D35DC008F4FB7 /* GPWVipPDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWVipPDetailViewController.swift; sourceTree = "<group>"; };
 		808B98E31EBB0F0B0066AA40 /* CALayer+Anim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Anim.swift"; sourceTree = "<group>"; };
 		808B98E41EBB0F0B0066AA40 /* GYCommon+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GYCommon+UIColor.swift"; sourceTree = "<group>"; };
 		808B98E51EBB0F0B0066AA40 /* GYCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYCircle.swift; sourceTree = "<group>"; };
@@ -1025,8 +1029,6 @@
 		80D208021FC679C900D99C45 /* SFCalendarItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFCalendarItemModel.h; sourceTree = "<group>"; };
 		80D2080C1FC67EF200D99C45 /* SFCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SFCalendarView.xib; sourceTree = "<group>"; };
 		80D2080E1FC920C000D99C45 /* GPWHomeBottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWHomeBottomCell.swift; sourceTree = "<group>"; };
-		80DCE6261F594CB100FF8CC5 /* GPWFTTZHController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWFTTZHController.swift; sourceTree = "<group>"; };
-		80DCE6281F594CC800FF8CC5 /* GPWVipListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWVipListViewController.swift; sourceTree = "<group>"; };
 		80E14505204EA8440051F918 /* GPWWDKTSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWWDKTSubview.swift; sourceTree = "<group>"; };
 		80E6967F1F7CEFE20088A880 /* GPWFailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWFailController.swift; sourceTree = "<group>"; };
 		80E737C71E9E22DF006BA745 /* GPWProjectIntroduceCell0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceCell0.swift; sourceTree = "<group>"; };
@@ -1124,12 +1126,24 @@
 			path = PhotoBrowser;
 			sourceTree = "<group>";
 		};
+		5B473BC3207C556B00B09054 /* Vip（团团赚） */ = {
+			isa = PBXGroup;
+			children = (
+				5B473BC4207C556B00B09054 /* GPWFTTZHController.swift */,
+				5B473BC5207C556B00B09054 /* GPWVipPDetailViewController.swift */,
+				5B473BC6207C556B00B09054 /* GPWVipFDetailViewController.swift */,
+				5B473BC7207C556B00B09054 /* GPWVipListViewController.swift */,
+			);
+			path = "Vip（团团赚）";
+			sourceTree = "<group>";
+		};
 		5B6115461E09700B000BA2DC /* FirstDetail */ = {
 			isa = PBXGroup;
 			children = (
 				5B68B6731E09232E000355B5 /* GPWFirstDetailCell1.swift */,
 				5B68B6751E09233D000355B5 /* GPWFirstDetailCell2.swift */,
 				5B68B6771E09234B000355B5 /* GPWFirstDetailCell3.swift */,
+				5B473BCC207C673E00B09054 /* GPWFirstDetailCell4.swift */,
 				5B7F2E571E2CBDE8009F8276 /* GPWMarkAlertView.swift */,
 				80A183401F0CDDF500F5EA57 /* GPWFirstDetailCell2_0.swift */,
 				80A183421F0DE09800F5EA57 /* GPWFirstDetailCell2_1.swift */,
@@ -1155,7 +1169,6 @@
 			isa = PBXGroup;
 			children = (
 				5B68B6591E08CA37000355B5 /* GPWProjectDetailViewController.swift */,
-				5B68B65B1E08CA5C000355B5 /* GPWFirstDetailViewController.swift */,
 				5B68B65D1E08CA7E000355B5 /* GPWSecondDetailViewController.swift */,
 				5B68B65F1E08CA9E000355B5 /* GPWSubPageBaseViewController.swift */,
 				5B68B6631E08CE5A000355B5 /* GPWProjectIntroduceVC.swift */,
@@ -1275,6 +1288,7 @@
 				80D206E81FC5680D00D99C45 /* Foundation */,
 				809212381FB43B8700A6D65C /* UIImage+Gif.swift */,
 				80625EDA1E078AA600456B63 /* UIView+XH.h */,
+				5B473BD0207C6A1900B09054 /* UIButton+EX.swift */,
 				80625EDB1E078AA600456B63 /* UIView+XH.m */,
 				80625EC91E06982C00456B63 /* UIScrollView+TwitterCover.h */,
 				80625ECA1E06982C00456B63 /* UIScrollView+TwitterCover.m */,
@@ -1790,8 +1804,8 @@
 		806EDCB71F3AA98C006A06AF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5B473BC3207C556B00B09054 /* Vip（团团赚） */,
 				80EE1A7D1FF4CF8300726933 /* FMall（积分商城） */,
-				80DCE6251F594CB100FF8CC5 /* Vip（团团赚） */,
 				806EDCBA1F3AA99F006A06AF /* GPWFoundViewController.swift */,
 				806EDD0A1F3C347D006A06AF /* GPWFHelpViewController.swift */,
 				8027DDB01F41D7EB00CC923A /* GPWVFschooliewController.swift */,
@@ -2675,17 +2689,6 @@
 			path = jiguang;
 			sourceTree = "<group>";
 		};
-		80DCE6251F594CB100FF8CC5 /* Vip（团团赚） */ = {
-			isa = PBXGroup;
-			children = (
-				808690471F5D35DC008F4FB7 /* GPWVipFDetailViewController.swift */,
-				808690481F5D35DC008F4FB7 /* GPWVipPDetailViewController.swift */,
-				80DCE6261F594CB100FF8CC5 /* GPWFTTZHController.swift */,
-				80DCE6281F594CC800FF8CC5 /* GPWVipListViewController.swift */,
-			);
-			path = "Vip（团团赚）";
-			sourceTree = "<group>";
-		};
 		80EE1A7D1FF4CF8300726933 /* FMall（积分商城） */ = {
 			isa = PBXGroup;
 			children = (
@@ -2978,6 +2981,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80D207CE1FC5680E00D99C45 /* NSInvocation+Block.m in Sources */,
+				5B473BCD207C673E00B09054 /* GPWFirstDetailCell4.swift in Sources */,
 				8010FC701E85032B00A94577 /* GPWRuleTopCell.swift in Sources */,
 				80A570AD1E8246BC00CCB2C7 /* UserSecondCell.swift in Sources */,
 				80F095A41EE942590039318C /* UserThridCell.swift in Sources */,
@@ -3062,11 +3066,11 @@
 				5B7F2E581E2CBDE8009F8276 /* GPWMarkAlertView.swift in Sources */,
 				5B781F991DF176C100748955 /* GPWTableCell.swift in Sources */,
 				80D207E41FC5680E00D99C45 /* NSObject+Blocks.m in Sources */,
+				5B473BD1207C6A1A00B09054 /* UIButton+EX.swift in Sources */,
 				80EE1A7F1FF4CFE500726933 /* GPWFMallController.swift in Sources */,
 				5B84DC9E1DF1280A00C4CABC /* GPWHomeViewController.swift in Sources */,
 				80625F581E0A23B600456B63 /* LazyScrollView.m in Sources */,
 				80D207D51FC5680E00D99C45 /* NSUserDefaults+iCloudSync.m in Sources */,
-				80DCE6291F594CC800FF8CC5 /* GPWVipListViewController.swift in Sources */,
 				80A5706E1E82451100CCB2C7 /* GPWUserRePwViewController.swift in Sources */,
 				80D207C91FC5680E00D99C45 /* NSString+Replace.m in Sources */,
 				80625F061E08E51B00456B63 /* GPWHTTopCell.swift in Sources */,
@@ -3103,6 +3107,7 @@
 				808B98ED1EBB0F0B0066AA40 /* CALayer+Anim.swift in Sources */,
 				80625F081E090B2B00456B63 /* GPWHTSecCell.swift in Sources */,
 				80A570731E82451100CCB2C7 /* UserReadInfoViewController.swift in Sources */,
+				5B473BC8207C556B00B09054 /* GPWFTTZHController.swift in Sources */,
 				5B3EEC081E0E93790092014C /* PhotoBrowser.swift in Sources */,
 				809A87E01FC3CB6100FE0067 /* DefaultRefreshHeader.swift in Sources */,
 				5B781F971DF16E0000748955 /* GPWNavigationBar.swift in Sources */,
@@ -3122,6 +3127,7 @@
 				80D207B41FC5680E00D99C45 /* NSData+Encrypt.m in Sources */,
 				5B68B6601E08CA9E000355B5 /* GPWSubPageBaseViewController.swift in Sources */,
 				80D2080F1FC920C000D99C45 /* GPWHomeBottomCell.swift in Sources */,
+				5B473BCB207C556B00B09054 /* GPWVipListViewController.swift in Sources */,
 				5B781F931DF16CB000748955 /* GPWTabBarController.swift in Sources */,
 				80F487501FBE7A9F0082D19D /* GPWUserYouhuiCell.swift in Sources */,
 				803D052D1E0D09EE0098C2AD /* GPWAddDayMoneyController.swift in Sources */,
@@ -3132,9 +3138,9 @@
 				5B1FA7BC1E0A2021002E3993 /* GPWFAQCell.swift in Sources */,
 				80D207B21FC5680E00D99C45 /* NSData+Hash.m in Sources */,
 				5B3EEB6E1E0BA3E80092014C /* GPWAvailableRateCouponViewController.swift in Sources */,
-				808690491F5D35DD008F4FB7 /* GPWVipFDetailViewController.swift in Sources */,
 				80A5707D1E82451100CCB2C7 /* GPWUserMDetailViewController.swift in Sources */,
 				806EDCD31F3AE34D006A06AF /* VierticalScrollView.swift in Sources */,
+				5B473BC9207C556B00B09054 /* GPWVipPDetailViewController.swift in Sources */,
 				80625ECB1E06982C00456B63 /* UIScrollView+TwitterCover.m in Sources */,
 				80A93C291F3ED0760006C1E0 /* AFImageDownloader.m in Sources */,
 				80D207DD1FC5680E00D99C45 /* NSSet+Block.m in Sources */,
@@ -3149,11 +3155,9 @@
 				80D207B71FC5680E00D99C45 /* NSURL+QueryDictionary.m in Sources */,
 				809C4B381E71701A00816DD5 /* GPWFriendSectionModel.swift in Sources */,
 				80EE1A8F1FF4D02F00726933 /* GPWFoundFourCell.swift in Sources */,
-				8086904A1F5D35DD008F4FB7 /* GPWVipPDetailViewController.swift in Sources */,
 				5B84DBFB1DEBDB2200C4CABC /* GPWButton.swift in Sources */,
 				808B98F01EBB0F0B0066AA40 /* GYCircleConst.swift in Sources */,
 				5B3EEBB81E0C3CB80092014C /* GPWNavigationController.swift in Sources */,
-				80DCE6271F594CB100FF8CC5 /* GPWFTTZHController.swift in Sources */,
 				806EDCD51F3AE34D006A06AF /* TYWaterWaveView.m in Sources */,
 				5B68B6741E09232E000355B5 /* GPWFirstDetailCell1.swift in Sources */,
 				80E737C81E9E22DF006BA745 /* GPWProjectIntroduceCell0.swift in Sources */,
@@ -3266,7 +3270,7 @@
 				80625F411E095A4B00456B63 /* PNScatterChart.m in Sources */,
 				8045C1061EC03F0C00DEFB5D /* GPWActiveViewController.swift in Sources */,
 				80D207E91FC5680E00D99C45 /* NSRunLoop+PerformBlock.m in Sources */,
-				5B68B65C1E08CA5C000355B5 /* GPWFirstDetailViewController.swift in Sources */,
+				5B473BCA207C556B00B09054 /* GPWVipFDetailViewController.swift in Sources */,
 				80625F3C1E095A4B00456B63 /* PNLineChartDataItem.m in Sources */,
 				80A570721E82451100CCB2C7 /* UserBankViewController.swift in Sources */,
 				5BD1D1651E1E56F700C4198F /* GPWInvestSuccessViewController.swift in Sources */,
@@ -3559,8 +3563,8 @@
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gangpiaowang.gangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ea6607b-099e-429a-98f9-09ab46a228cf";
-				PROVISIONING_PROFILE_SPECIFIER = gangpiao_2018newdev;
+				PROVISIONING_PROFILE = "483ba229-fdb8-466d-94d3-115875b7e4e2";
+				PROVISIONING_PROFILE_SPECIFIER = gangpiao_dev;
 				SDKROOT = iphoneos;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GangPiaoWang/Main/GangPiaoWang-Bridging-Header.h";

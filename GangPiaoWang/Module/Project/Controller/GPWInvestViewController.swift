@@ -12,9 +12,6 @@ import SnapKit
 
 class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
     fileprivate var shareJson:JSON?
-    fileprivate var staticNoviceLabelHeight: Constraint!
-    
-    //团团赚vip true为团团赚
     var vipFlag = false
     //投资弹窗确认界面
     fileprivate var showSureView:UIView?
@@ -24,28 +21,28 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
-    let cell1: UIView = {
-        return UIView(bgColor: UIColor.white)
-    }()
-    let cell2: UIView = {
-        return UIView(bgColor: UIColor.white)
-    }()
-    let cell3: UIView = {
-        return UIView(bgColor: UIColor.white)
-    }()
-    let cell4: UIView = {
-        return UIView(bgColor: UIColor.white)
-    }()
-    let cell5: UIView = {
-        return UIView(bgColor: UIColor.white)
-    }()
+    let cell1 = UIView(bgColor: UIColor.white)
+    let cell2 = UIView(bgColor: UIColor.white)
+    let cell3 = UIView(bgColor: UIColor.white)
+    let cell4 = UIView(bgColor: UIColor.white)
     
-    fileprivate var balanceLabel: UILabel!
-    fileprivate var joinButton: UIButton!
+    var balanceLabel: UILabel = {
+        let label = UILabel(title: "", color: redTitleColor, fontSize: 16)
+        label.textAlignment = .right
+        return label
+    }()
+    lazy var joinButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("立即加入", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.customFont(ofSize: 18)
+        button.setBackgroundImage(UIImage(named: "project_right_pay"), for: .normal)
+        button.addTarget(self, action: #selector(join), for: .touchUpInside)
+        return button
+    }()
     fileprivate let textField = UITextField()
     fileprivate let incomeLabel: UILabel = UILabel(title: "0.00", color: redTitleColor, fontSize: 14, textAlign: .left)
     fileprivate let reduceLabel = UILabel(title: "暂无可用红包", color: UIColor.hex("999999"), fontSize: 12, textAlign: .center)
-    fileprivate let rateLabel = UILabel(title: "暂无可用加息券", color: UIColor.hex("999999"), fontSize: 12, textAlign: .center)
     
     //账户余额
     fileprivate let acountBaLabel: UILabel = UILabel(title: "可用余额：\(GPWUser.sharedInstance().real_money ?? "0.00" )", color: UIColor.hex("999999"), fontSize: 16, textAlign: .left)
@@ -60,21 +57,11 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
     //项目可使用加息券
     fileprivate var rateCoupons = [RateCoupon]()
     
-    //符合当前可使用的红包
-    fileprivate var tempRedEnvelops = [RedEnvelop]()
-    
-    //匹配最优方案
-    let bestRedLabel:UILabel = UILabel(title: "已匹配最优方案", color: UIColor.hex("999999"), fontSize: 12)
-    
     fileprivate var currentRedEnvelop: RedEnvelop?
     fileprivate var currentRateCoupon: RateCoupon?
     fileprivate var currentAmount: Double = 0.0
+    var couponNum = 0      //优惠券个数
     
-    // 是否有加息券可用
-    fileprivate var isUsedRateCoupon = true
-    
-    //是否有红包可以使用
-        fileprivate var isUsedRedCoupon = true
     init(itemID: String) {
         super.init(nibName: nil, bundle: nil)
         self.itemID = itemID
@@ -105,67 +92,58 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
             printLog(message: json)
             guard let strongSelf = self else { return }
             strongSelf.dicJson = json
-            strongSelf.tempRedEnvelops.removeAll()
-            let tempRedEnvelops = json["award"].arrayValue
             strongSelf.shareJson = json["share"]
-            for object in tempRedEnvelops {
-                let redEnvelop = RedEnvelop(object)
-                strongSelf.tempRedEnvelops.append(redEnvelop)
-                if Int(redEnvelop.limit) ?? 300 <= json["deadline"].intValue {
-                    strongSelf.redEnvelops.append(redEnvelop)
-                }
-            }
-            let tempRateCoupons = json["ticket"].arrayValue
-            for object in tempRateCoupons {
-                let rateCoupon = RateCoupon(object)
-                strongSelf.rateCoupons.append(rateCoupon)
-            }
+            strongSelf.redEnvelops = json["award"].arrayValue.map({ (json) -> RedEnvelop in
+                return RedEnvelop(json)
+            })
+            strongSelf.rateCoupons = json["ticket"].arrayValue.map({ (json) -> RateCoupon in
+                return RateCoupon(json)
+            })
 
-            if strongSelf.redEnvelops.count > 0 {
-                strongSelf.reduceLabel.text = "输入金额自动匹配"
-            }
-            strongSelf.rateCoupons.sort { Double($0.rate) ?? 0 > Double($1.rate) ?? 0 }
             strongSelf.commonInit()
+            let count = strongSelf.redEnvelops.count + strongSelf.rateCoupons.count
+            strongSelf.couponNum = count
+            strongSelf.resetCoupon()
+            
             strongSelf.balanceLabel.text = json["balance_amount"].stringValue + "元"
-
-            strongSelf.queryBestRateCoupon()
-            if let rateCoupon = strongSelf.currentRateCoupon {
-                strongSelf.rateLabel.text = "加息\(rateCoupon.rate)%"
-                strongSelf.rateLabel.textColor = redTitleColor
-                strongSelf.cell4.isUserInteractionEnabled = true
-            } else {
-                strongSelf.rateLabel.text = "暂无可用加息券"
-                strongSelf.rateLabel.textColor = UIColor.hex("999999")
-                strongSelf.cell4.isUserInteractionEnabled = false
-            }
             }, failure: { error in
         })
     }
+    
     private func commonInit() {
         addContentView()
         addCell1()
         addCell2()
         addCell3()
         addCell4()
-        addCell5()
+    }
+    
+    //根据优惠券个数配置UI
+    func resetCoupon() {
+        if couponNum > 0 {
+            reduceLabel.text = "\(couponNum)张可用"
+            reduceLabel.textColor = UIColor.hex("fa713d")
+        } else {
+            reduceLabel.text = "暂无可用"
+            reduceLabel.textColor = UIColor.hex("999999")
+        }
+        currentRedEnvelop = nil
+        currentRateCoupon = nil
     }
     
     private func addContentView() {
         scrollView.delegate = self
         bgView.addSubview(scrollView)
-        joinButton = UIButton(type: .custom)
-        joinButton.setTitle("立即加入", for: .normal)
-        joinButton.frame = CGRect(x: 0, y: self.bgView.height - 44, width: SCREEN_WIDTH, height: 44)
-        joinButton.setTitleColor(UIColor.white, for: .normal)
-        joinButton.titleLabel?.font = UIFont.customFont(ofSize: 18)
-        joinButton.setBackgroundImage(UIImage(named: "project_right_pay"), for: .normal)
-        joinButton.addTarget(self, action: #selector(join), for: .touchUpInside)
+       
         self.bgView.addSubview(joinButton)
         
         scrollView.snp.makeConstraints { (maker) in
-            maker.left.top.equalTo(0)
-            maker.width.equalTo(SCREEN_WIDTH)
-            maker.height.equalTo(SCREEN_HEIGHT)
+            maker.top.left.right.equalTo(bgView)
+        }
+        joinButton.snp.makeConstraints { (maker) in
+            maker.top.equalTo(scrollView.snp.bottom)
+            maker.left.right.bottom.equalTo(bgView)
+            maker.height.equalTo(44)
         }
     }
     
@@ -173,9 +151,7 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
         let  topView = UIView()
         topView.backgroundColor = bgColor
         let staticBalanceLabel = UILabel(title: "可投金额 ", color: UIColor.hex("333333"), fontSize: 16)
-        balanceLabel = UILabel(title: "", color: redTitleColor, fontSize: 16)
-        balanceLabel.textAlignment = .right
-        
+       
         scrollView.addSubview(cell1)
         cell1.addSubview(topView)
         cell1.addSubview(staticBalanceLabel)
@@ -183,7 +159,7 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
         
         cell1.snp.makeConstraints { (maker) in
             maker.top.left.equalTo(scrollView)
-            maker.width.equalTo(SCREEN_WIDTH)
+            maker.width.equalTo(bgView)
             maker.height.equalTo(10 + 56)
         }
         
@@ -326,100 +302,35 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
         }
         
         
-        let staticTitleLabel = UILabel(title: "红包", color: titleColor, fontSize: 16)
-        let iconView = UIImageView(image: UIImage(named: "project_investRedEnvelop"))
+        let staticTitleLabel = UILabel(title: "优惠券", color: titleColor, fontSize: 16)
         
         cell3.addSubview(staticTitleLabel)
-        cell3.addSubview(bestRedLabel)
-        cell3.addSubview(iconView)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(redBagTap(_:)))
         cell3.addGestureRecognizer(tapGesture)
         cell3.addSubview(reduceLabel)
         
         staticTitleLabel.snp.makeConstraints { (maker) in
-            staticNoviceLabelHeight = maker.top.equalTo(cell3).offset(14).constraint
+            maker.centerY.equalTo(cell3)
             maker.left.equalTo(cell3).offset(16)
-            maker.height.equalTo(17)
-        }
-        
-        bestRedLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(staticTitleLabel.snp.bottom).offset(4)
-            maker.left.equalTo(staticTitleLabel)
-            maker.height.equalTo(13)
         }
         
         reduceLabel.snp.makeConstraints { (maker) in
             maker.right.equalTo(arrowView.snp.left).offset(-16)
             maker.centerY.equalTo(cell3)
         }
-        
-        iconView.snp.makeConstraints { (maker) in
-            maker.right.equalTo(reduceLabel.snp.left).offset(-6)
-            maker.centerY.equalTo(cell3)
-        }
     }
     
     private func addCell4() {
-        let line3 = UIView(bgColor: bgColor)
-        scrollView.addSubview(line3)
-        line3.snp.makeConstraints { (maker) in
+        let line4 = UIView(bgColor: bgColor)
+        scrollView.addSubview(line4)
+        line4.snp.makeConstraints { (maker) in
             maker.top.equalTo(cell3.snp.bottom)
             maker.width.equalTo(cell3)
             maker.height.equalTo(10)
         }
         
         scrollView.addSubview(cell4)
-        cell4.isUserInteractionEnabled = false
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleRateCouponTap(_:)))
-        cell4.addGestureRecognizer(tapGesture)
-        
         cell4.snp.makeConstraints { (maker) in
-            maker.top.equalTo(line3.snp.bottom)
-            maker.width.equalTo(scrollView)
-            maker.height.equalTo(56)
-        }
-        
-        let staticTitleLabel = UILabel(title: "加息券", color: titleColor, fontSize: 16)
-        let iconView = UIImageView(image: UIImage(named: "project_investRateCoupon"))
-        let arrowView = UIImageView(image: UIImage(named: "user_rightImg"))
-        
-        cell4.addSubview(staticTitleLabel)
-        cell4.addSubview(iconView)
-        cell4.addSubview(rateLabel)
-        cell4.addSubview(arrowView)
-        
-        staticTitleLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(cell4).offset(11)
-            maker.left.equalTo(cell4).offset(16)
-            maker.bottom.equalTo(cell4).offset(-11)
-        }
-        arrowView.snp.makeConstraints { (maker) in
-            maker.right.equalTo(cell4).offset(-16)
-            maker.width.equalTo(9)
-            maker.height.equalTo(18)
-            maker.centerY.equalTo(cell4)
-        }
-        rateLabel.snp.makeConstraints { (maker) in
-            maker.right.equalTo(arrowView.snp.left).offset(-11)
-            maker.centerY.equalTo(cell4)
-        }
-        iconView.snp.makeConstraints { (maker) in
-            maker.right.equalTo(rateLabel.snp.left).offset(-6)
-            maker.centerY.equalTo(cell4)
-        }
-    }
-    
-    private func addCell5() {
-        let line4 = UIView(bgColor: bgColor)
-        scrollView.addSubview(line4)
-        line4.snp.makeConstraints { (maker) in
-            maker.top.equalTo(cell4.snp.bottom)
-            maker.width.equalTo(cell4)
-            maker.height.equalTo(10)
-        }
-        
-        scrollView.addSubview(cell5)
-        cell5.snp.makeConstraints { (maker) in
             maker.top.equalTo(line4.snp.bottom)
             maker.left.width.equalTo(scrollView)
         }
@@ -427,13 +338,13 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
         let  bottomTitleLabel = RTLabel()
         bottomTitleLabel.text = "<a href='fuwuxieyi'><font size=12 color='#666666'>阅读并同意</font><font size=12 color='#2e7cd6'>《服务协议书》</font></a><font size=12 color='#666666'>、</font><a href='wangluojiedai'><font size=12 color='#2e7cd6'>《网络借贷风险和禁止性行为提示书》</font></a><font size=12 color='#666666'>和</font><a href='zijinhefa'><font size=12 color='#2e7cd6'>《资金合法来源承诺书》</font></a><font size=12 color='#666666'>\n市场有风险,出借需谨慎</font>"
         bottomTitleLabel.delegate = self
-        cell5.addSubview(bottomTitleLabel)
+        cell4.addSubview(bottomTitleLabel)
         bottomTitleLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(cell5).offset(11)
-            maker.left.equalTo(cell5).offset(16)
-            maker.right.equalTo(cell5).offset(-16)
+            maker.top.equalTo(cell4).offset(11)
+            maker.left.equalTo(cell4).offset(16)
+            maker.right.equalTo(cell4).offset(-16)
             maker.height.equalTo(100)
-            maker.bottom.equalTo(cell5).offset(-20)
+            maker.bottom.equalTo(cell4).offset(-20)
         }
         printLog(message: scrollView.contentSize.height)
     }
@@ -506,7 +417,7 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
             printLog(message: json)
             let vc = GPWBankWebViewController(url:  json.stringValue, sureJson: strongSelf.shareJson!)
             vc.moneyStr = strongSelf.textField.text
-            vc.vipFlag = strongSelf.vipFlag
+//            vc.vipFlag = strongSelf.vipFlag
             //标剩余金额
             let balance_amount =  Int(strongSelf.dicJson["balance_amount"].stringValue.replacingOccurrences(of: ",", with: "")) ?? 0
             //投资金额
@@ -575,65 +486,20 @@ extension GPWInvestViewController:RTLabelDelegate {
     //MARK: /*************Helper方法***************
     fileprivate func resetText() {
         incomeLabel.text = "0.00"
-        reduceLabel.text = "未匹配到可用红包"
-        reduceLabel.textColor = UIColor.hex("999999")
-        currentRedEnvelop = nil
         currentAmount = 0.0
+        resetCoupon()
     }
     
-    //MARK: /*************红包排序***************
-    fileprivate func queryBestRedEnvelop(amount: Double) {
-        tempRedEnvelops.removeAll()
-        //是否有红包
-        if redEnvelops.count > 0 {
-            //把红包按金额从大到小排序
-            redEnvelops.sort { $0.amount > $1.amount }
-            for i in 0..<redEnvelops.count {
-                if amount >= Double(redEnvelops[i].restrict_amount) {
-                    tempRedEnvelops.append(redEnvelops[i])
-                }
-            }
-            
-            for i in 0..<redEnvelops.count {
-                if amount >= Double(redEnvelops[i].restrict_amount) {
-                    currentRedEnvelop = redEnvelops[i]
-                    self.bestRedLabel.isHidden = false
-                    self.staticNoviceLabelHeight.update(offset: 14)
-                    break
-                } else {
-                    currentRedEnvelop = nil
-                }
-            }
-        } else {
-            currentRedEnvelop = nil
-        }
-    }
-    
-    //MARK: /*************加息券排序***************
-    fileprivate func queryBestRateCoupon() {
-        if rateCoupons.count > 0 {
-            for i in 0..<rateCoupons.count {
-                currentRateCoupon = rateCoupons[i]
-                break
-            }
-        } else {
-            currentRateCoupon = nil
-        }
-    }
+  
     
     //MARK: /*************红包与加息券选择处理***************
     fileprivate func userManualSelectRateCoupon() {
         //年化收益率
         var rate_loaner = dicJson["rate_loaner"].doubleValue
-        if  vipFlag {
-            if GPWUser.sharedInstance().identity == 2 {
-                 rate_loaner = rate_loaner +  dicJson["rate_new"].doubleValue
-            }
-        }else{
-            if dicJson["is_index"].intValue == 1 {
-                if GPWUser.sharedInstance().staue == 0 {
-                    rate_loaner = rate_loaner +  dicJson["rate_new"].doubleValue
-                }
+       
+        if dicJson["is_index"].intValue == 1 {
+            if GPWUser.sharedInstance().staue == 0 {
+                rate_loaner = rate_loaner +  dicJson["rate_new"].doubleValue
             }
         }
         
@@ -642,36 +508,22 @@ extension GPWInvestViewController:RTLabelDelegate {
         //标的天数
         let deadline = dicJson["deadline"].doubleValue
         
-        if isUsedRedCoupon {
-            if let redCoupon = currentRedEnvelop {
-                 redEnvelopAmount = Double(redCoupon.amount)
-                reduceLabel.text = "\(redCoupon.amount)元"
-                reduceLabel.textColor = redTitleColor
-                cell3.isUserInteractionEnabled = true
-            }
-        } else {
-            reduceLabel.text = "暂不使用红包"
-            reduceLabel.textColor = UIColor.hex("999999")
-            currentRedEnvelop = nil
+        if let redCoupon = currentRedEnvelop {
+             redEnvelopAmount = Double(redCoupon.amount)
+            reduceLabel.text = "\(redCoupon.amount)元"
+            reduceLabel.textColor = redTitleColor
             cell3.isUserInteractionEnabled = true
-        }
-        if isUsedRateCoupon {
-            if let rateCoupon = currentRateCoupon {
-                printLog(message: rateCoupon.rate)
-                rateLabel.text = "加息\(rateCoupon.rate)%"
-                rateLabel.textColor = redTitleColor
-                cell4.isUserInteractionEnabled = true
-                rate_loaner += (rateCoupon.rate as NSString).doubleValue
-            }
+        } else if let rateCoupon = currentRateCoupon {
+            reduceLabel.text = "加息\(rateCoupon.rate)%"
+            reduceLabel.textColor = redTitleColor
+            rate_loaner += (rateCoupon.rate as NSString).doubleValue
+            cell3.isUserInteractionEnabled = true
         } else {
-            rateLabel.text = "暂不使用加息券"
-            rateLabel.textColor = UIColor.hex("999999")
-            currentRateCoupon = nil
-            cell4.isUserInteractionEnabled = true
+            resetCoupon()
         }
         
-        let text =  currentAmount / 365.0 * deadline * rate_loaner / 100.0 + redEnvelopAmount
-        incomeLabel.text =  GPWHelper.notRounding(text, afterPoint: 2)
+        let income =  currentAmount / 365.0 * deadline * rate_loaner / 100.0 + redEnvelopAmount
+        incomeLabel.text =  GPWHelper.notRounding(income, afterPoint: 2)
     }
 }
 
@@ -680,52 +532,13 @@ extension GPWInvestViewController {
     @objc fileprivate func redBagTap(_ tapGesture: UITapGestureRecognizer) {
         textField.resignFirstResponder()
 
-        if (textField.text == nil || textField.text == "") && self.tempRedEnvelops.count > 0 {
-            let  alertViewContoll = UIAlertController(title: "", message: "请输入出借金额", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "确定", style: .default, handler: { (alert) in
-            })
-            alertViewContoll.addAction(okAction)
-            self.navigationController?.present(alertViewContoll, animated: true, completion: nil)
-            return
-        }
-        if self.tempRedEnvelops.count == 0 {
-            return
-        }
-        let vc = GPWAvailableRateCouponViewController(self.tempRedEnvelops)
-        vc.currentRedEnvelop = self.currentRedEnvelop
-        vc.handleRedEnvelopUsed =  { [weak self] (redEnvelop, isUse) in
+        let vc = GPWAvailableRateCouponViewController(redEnvelops: redEnvelops, rateCoupons: rateCoupons, currentRedEnvelop: currentRedEnvelop, currentRateCoupon: currentRateCoupon, currentAmount: currentAmount, deadLine: dicJson["deadline"].intValue)
+        vc.handleCoupon =  { [weak self] (redEnvelop, rateCoupon) in
             guard let strongSelf = self else {
                 return
-            }
-            strongSelf.isUsedRedCoupon = isUse
-            strongSelf.bestRedLabel.isHidden = true
-            strongSelf.staticNoviceLabelHeight.update(offset: 19)
-            if isUse {
-                strongSelf.currentRedEnvelop = redEnvelop
-            } else {
-                strongSelf.currentRedEnvelop = nil
             }
             strongSelf.currentRedEnvelop = redEnvelop
-             strongSelf.userManualSelectRateCoupon()
-        }
-        self.navigationController?.show(vc, sender: nil)
-    }
-    
-    //MARK: /*************加息券选择***************
-    @objc fileprivate func handleRateCouponTap(_ tapGesture: UITapGestureRecognizer) {
-        textField.resignFirstResponder()
-        let vc = GPWAvailableRateCouponViewController(rateCoupons)
-        vc.currentRateCoupon = self.currentRateCoupon
-        vc.handleRateCouponUsed =  { [weak self] (rateCoupon, isUse) in
-            guard let strongSelf = self else {
-                return
-            }
-            strongSelf.isUsedRateCoupon = isUse
-            if isUse {
-                strongSelf.currentRateCoupon = rateCoupon
-            } else {
-                strongSelf.currentRateCoupon = nil
-            }
+            strongSelf.currentRateCoupon = rateCoupon
             strongSelf.userManualSelectRateCoupon()
         }
         self.navigationController?.show(vc, sender: nil)
@@ -820,73 +633,43 @@ extension GPWInvestViewController: UITextFieldDelegate {
             resetText()
             return
         }
-        if let money = sender.text {
-            let balance_amount =  Double(dicJson["balance_amount"].stringValue.replacingOccurrences(of: ",", with: "")) ?? 0
-            if Double(money)! >  balance_amount {
-                sender.text = "\(dicJson["balance_amount"].stringValue.replacingOccurrences(of: ",", with: ""))"
-                self.valueChanged(sender: sender)
-                return
-            }
+        
+        let balance_amount =  Double(dicJson["balance_amount"].stringValue.replacingOccurrences(of: ",", with: "")) ?? 0
+        //投的钱大于余额则置为余额
+        if Double(money)! >  balance_amount {
+            sender.text = "\(dicJson["balance_amount"].stringValue.replacingOccurrences(of: ",", with: ""))"
+            self.valueChanged(sender: sender)
+            return
         }
-        
-        
+
         //如果复制粘贴进来为小数 默认去除小数点后面部分
         if "\(Int(Double(sender.text ?? "0")!))" != "\(String(describing: Double(money)))" {
             textField.text =  "\(Int(Double(money)!))"
         }
-        
+
         if let mon = Double(money) {
             currentAmount = mon
-            //起投金额
-            let begin_amount = dicJson["begin_amount"].doubleValue
             //年化收益率
             var rate_loaner = dicJson["rate_loaner"].doubleValue
             
+            //新手标
             if dicJson["is_index"].intValue == 1 {
+                //没投过
                 if GPWUser.sharedInstance().staue == 0 {
                     rate_loaner = rate_loaner +  dicJson["rate_new"].doubleValue
                 }
             }
             //红包金额
-            var redEnvelopAmount = 0.0
+            let redEnvelopAmount = 0.0
             //标的天数
             let deadline = dicJson["deadline"].doubleValue
-            
-            //当输入金额大于等于起投金额时，开始计算红包和加息券
-            if mon >= begin_amount {
-                queryBestRedEnvelop(amount: mon)
-                if let redEnvelop = currentRedEnvelop {
-                    reduceLabel.text = "\(redEnvelop.amount)元"
-                    reduceLabel.textColor = redTitleColor
-                    redEnvelopAmount = Double(redEnvelop.amount)
-                }  else {
-                    reduceLabel.text = "未匹配到可用红包"
-                    reduceLabel.textColor = UIColor.hex("999999")
-                }
-            } else {
-                resetText()
-            }
-            if isUsedRateCoupon {
-                //不知道为何用到这个地方
-                //queryBestRateCoupon()
-                if let rateCoupon = currentRateCoupon {
-                    rateLabel.text = "加息\(rateCoupon.rate)%"
-                    rateLabel.textColor = redTitleColor
-                    cell4.isUserInteractionEnabled = true
-                    rate_loaner += Double(rateCoupon.rate)!
-                } else {
-                    rateLabel.text = "暂无可用加息券"
-                    rateLabel.textColor = UIColor.hex("999999")
-                    cell4.isUserInteractionEnabled = false
-                }
-            }
+
+            resetCoupon()
             let text =  mon / 365.0 * deadline * rate_loaner / 100.0 + redEnvelopAmount
-            incomeLabel.text = GPWHelper.notRounding(text, afterPoint: 2) 
+            incomeLabel.text = GPWHelper.notRounding(text, afterPoint: 2)
         }
     }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         textField.resignFirstResponder()
     }

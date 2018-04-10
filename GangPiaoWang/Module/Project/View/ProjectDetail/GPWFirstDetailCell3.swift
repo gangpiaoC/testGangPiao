@@ -66,6 +66,11 @@ class GPWFirstDetailCell3: UITableViewCell {
         }
     }
     
+    func setupCell(day: String, returnStr: String) {
+        titleLabel.text = "出借10000元，\(day)天后预计可赚"
+        returnLabel.text = returnStr + "元"
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

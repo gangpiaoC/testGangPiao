@@ -9,7 +9,7 @@
 import UIKit
 
 class GPWFirstDetailCell4: UITableViewCell {
-    
+    var tapAction: ((Int) -> Void)?
     let projectDetailButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "project_detail_projectDetail"), for: .normal)
@@ -84,14 +84,14 @@ class GPWFirstDetailCell4: UITableViewCell {
         }
     }
 
-    func buttonAction(_ sender: UIButton) {
+    @objc func buttonAction(_ sender: UIButton) {
         switch sender {
         case projectDetailButton:
-            break
+            tapAction?(0)
         case dangerControlButton:
-            break
+            tapAction?(1)
         case addRecordButton:
-            break
+            tapAction?(2)
         default:
             break
         }

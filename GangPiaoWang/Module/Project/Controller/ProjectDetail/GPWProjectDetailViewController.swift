@@ -10,18 +10,9 @@ import UIKit
 import SwiftyJSON
 
 class GPWProjectDetailViewController: GPWSecBaseViewController {
-    private var projectID: String!
+    private let projectID: String
     
     fileprivate var isCanShare: Bool = false
-    
-//    //起息方式  1融满起息  2立即起息
-//    var  rateMode = 1
-    
-    //是否隐藏满标奖励 1隐藏  0 展示
-//    var  isHiddenFull = 0
-    
-//    private var cell2LeftText: [String] = ["起息方式", "还款方式", "温馨提示"]
-//    private var cell2RightText: [String] = ["立即起息", "一次性还本付息", "新手用户出借仅享有一次加息机会"]
     private var json: JSON?
     
     lazy var tableView: UITableView = {
@@ -49,9 +40,9 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
     }()
     let joinButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("立即加入", for: .normal)
+        button.setTitle("即将开放  敬请期待", for: .normal)
         button.titleLabel?.font = UIFont.customFont(ofSize: 18.0)
-        button.setBackgroundImage(UIImage(named: "project_right_pay"), for: .normal)
+        button.backgroundColor = UIColor.hex("f9bd59")
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 4
         button.addTarget(self, action: #selector(join), for: .touchUpInside)
@@ -60,8 +51,8 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
     }()
     
     init(projectID: String) {
-        super.init(nibName: nil, bundle: nil)
         self.projectID = projectID
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -235,65 +226,39 @@ extension GPWProjectDetailViewController: UITableViewDelegate, UITableViewDataSo
             strongSelf.json = json
             strongSelf.title = json["title"].stringValue
             strongSelf.isCanShare = true
-//            strongSelf.isHiddenFull = 0
-//            if json["full_scale"]["close"].intValue == 0 {
-//                strongSelf.isHiddenFull = 1
-//            }
-            
-//            if json["start_interest"].stringValue == "融满后起息" {
-//                strongSelf.rateMode = 1
-//            }else{
-//                strongSelf.rateMode = 2
-//            }
-//            strongSelf.cell2LeftText = ["起息方式", "还款方式"]
-//            strongSelf.cell2RightText = [json["start_interest"].stringValue, json["refund_type"].stringValue]
-//
-//            if json["is_index"].intValue == 1 {
-//                if GPWUser.sharedInstance().staue == 0 {
-//                    strongSelf.cell2LeftText.append("温馨提示")
-//                    strongSelf.cell2RightText.append("新手用户出借仅享有一次加息机会")
-//                }
-//            }
             
             strongSelf.tableView.reloadData()
             guard let status = json["status"].string else {
                 strongSelf.joinButton.isEnabled = false
                 return
             }
+            strongSelf.balanceLabel.attributedText = NSAttributedString.attributedString("募集总额 ", mainColor: UIColor.hex("4f4f4f"), mainFont: 14, second: "\(json["amount"].stringValue)元", secondColor: UIColor.hex("fa713d"), secondFont: 14)
             switch status {
             case "COLLECTING":
                 strongSelf.joinButton.isEnabled = true
-                strongSelf.joinButton.setBackgroundImage(UIImage(named: "project_right_pay"), for: .normal)
-            case "FULLSCALE":
-                strongSelf.joinButton.setTitle("已抢光", for: .normal)
-                strongSelf.joinButton.setBackgroundImage(UIImage(named: ""), for: .normal)
-                strongSelf.joinButton.backgroundColor = UIColor.hex("c3c3c3")
-            case "REPAYING":
-                strongSelf.joinButton.setTitle("回款中", for: .normal)
-                strongSelf.joinButton.setBackgroundImage(UIImage(named: ""), for: .normal)
-                strongSelf.joinButton.backgroundColor = UIColor.hex("c3c3c3")
-            case "FINISH":
-                strongSelf.joinButton.setTitle("已回款", for: .normal)
-                strongSelf.joinButton.setBackgroundImage(UIImage(named: ""), for: .normal)
-                strongSelf.joinButton.backgroundColor = UIColor.hex("c3c3c3")
+                strongSelf.joinButton.setTitle("立即加入", for: .normal)
+                strongSelf.joinButton.backgroundColor = UIColor.hex("fa713d")
+                strongSelf.balanceLabel.attributedText = NSAttributedString.attributedString("剩余金额 ", mainColor: UIColor.hex("4f4f4f"), mainFont: 14, second: "\(json["balance_amount"].stringValue)元", secondColor: UIColor.hex("fa713d"), secondFont: 14)
+            case "FULLSCALE", "REPAYING", "FINISH":
+                strongSelf.joinButton.setTitle("已满标", for: .normal)
+                strongSelf.joinButton.backgroundColor = UIColor.hex("d8d8d8")
             case "RELEASE":
-                strongSelf.joinButton.setTitle("即将开始", for: .normal)
-                strongSelf.joinButton.setBackgroundImage(UIImage(named: ""), for: .normal)
-                strongSelf.joinButton.backgroundColor = UIColor.hex("fcc30c")
+                strongSelf.joinButton.setTitle("即将开放  敬请期待", for: .normal)
+                strongSelf.joinButton.backgroundColor = UIColor.hex("f9bd59")
             default:
                 strongSelf.joinButton.setTitle("已抢光", for: .normal)
                 strongSelf.joinButton.setBackgroundImage(UIImage(named: ""), for: .normal)
                 strongSelf.joinButton.backgroundColor = UIColor.hex("c3c3c3")
                 break
             }
-            if json["type"].string == "NEWBIE"{
-                if GPWUser.sharedInstance().staue == 1 && GPWUser.sharedInstance().isLogin == true{
-                    strongSelf.joinButton.isEnabled = false
-                    strongSelf.joinButton.setTitle("新手标只能投一次", for: .normal)
-                    strongSelf.joinButton.setBackgroundImage(UIImage(named: ""), for: .normal)
-                    strongSelf.joinButton.backgroundColor = UIColor.hex("c3c3c3")
-                }
-            }
+//            if json["type"].string == "NEWBIE"{
+//                if GPWUser.sharedInstance().staue == 1 && GPWUser.sharedInstance().isLogin == true{
+//                    strongSelf.joinButton.isEnabled = false
+//                    strongSelf.joinButton.setTitle("新手标只能投一次", for: .normal)
+//                    strongSelf.joinButton.setBackgroundImage(UIImage(named: ""), for: .normal)
+//                    strongSelf.joinButton.backgroundColor = UIColor.hex("c3c3c3")
+//                }
+//            }
             }, failure: { error in
         })
     }
@@ -332,11 +297,13 @@ extension GPWProjectDetailViewController: UITableViewDelegate, UITableViewDataSo
             return cell
         } else if indexPath.section == 1 {
             let cell: GPWFirstDetailCell2 = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! GPWFirstDetailCell2
-            let array = [
-                ["img": #imageLiteral(resourceName: "project_detail_ asset"), "text": "资产来自于央企、国企、上市公司"],
-                ["img": #imageLiteral(resourceName: "project_detail_safe"), "text": "接入银行资金存管系统"]
-            ]
-            cell.setupCell(dict: array[indexPath.row])
+            if let json = json {
+                let array = [
+                    ["img": #imageLiteral(resourceName: "project_detail_ asset"), "text": json["ZC"].stringValue],
+                    ["img": #imageLiteral(resourceName: "project_detail_safe"), "text": json["HF"].stringValue]
+                ]
+                cell.setupCell(dict: array[indexPath.row])
+            }
             if indexPath.row == 1 {
                 cell.lineView.isHidden = true
             } else {
@@ -345,9 +312,25 @@ extension GPWProjectDetailViewController: UITableViewDelegate, UITableViewDataSo
             return cell
         } else if indexPath.section == 2 {
             let cell: GPWFirstDetailCell3 = tableView.dequeueReusableCell(withIdentifier: "cell3", for: indexPath) as! GPWFirstDetailCell3
+            if let json = json {
+                cell.setupCell(day: json["deadline"].stringValue, returnStr: json["WYL"].stringValue)
+            }
             return cell
         } else {
             let cell: GPWFirstDetailCell4 = tableView.dequeueReusableCell(withIdentifier: "cell4", for: indexPath) as! GPWFirstDetailCell4
+            cell.tapAction = { [weak self] (index) in
+                guard let strongSelf = self else { return }
+                switch index {
+                case 0:    //项目详情
+                    break
+                case 1:   //风险控制
+                    break
+                case 2:     //加入记录
+                    break
+                default:
+                    break
+                }
+            }
             return cell
         }
     }

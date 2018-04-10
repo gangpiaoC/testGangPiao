@@ -197,17 +197,17 @@ class GPWProjectCell: UITableViewCell {
             dateLabel.textColor = UIColor.hex("b9b9b9")
             staticIncomeLabel.textColor = UIColor.hex("b9b9b9")
         case "COLLECTING":
-            statusLabel.text = "即将开放"
-            statusImgView.isHidden = true
-            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
-        case "RELEASE":
             statusLabel.text = "立即加入"
             statusImgView.isHidden = true
             balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
+        case "RELEASE":
+            statusLabel.text = "即将开放"
+            statusImgView.isHidden = true
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
         default:
             statusImgView.isHidden = true
             statusLabel.text = "即将开放"
-            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
             break
         }
     }

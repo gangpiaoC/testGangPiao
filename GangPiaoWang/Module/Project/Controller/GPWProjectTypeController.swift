@@ -89,7 +89,7 @@ extension GPWProjectTypeController {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printLog(message: "cell-->>index: \(indexPath.row)")
-        let projectID = dataArray[indexPath.row]["auto_id"]
+        let projectID = dataArray[indexPath.row]["auto_id"].intValue
         printLog(message: projectID)
         let vc = GPWProjectDetailViewController(projectID: "\(projectID)")
         vc.title = dataArray[indexPath.row]["title"].string

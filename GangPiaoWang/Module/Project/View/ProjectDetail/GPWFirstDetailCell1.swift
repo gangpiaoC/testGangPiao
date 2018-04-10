@@ -235,7 +235,7 @@ class GPWFirstDetailCell1: UITableViewCell {
             if GPWUser.sharedInstance().staue == 0 {
                 if dict["rate_loaner"].doubleValue > 0 {
                     let attrText = NSMutableAttributedString()
-                    attrText.append(NSAttributedString.attributedString(dict["rate_loaner"].stringValue, mainColor: UIColor.white, mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"].stringValue)%", secondColor: UIColor.white, secondFont: 26, secondFontWeight: .medium))
+                    attrText.append(NSAttributedString.attributedString(dict["rate_loaner"].stringValue, mainColor: UIColor.white, mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"].stringValue)", secondColor: UIColor.white, secondFont: 26, secondFontWeight: .medium))
                     attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium)]))
                     incomeLabel.attributedText = attrText
                 }
@@ -245,6 +245,10 @@ class GPWFirstDetailCell1: UITableViewCell {
         startInvestLabel.attributedText = NSAttributedString.attributedString(dict["begin_amount"].stringValue, mainColor: UIColor.white, mainFont: 18, mainFontWeight: .medium,  second: "天", secondColor: UIColor.hex("fdc3a7"), secondFont: 12)
         progressLabel.text =  "已完成\(dict["jindu"].floatValue)%"
         progressView.progress = dict["jindu"].floatValue / 100
+        
+        bottomLeftSubtitleLabel.text = dict["daytime"].stringValue
+        bottomMiddleSubtitleLabel.text = dict["daytime"].stringValue
+        bottomRightSubtitleLabel.text = dict["daytimeout"].stringValue
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

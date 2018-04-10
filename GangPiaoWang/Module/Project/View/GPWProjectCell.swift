@@ -11,96 +11,79 @@ import SnapKit
 import SwiftyJSON
 
 class GPWProjectCell: UITableViewCell {
-    var buyHandle: (()->Void)?
-    fileprivate var companyLabelWidth: Constraint!
-    fileprivate let bottomView: UIView = {
-        let view = UIView()
-        view.backgroundColor = bgColor
-        return view
-    }()
     fileprivate let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.hex("333333")
+        titleLabel.textColor = UIColor.hex("4f4f4f")
         titleLabel.font = UIFont.customFont(ofSize: 16.0)
+        titleLabel.text = "新手专享"
         return titleLabel
     }()
-    fileprivate let tiyanImgView:UIImageView = {
-       let imgView = UIImageView()
-        imgView.image = UIImage(named: "project_list_tiyan")
-        return imgView
-    }()
-
-    //公司背景图
-    fileprivate let companyImgView:UIImageView = {
-        let imgView = UIImageView()
-        imgView.image = UIImage(named: "home_project_commany")
-        return imgView
-    }()
-
-    fileprivate let  companyLabel: UILabel = {
-        let companyLabel = UILabel()
-        companyLabel.text = "中国建业承兑"
-        companyLabel.textColor = UIColor.white
-        companyLabel.textAlignment = .center
-        companyLabel.font = UIFont.customFont(ofSize: 14.0)
-        return companyLabel
-    }()
-    fileprivate let staticIncomeLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.hex("999999")
-        label.text = "年化利率"
-        label.font = UIFont.customFont(ofSize: 12.0)
-        return label
-    }()
-    fileprivate let incomeLabel: RTLabel = {
-        let label = RTLabel()
-        return label
-    }()
-
-    fileprivate let staticDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "借款期限"
-        label.textColor = UIColor.hex("999999")
-        label.font = UIFont.customFont(ofSize: 12.0)
-        return label
-    }()
-    fileprivate let dateLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = titleColor
-        label.font = UIFont.customFont(ofSize: 22.0)
-        return label
-    }()
-    fileprivate let staticDayLabel: UILabel = {
-        let label = UILabel()
-        label.text = "天"
-        label.textColor = titleColor
-        label.font = UIFont.customFont(ofSize: 12.0)
-        return label
-    }()
-    fileprivate let balanceLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.hex("999999")
-        label.font = UIFont.customFont(ofSize: 12.0)
-        return label
-    }()
-    fileprivate let button: UIButton = {
+    
+    let newbieButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.isUserInteractionEnabled = false
-        button.titleLabel?.font = UIFont.customFont(ofSize: 16.0)
+        button.titleLabel?.font = UIFont.customFont(ofSize: 14.0)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setBackgroundImage(UIImage(named: "project_list_pay"), for: .normal)
+        button.setTitle("新手加息", for: .normal)
+        button.backgroundColor = UIColor.hex("f5a623")
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 11
+        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .highlighted)
+        button.adjustsImageWhenHighlighted = false
         button.isUserInteractionEnabled = false
         return button
     }()
-    fileprivate let rightImgView:UIImageView = {
-        let rightImgView = UIImageView()
-        return rightImgView
+    
+    let rightArrowImgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "project_rightArrow"))
+    
+    let  statusLabel: UILabel = {
+        let label = UILabel()
+        label.text = "即将开放"
+        label.textColor = UIColor.hex("b7b7b7")
+        label.font = UIFont.customFont(ofSize: 12.0)
+        return label
     }()
     
-    @objc private func buttonAction() {
-        guard let buyHandle = buyHandle else { return }
-        buyHandle()
-    }
+    let statusImgView = UIImageView(image: #imageLiteral(resourceName: "project_statusCompleted"))
+    
+    let staticIncomeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.hex("b7b7b7")
+        label.text = "历史年化利率"
+        label.font = UIFont.customFont(ofSize: 12.0)
+        return label
+    }()
+    
+    let incomeLabel: UILabel = {
+        let label = UILabel()
+        label.attributedText = NSAttributedString.attributedString("9.0", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("fa713d"), secondFont: 20, secondFontWeight: .medium)
+        return label
+    }()
+
+    let staticDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "期限"
+        label.textColor = UIColor.hex("4f4f4f")
+        label.font = UIFont.customFont(ofSize: 18.0)
+        return label
+    }()
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.hex("fa713d")
+        label.font = UIFont.customFont(ofSize: 18.0)
+        label.text = "30天"
+        return label
+    }()
+    
+    fileprivate let balanceLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.hex("4f4f4f")
+        label.font = UIFont.customFont(ofSize: 12.0)
+        label.text = "100元起投 剩余651,000元"
+        return label
+    }()
+
+    let lineView = UIView(bgColor: UIColor.hex("f2f2f2"))
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -109,94 +92,69 @@ class GPWProjectCell: UITableViewCell {
     }
     
     private func commonInitialize() {
-        contentView.addSubview(bottomView)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(tiyanImgView)
-        contentView.addSubview(rightImgView)
-        contentView.addSubview(companyImgView)
-        contentView.addSubview(companyLabel)
+        contentView.addSubview(newbieButton)
+        contentView.addSubview(statusLabel)
+        contentView.addSubview(rightArrowImgView)
+        contentView.addSubview(statusImgView)
         contentView.addSubview(staticIncomeLabel)
         contentView.addSubview(incomeLabel)
         contentView.addSubview(staticDateLabel)
         contentView.addSubview(dateLabel)
-        contentView.addSubview(staticDayLabel)
         contentView.addSubview(balanceLabel)
-        contentView.addSubview(button)
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        contentView.addSubview(lineView)
+        newbieButton.setButtonImageTitleStyle(.imagePositionLeft, padding: 2)
         
-        bottomView.snp.makeConstraints { (maker) in
-            maker.bottom.equalTo(contentView)
-            maker.left.equalTo(16)
-            maker.right.equalTo(-16)
-            maker.height.equalTo(1)
+        titleLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(contentView).offset(28)
+            maker.left.equalTo(staticIncomeLabel)
         }
-        
-        titleLabel.snp.makeConstraints { maker in
-            maker.top.equalTo(contentView)
-            maker.left.equalTo(contentView).offset(16)
-            maker.height.equalTo(46)
-        }
-
-        companyImgView.snp.makeConstraints { (maker) in
+        newbieButton.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(titleLabel)
-            maker.left.equalTo(titleLabel.snp.right).offset(6)
-            maker.width.equalTo(98)
+            maker.left.equalTo(titleLabel.snp.right).offset(8)
+            maker.width.equalTo(90)
             maker.height.equalTo(22)
         }
-        
-        companyLabel.snp.makeConstraints { (make) in
-           make.top.left.bottom.right.equalTo(companyImgView)
-        }
-        
-        tiyanImgView.snp.makeConstraints { (maker) in
-            maker.left.equalTo(titleLabel.snp.right).offset(10)
+        rightArrowImgView.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(titleLabel)
-        }
-        rightImgView.snp.makeConstraints { (make) in
-            make.top.equalTo(contentView)
-            make.right.equalTo(contentView).offset(-16)
-        }
-        staticIncomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(titleLabel.snp.bottom).offset(25)
-            maker.left.equalTo(contentView).offset(16)
-            maker.height.equalTo(12)
-        }
-        staticDateLabel.snp.makeConstraints { (maker) in
-            maker.left.equalTo(contentView).offset(pixw(p: 189))
-            maker.centerY.equalTo(staticIncomeLabel)
-            maker.height.equalTo(staticIncomeLabel)
-        }
-        
-        balanceLabel.snp.makeConstraints { (maker) in
-            maker.centerY.equalTo(staticDateLabel)
-            maker.height.equalTo(staticDateLabel)
             maker.right.equalTo(contentView).offset(-16)
         }
-        
+        statusLabel.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(rightArrowImgView)
+            maker.right.equalTo(rightArrowImgView.snp.left).offset(-4)
+        }
+        statusImgView.snp.makeConstraints { (maker) in
+            maker.right.equalTo(contentView)
+            maker.top.equalTo(titleLabel.snp.bottom).offset(12)
+        }
         incomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(staticIncomeLabel.snp.bottom).offset(14)
-            maker.left.equalTo(contentView).offset(16)
-            maker.width.equalTo(167-16)
-            maker.height.equalTo(43)
+            maker.top.equalTo(titleLabel.snp.bottom).offset(18)
+            maker.left.equalTo(staticIncomeLabel)
         }
-        
+        staticDateLabel.snp.makeConstraints { (maker) in
+            maker.bottom.equalTo(incomeLabel).offset(-3)
+            maker.left.equalTo(contentView.centerX)
+        }
         dateLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(staticDateLabel.snp.bottom).offset(27)
+            maker.centerY.equalTo(staticDateLabel)
+            maker.left.equalTo(staticDateLabel.snp.right).offset(3)
+        }
+        staticIncomeLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(incomeLabel.snp.bottom).offset(7)
+            maker.left.equalTo(contentView).offset(16)
+        }
+        balanceLabel.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(staticIncomeLabel)
             maker.left.equalTo(staticDateLabel)
-            maker.height.equalTo(22)
+            maker.right.equalTo(contentView).offset(-16)
         }
-        
-        staticDayLabel.snp.makeConstraints { (maker) in
-            maker.bottom.equalTo(dateLabel)
-            maker.left.equalTo(dateLabel.snp.right)
-            maker.width.equalTo(15)
-            maker.bottom.equalTo(contentView.snp.bottom).offset(-26)
-            
+        lineView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(staticIncomeLabel.snp.bottom).offset(28)
+            maker.left.equalTo(staticIncomeLabel)
+            maker.height.equalTo(1.0)
+            maker.right.bottom.equalTo(contentView)
         }
-        button.snp.makeConstraints { (maker) in
-            maker.top.equalTo(balanceLabel.snp.bottom).offset(18)
-            maker.right.equalTo(contentView).offset(-7)
-        }
+       
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -205,65 +163,52 @@ class GPWProjectCell: UITableViewCell {
     
     func setupCell(dict: JSON) {
         titleLabel.text = dict["title"].string ?? "钢票宝20161226"
-        let  dic = dict["acceptance_enterprise"].string ?? "0"
-        if dic == "0" {
-            companyLabel.isHidden = true
-            companyImgView.isHidden = true
-        }else{
-            companyLabel.isHidden = false
-            companyImgView.isHidden = false
-            companyLabel.text = dict["acceptance_enterprise"].string ?? "0"
-            let companyWidth = self.getWith(str: companyLabel.text!, font: companyLabel.font)
-            companyImgView.snp.remakeConstraints({ (make) in
-                make.centerY.equalTo(titleLabel)
-                make.left.equalTo(titleLabel.snp.right).offset(6)
-                make.width.equalTo(companyWidth + 20)
-                make.height.equalTo(22)
-            })
+        if dict["is_index"].intValue == 1 {   //新手标
+            newbieButton.isHidden = false
+            let attrText = NSMutableAttributedString()
+            attrText.append(NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"])", secondColor: UIColor.hex("fa713d"), secondFont: 26, secondFontWeight: .medium))
+            attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.hex("fa713d")]))
+            incomeLabel.attributedText = attrText
+        } else {
+            newbieButton.isHidden = true
+            incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("fa713d"), secondFont: 20, secondFontWeight: .medium)
         }
-        balanceLabel.text = "剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
-        dateLabel.text = "\(dict["deadline"].int ?? 0)"
-        incomeLabel.text = "<font size=36 color='#f6390c'>\(dict["rate_loaner"])</font><font size=18 color='#f6390c'>%</font>"
-       tiyanImgView.isHidden = true
-        balanceLabel.isHidden = false
-        if dict["type"].string == "TIYAN" {
-            balanceLabel.isHidden = true
-            rightImgView.image = UIImage(named: "")
-             tiyanImgView.isHidden = false
-        }else if dict["is_index"].intValue == 1 {
-            if GPWUser.sharedInstance().staue == 0 && dict["rate_loaner"].doubleValue > 0 {
-                rightImgView.image = UIImage(named: "home_project_xinshou")
-                incomeLabel.text = "<font size=36 color='#f6390c'>\(dict["rate_loaner"])</font><font size=18 color='#f6390c'>%</font><font size=24 color='#f6390c'>+</font><font size=24 color='#f6390c'>\(dict["rate_new"])</font><font size=16 color='#f6390c'>%</font>"
-            }else {
-                rightImgView.image = UIImage(named: "home_project_hot")
-            }
-        }else{
-            rightImgView.image = UIImage(named: "")
-        }
-        
+        dateLabel.text = "\(dict["deadline"].int ?? 0)天"
+       
+        statusLabel.text = "即将开放"
+        statusImgView.isHidden = true
+        balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
+        titleLabel.textColor = UIColor.hex("4f4f4f")
+        balanceLabel.textColor = UIColor.hex("4f4f4f")
+        staticDateLabel.textColor = UIColor.hex("4f4f4f")
+        dateLabel.textColor = UIColor.hex("fa713d")
+        staticIncomeLabel.textColor = UIColor.hex("b7b7b7")
         let state = dict["status"].string ?? "COLLECTING"
         switch state {
-        case "FULLSCALE":
-            button.setBackgroundImage(UIImage(named: "project_list_qiangguang"), for: .normal)
-            balanceLabel.text = "已满标"
-        case "REPAYING":
-            button.setBackgroundImage(UIImage(named: "project_list_huikuanzhong"), for: .normal)
-            balanceLabel.text = "已满标"
-        case "FINISH":
-            button.setBackgroundImage(UIImage(named: "project_list_yihuikuan"), for: .normal)
-            balanceLabel.text = "已满标"
+        case "FINISH", "REPAYING", "FULLSCALE":
+            statusLabel.text = ""
+            statusImgView.isHidden = false
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+            newbieButton.isHidden = true
+             incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("b9b9b9"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("b9b9b9"), secondFont: 20, secondFontWeight: .medium)
+            titleLabel.textColor = UIColor.hex("b9b9b9")
+            balanceLabel.textColor = UIColor.hex("b9b9b9")
+            staticDateLabel.textColor = UIColor.hex("b9b9b9")
+            dateLabel.textColor = UIColor.hex("b9b9b9")
+            staticIncomeLabel.textColor = UIColor.hex("b9b9b9")
         case "COLLECTING":
-            button.setBackgroundImage(UIImage(named: "project_list_pay"), for: .normal)
+            statusLabel.text = "即将开放"
+            statusImgView.isHidden = true
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
         case "RELEASE":
-            button.setBackgroundImage(UIImage(named: "project_list_rightnow"), for: .normal)
+            statusLabel.text = "立即加入"
+            statusImgView.isHidden = true
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
         default:
-            button.setBackgroundImage(UIImage(named: "project_list_qiangguang"), for: .normal)
+            statusImgView.isHidden = true
+            statusLabel.text = "即将开放"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
             break
         }
-    }
-    func getWith(str:String,font:UIFont) -> CGFloat{
-        let options:NSStringDrawingOptions = .usesLineFragmentOrigin
-        let boundingRect = str.boundingRect(with:  CGSize(width: 300, height: 22), options: options, attributes:[NSAttributedStringKey.font:font], context: nil)
-        return boundingRect.width
     }
 }

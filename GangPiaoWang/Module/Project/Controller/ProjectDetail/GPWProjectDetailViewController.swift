@@ -14,14 +14,14 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
     
     fileprivate var isCanShare: Bool = false
     
-    //起息方式  1融满起息  2立即起息
-    var  rateMode = 1
+//    //起息方式  1融满起息  2立即起息
+//    var  rateMode = 1
     
     //是否隐藏满标奖励 1隐藏  0 展示
-    var  isHiddenFull = 0
+//    var  isHiddenFull = 0
     
-    private var cell2LeftText: [String] = ["起息方式", "还款方式", "温馨提示"]
-    private var cell2RightText: [String] = ["立即起息", "一次性还本付息", "新手用户出借仅享有一次加息机会"]
+//    private var cell2LeftText: [String] = ["起息方式", "还款方式", "温馨提示"]
+//    private var cell2RightText: [String] = ["立即起息", "一次性还本付息", "新手用户出借仅享有一次加息机会"]
     private var json: JSON?
     
     lazy var tableView: UITableView = {
@@ -110,7 +110,6 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
             if let is_idcard = GPWUser.sharedInstance().is_idcard {
                 if is_idcard == 0 {
                     let infoVC = UserReadInfoViewController()
-                    //self.navigationController?.show(infoVC, sender: nil)
                     self.navigationController?.pushViewController(infoVC, animated: true)
                 } else {
                     MobClick.event("biao", label: "详情_立即加入")
@@ -121,7 +120,6 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
                         let investVC = GPWInvestViewController(itemID: projectID)
                         investVC.title = parent?.title
                         self.navigationController?.pushViewController(investVC, animated: true)
-                        //                    self.navigationController?.show(investVC, sender: nil)
                     }
                 }
             }
@@ -149,7 +147,7 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
     }
     
     @objc private func share() {
-//        firstVC.shareViewShow()
+        shareViewShow()
     }
     
     deinit {
@@ -237,25 +235,25 @@ extension GPWProjectDetailViewController: UITableViewDelegate, UITableViewDataSo
             strongSelf.json = json
             strongSelf.title = json["title"].stringValue
             strongSelf.isCanShare = true
-            strongSelf.isHiddenFull = 0
-            if json["full_scale"]["close"].intValue == 0 {
-                strongSelf.isHiddenFull = 1
-            }
+//            strongSelf.isHiddenFull = 0
+//            if json["full_scale"]["close"].intValue == 0 {
+//                strongSelf.isHiddenFull = 1
+//            }
             
-            if json["start_interest"].stringValue == "融满后起息" {
-                strongSelf.rateMode = 1
-            }else{
-                strongSelf.rateMode = 2
-            }
-            strongSelf.cell2LeftText = ["起息方式", "还款方式"]
-            strongSelf.cell2RightText = [json["start_interest"].stringValue, json["refund_type"].stringValue]
-            
-            if json["is_index"].intValue == 1 {
-                if GPWUser.sharedInstance().staue == 0 {
-                    strongSelf.cell2LeftText.append("温馨提示")
-                    strongSelf.cell2RightText.append("新手用户出借仅享有一次加息机会")
-                }
-            }
+//            if json["start_interest"].stringValue == "融满后起息" {
+//                strongSelf.rateMode = 1
+//            }else{
+//                strongSelf.rateMode = 2
+//            }
+//            strongSelf.cell2LeftText = ["起息方式", "还款方式"]
+//            strongSelf.cell2RightText = [json["start_interest"].stringValue, json["refund_type"].stringValue]
+//
+//            if json["is_index"].intValue == 1 {
+//                if GPWUser.sharedInstance().staue == 0 {
+//                    strongSelf.cell2LeftText.append("温馨提示")
+//                    strongSelf.cell2RightText.append("新手用户出借仅享有一次加息机会")
+//                }
+//            }
             
             strongSelf.tableView.reloadData()
             guard let status = json["status"].string else {

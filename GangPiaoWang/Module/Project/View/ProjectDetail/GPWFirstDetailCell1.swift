@@ -145,8 +145,8 @@ class GPWFirstDetailCell1: UITableViewCell {
         dateLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(staticDateLabel)
             maker.left.equalTo(staticDateLabel.snp.right).offset(6)
-            maker.right.equalTo(topBgView).offset(-16)
-            maker.width.equalTo(80)
+            maker.right.equalTo(topBgView).offset(-21)
+            maker.width.equalTo(55)
         }
         
         
@@ -250,7 +250,7 @@ class GPWFirstDetailCell1: UITableViewCell {
             }
         }
         dateLabel.attributedText = NSAttributedString.attributedString(dict["deadline"].stringValue, mainColor: UIColor.white, mainFont: 18, mainFontWeight: .medium, second: "天", secondColor: UIColor.hex("fdc3a7"), secondFont: 12)
-        startInvestLabel.attributedText = NSAttributedString.attributedString(dict["begin_amount"].stringValue, mainColor: UIColor.white, mainFont: 18, mainFontWeight: .medium,  second: "天", secondColor: UIColor.hex("fdc3a7"), secondFont: 12)
+        startInvestLabel.attributedText = NSAttributedString.attributedString(dict["begin_amount"].stringValue, mainColor: UIColor.white, mainFont: 18, mainFontWeight: .medium,  second: "元", secondColor: UIColor.hex("fdc3a7"), secondFont: 12)
         progressLabel.text =  "已完成\(dict["jindu"].floatValue)%"
         progressView.progress = dict["jindu"].floatValue / 100
         progressImgConstraint.update(offset: CGFloat(progressView.progress) * progressView.width)

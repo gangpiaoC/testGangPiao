@@ -35,12 +35,14 @@ class GPWProjectCell: UITableViewCell {
     }()
     
     let rightArrowImgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "project_rightArrow"))
+    var newbieButtonWidthConstraint: Constraint!
     
     let  statusLabel: UILabel = {
         let label = UILabel()
         label.text = "即将开放"
         label.textColor = UIColor.hex("b7b7b7")
         label.font = UIFont.customFont(ofSize: 12.0)
+        label.textAlignment = .right
         return label
     }()
     
@@ -105,6 +107,8 @@ class GPWProjectCell: UITableViewCell {
         contentView.addSubview(lineView)
         newbieButton.setButtonImageTitleStyle(.imagePositionLeft, padding: 2)
         
+        titleLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 755), for: .horizontal)
+        titleLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 249), for: .horizontal)
         titleLabel.snp.makeConstraints { (maker) in
             maker.top.equalTo(contentView).offset(28)
             maker.left.equalTo(staticIncomeLabel)
@@ -112,16 +116,19 @@ class GPWProjectCell: UITableViewCell {
         newbieButton.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(titleLabel)
             maker.left.equalTo(titleLabel.snp.right).offset(8)
-            maker.width.equalTo(90)
+            newbieButtonWidthConstraint = maker.width.equalTo(90).constraint
             maker.height.equalTo(22)
         }
         rightArrowImgView.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(titleLabel)
             maker.right.equalTo(contentView).offset(-16)
         }
+        statusLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .horizontal)
+        statusLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 755), for: .horizontal)
         statusLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(rightArrowImgView)
             maker.right.equalTo(rightArrowImgView.snp.left).offset(-4)
+            maker.left.equalTo(newbieButton.snp.right).offset(5)
         }
         statusImgView.snp.makeConstraints { (maker) in
             maker.right.equalTo(contentView)
@@ -133,7 +140,7 @@ class GPWProjectCell: UITableViewCell {
         }
         staticDateLabel.snp.makeConstraints { (maker) in
             maker.bottom.equalTo(incomeLabel).offset(-3)
-            maker.left.equalTo(contentView.snp.centerX).offset(-20)
+            maker.left.equalTo(contentView.snp.centerX)
         }
         dateLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(staticDateLabel)
@@ -146,7 +153,7 @@ class GPWProjectCell: UITableViewCell {
         balanceLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(staticIncomeLabel)
             maker.left.equalTo(staticDateLabel)
-            maker.right.equalTo(contentView).offset(-16)
+            maker.right.equalTo(contentView)
         }
         lineView.snp.makeConstraints { (maker) in
             maker.top.equalTo(staticIncomeLabel.snp.bottom).offset(28)
@@ -165,12 +172,14 @@ class GPWProjectCell: UITableViewCell {
         titleLabel.text = dict["title"].string ?? "钢票宝20161226"
         if dict["is_index"].intValue == 1 && GPWUser.sharedInstance().staue == 0 {   //新手标
             newbieButton.isHidden = false
+            newbieButtonWidthConstraint.update(offset: 90)
             let attrText = NSMutableAttributedString()
             attrText.append(NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"])", secondColor: UIColor.hex("fa713d"), secondFont: 26, secondFontWeight: .medium))
             attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.hex("fa713d")]))
             incomeLabel.attributedText = attrText
         } else {
             newbieButton.isHidden = true
+            newbieButtonWidthConstraint.update(offset: 0)
             incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("fa713d"), secondFont: 20, secondFontWeight: .medium)
         }
         dateLabel.text = "\(dict["deadline"].int ?? 0)天"

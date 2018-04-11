@@ -19,46 +19,71 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
     var duanCode:String?
 
     //邀请码
-    fileprivate var yaoCodeTextField:UITextField!
+    fileprivate var inviterTextField:UITextField!
+    let yaoImgView = UIImageView(frame: CGRect(x: 16, y: 4, width: 8, height: 12))
 
     var bottomView:UIView!
-
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView(bgColor: UIColor.white)
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+        return scrollView
+    }()
+    let inviterBgView = UIView(bgColor: UIColor.white)
+    let acceptButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "user_register_acceptUnSelected"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "user_register_acceptSelected"), for: .selected)
+        button.isSelected = true
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "注册"
+        self.title = "快速注册"
         self.bgView.backgroundColor = UIColor.white
-        let array = [
-            ["img":"user_login_phone","place":"请输入手机号"],
-            ["img":"user_regiter_code","place":"请输入验证码"],
-            ["img":"user_login_pw","place":"由6-16位字母+数字组成"]
-        ]
+        bgView.addSubview(scrollView)
+        
         var maxheight:CGFloat = 0
+        
+        let  topImgView = UIImageView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: pixw(p: 98)))
+        topImgView.image = UIImage(named: "user_zhuce_bottom")
+        scrollView.addSubview(topImgView)
+        
+        let array = [
+            ["tip":"手机号","place":"请输入手机号"],
+            ["tip":"验证码","place":"请输入手机验证码"],
+            ["tip":"登录密码","place":"含字母+数字的6-16个字符"]
+        ]
+        maxheight = topImgView.maxY
         for i in 0 ..< array.count {
             
-            let imgView = UIImageView(frame: CGRect(x: 16, y: maxheight + 21, width: 18, height: 21))
-            imgView.image = UIImage(named: array[i]["img"]!)
-            self.bgView.addSubview(imgView)
+            let tipLabel = UILabel(frame: CGRect(x: 16, y: maxheight + 21, width: 66, height: 21))
+            tipLabel.textColor = UIColor.hex("4f4f4f")
+            tipLabel.font = UIFont.systemFont(ofSize: 16)
+            tipLabel.text = array[i]["tip"]
+            scrollView.addSubview(tipLabel)
             
-            let  textField = UITextField(frame: CGRect(x: imgView.maxX + 14, y: imgView.y, width: 200, height: imgView.height))
+            let  textField = UITextField(frame: CGRect(x: tipLabel.maxX + 14, y: tipLabel.y, width: 200, height: tipLabel.height))
             textField.placeholder = array[i]["place"]
             textField.tag = 100 + i
             textField.font = UIFont.customFont(ofSize: 16)
-            self.bgView.addSubview(textField)
+            scrollView.addSubview(textField)
             
             if i == 1 {
                 textField.width = SCREEN_WIDTH / 2
                 numRtlabel = RTLabel(frame: CGRect(x: SCREEN_WIDTH - 100 - 16, y: 0, width: 100, height: 0))
-                numRtlabel.text = "<a href='huoquyanzheng'><font size=16 color='#f6390d'>获取验证码</font></a>"
+                numRtlabel.text = "<a href='huoquyanzheng'><font size=16 color='#fa713d'>获取验证码</font></a>"
                 numRtlabel.delegate = self
                 numRtlabel.textAlignment = RTTextAlignmentRight
                 numRtlabel.height = numRtlabel.optimumSize.height
                 numRtlabel.centerY = textField.centerY
-                self.bgView.addSubview(numRtlabel)
+                scrollView.addSubview(numRtlabel)
                 
                 let line = UIView(frame: CGRect(x: numRtlabel.x, y: maxheight + 22, width: 1, height: 20))
                 line.backgroundColor = lineColor
-                self.bgView.addSubview(line)
+                scrollView.addSubview(line)
             }
 
             if i != 2 {
@@ -66,125 +91,99 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
             }else{
                 textField.isSecureTextEntry = true
             }
-            maxheight = textField.maxY + 10
-            let line = UIView(frame: CGRect(x: imgView.x, y: maxheight, width: SCREEN_WIDTH - imgView.x * 2, height: 0.5))
+            maxheight = textField.maxY + 20
+            let line = UIView(frame: CGRect(x: tipLabel.x, y: maxheight, width: SCREEN_WIDTH - tipLabel.x * 2, height: 1))
             line.backgroundColor = lineColor
-            self.bgView.addSubview(line)
+            scrollView.addSubview(line)
             maxheight = line.maxY
         }
         
-        maxheight += 12
-        //有邀请人按钮
-        let  yaoBtn = UIButton(type: .custom)
-        yaoBtn.frame = CGRect(x: 0, y: maxheight, width: 32 + 70 + 32, height: 20)
-        yaoBtn.setTitle("我有邀请人", for: .normal)
-        yaoBtn.tag = 1000
-        yaoBtn.addTarget(self, action: #selector(self.yaoBtnClick(sender:)), for: .touchUpInside)
-        yaoBtn.setTitleColor(UIColor.hex("fcc30b"), for: .normal)
-        yaoBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
-        self.bgView.addSubview(yaoBtn)
-
-        let yaoImgView = UIImageView(frame: CGRect(x: 16, y: 4, width: 8, height: 12))
-        yaoImgView.image = UIImage(named:"user_q_setpw_normal")
-        yaoImgView.centerY = yaoBtn.titleLabel?.centerY ?? 0
-        yaoImgView.tag = 10000
-        yaoBtn.addSubview(yaoImgView)
-        maxheight = yaoBtn.maxY + 28
-        maxheight = yaoBtn.maxY
-
-        yaoCodeTextField = UITextField(frame: CGRect(x: 16, y: maxheight, width: SCREEN_WIDTH - 32, height: 16 + 16 + 16))
-        yaoCodeTextField.placeholder = "请输入邀请码(选填)"
-        yaoCodeTextField.keyboardType = .numberPad
-        yaoCodeTextField.font = UIFont.customFont(ofSize: 16)
-        yaoCodeTextField.textColor = UIColor.hex("333333")
-        self.bgView.addSubview(yaoCodeTextField)
-
-        let yaoLine = UIView(frame: CGRect(x: 0, y: yaoCodeTextField.height - 0.5, width: yaoCodeTextField.width, height: 0.5))
+        inviterBgView.frame = CGRect(x: 0, y: maxheight, width: SCREEN_WIDTH, height: 0)
+        scrollView.addSubview(inviterBgView)
+        
+        let yaoCodeLabel = UILabel(frame: CGRect(x: 16, y: 21, width: 66, height: 21))
+        yaoCodeLabel.textColor = UIColor.hex("4f4f4f")
+        yaoCodeLabel.font = UIFont.systemFont(ofSize: 16)
+        yaoCodeLabel.text = "邀请人"
+        inviterBgView.addSubview(yaoCodeLabel)
+        
+        inviterTextField = UITextField(frame: CGRect(x: yaoCodeLabel.maxX + 14, y: yaoCodeLabel.y, width: 200, height: yaoCodeLabel.height))
+        inviterTextField.placeholder = "请输入邀请人手机号(选填)"
+        inviterTextField.keyboardType = .numberPad
+        inviterTextField.font = UIFont.customFont(ofSize: 16)
+        inviterTextField.textColor = UIColor.hex("333333")
+        inviterBgView.addSubview(inviterTextField)
+        
+        let yaoLine = UIView(frame: CGRect(x: yaoCodeLabel.x, y: 56 - 1, width: SCREEN_WIDTH - yaoCodeLabel.x * 2, height: 1))
         yaoLine.backgroundColor = lineColor
-        yaoCodeTextField.addSubview(yaoLine)
-
-        maxheight = yaoBtn.maxY + 16
+        inviterBgView.addSubview(yaoLine)
+        
+        maxheight = inviterBgView.maxY
+        
         bottomView = UIView(frame: CGRect(x: 0, y: maxheight, width: SCREEN_WIDTH, height: 0))
         bottomView.backgroundColor = UIColor.white
-        self.bgView.addSubview(bottomView)
+        scrollView.addSubview(bottomView)
+        //有邀请人按钮
+        let  yaoBtn = UIButton(type: .custom)
+        yaoBtn.frame = CGRect(x: 0, y: 12, width: 32 + 70 + 32, height: 20)
+        yaoBtn.setTitle("我有邀请人", for: .normal)
+        yaoBtn.addTarget(self, action: #selector(yaoBtnClick(sender:)), for: .touchUpInside)
+        yaoBtn.setTitleColor(UIColor.hex("f5a623"), for: .normal)
+        yaoBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
+        bottomView.addSubview(yaoBtn)
 
-        maxheight = 0
-        let nextBtn = UIButton(type: .custom)
-        nextBtn.frame = CGRect(x: 10, y: maxheight, width: SCREEN_WIDTH - 10 * 2, height: 64)
-        nextBtn.setTitle("立即注册", for: .normal)
-        nextBtn.addTarget(self, action: #selector(self.btnClick), for: .touchUpInside)
-        nextBtn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
-        bottomView.addSubview(nextBtn)
-        maxheight = nextBtn.maxY + 18
+        yaoImgView.image = UIImage(named:"user_q_setpw_normal")
+        yaoImgView.centerY = yaoBtn.titleLabel?.centerY ?? 0
+        yaoBtn.addSubview(yaoImgView)
         
-        let label = RTLabel(frame: CGRect(x: 0 , y: maxheight, width: SCREEN_WIDTH, height: 12))
-        label.text = "<font size=14 color='#999999'>注册即同意</font><a href='gotoxieyi'><font size=14 color='#00affe'>《钢票网用户注册协议》</font></a>"
-        label.delegate = self
-        label.textAlignment =  RTTextAlignmentCenter
-        label.height = label.optimumSize.height
-        bottomView.addSubview(label)
-        maxheight = label.maxY + 20
+        maxheight = yaoBtn.maxY + 34
+        let registerButton = UIButton(type: .custom)
+        registerButton.frame = CGRect(x: 16, y: maxheight, width: SCREEN_WIDTH - 16 * 2, height: 48)
+        registerButton.setTitle("完成注册", for: .normal)
+        registerButton.addTarget(self, action: #selector(self.btnClick), for: .touchUpInside)
+        registerButton.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
+        bottomView.addSubview(registerButton)
+        maxheight = registerButton.maxY + 8
         
-        //登录
-        let loginBtn = UIButton(frame: CGRect(x: 0, y:  maxheight, width:  SCREEN_WIDTH, height: 20))
-        loginBtn.tag = 100
-        loginBtn.addTarget(self, action: #selector(self.loginClick), for: .touchUpInside)
-        bottomView.addSubview(loginBtn)
+        acceptButton.frame = CGRect(x: 8, y: maxheight, width: 30, height: 30)
+        acceptButton.addTarget(self, action: #selector(acceptButtonAction(_:)), for: .touchUpInside)
+        bottomView.addSubview(acceptButton)
         
-        let titleLabel = UILabel(frame: loginBtn.bounds)
-        titleLabel.attributedText = NSAttributedString.attributedString( "已有帐号？", mainColor: UIColor.hex("666666"), mainFont: 16, second: "请登录", secondColor: redTitleColor, secondFont: 16)
-        titleLabel.textAlignment = .center
-        loginBtn.addSubview(titleLabel)
-
-        maxheight = loginBtn.maxY + 50
+        let protocalLabel = RTLabel(frame: CGRect(x: acceptButton.maxX  , y: maxheight, width: SCREEN_WIDTH, height: 14))
+        protocalLabel.text = "<font size=14 color='#999999'>同意</font><a href='gotoxieyi'><font size=14 color='#4585f5'>《钢票网用户注册协议》</font></a>"
+        protocalLabel.delegate = self
+        protocalLabel.textAlignment =  RTTextAlignmentLeft
+        protocalLabel.height = protocalLabel.optimumSize.height
+        bottomView.addSubview(protocalLabel)
+        protocalLabel.centerY = acceptButton.centerY
+        bottomView.height = protocalLabel.maxY
+        maxheight += protocalLabel.maxY + 16
         
-        let  bottomLabel = RTLabel(frame: CGRect(x: 0, y: maxheight, width: SCREEN_WIDTH, height: 22))
-        bottomLabel.text = "<font size=16 color='#f6390d'>注册送\(GPWGlobal.sharedInstance().app_exper_amount)元体验金 </font>"
-        bottomLabel.textAlignment = RTTextAlignmentCenter
-        bottomLabel.height = bottomLabel.optimumSize.height
-        bottomView.addSubview(bottomLabel)
-
-        maxheight = bottomLabel.maxY + 11
-        
-        let  bottomImgView = UIImageView(frame: CGRect(x: 0, y: bottomLabel.maxY + 20, width: 90, height: 54))
-        bottomImgView.centerX = SCREEN_WIDTH / 2
-        bottomImgView.image = UIImage(named: "user_zhuce_bottom")
-        bottomView.addSubview(bottomImgView)
-        bottomView.height = bottomLabel.maxY
+        scrollView.contentSize = CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT < 568 + 216 ? 568 + 216 : SCREEN_HEIGHT)
     }
 
+    @objc func acceptButtonAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
     @objc func yaoBtnClick(sender:UIButton) {
-        yaoCodeTextField.resignFirstResponder()
-        let  tempImgView = sender.viewWithTag(10000) as! UIImageView
-        let tempPoint = tempImgView.center
-        var tempImgName = "user_q_setpw_normal"
-        var tempWidth = 8
-        var tempHeight = 12
-        var bottomY = sender.maxY + 16
-        if sender.tag == 1000 {
-            sender.tag = 1001
-            tempImgName = "user_q_setpw_selected"
-            tempWidth = 12
-            tempHeight = 8
-            bottomY = yaoCodeTextField.maxY + 27
-        }else{
-            sender.tag = 1000
+        inviterTextField.resignFirstResponder()
+        sender.isSelected = !sender.isSelected
+        var transform = CGAffineTransform.identity
+        if sender.isSelected {  //
+            transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.5))
+            inviterBgView.height = 56
+        } else {
+            inviterBgView.height = 0
         }
-
-        UIView.animate(withDuration: 0.5) {
+        let bottomY = inviterBgView.maxY
+        
+        UIView.animate(withDuration: 0.25) {
+            self.yaoImgView.transform = transform
             self.bottomView.y = bottomY
-            tempImgView.width = CGFloat(tempWidth)
-            tempImgView.height = CGFloat(tempHeight)
-            tempImgView.center = tempPoint
-            tempImgView.image = UIImage(named:tempImgName)
         }
     }
     
-    @objc func loginClick() {
-        let vc = GPWLoginViewController()
-        vc.flag = "1"
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
     
     func startTime() {
         
@@ -203,9 +202,9 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         if (num == 0) {
             timer.invalidate()
             CFRunLoopStop(CFRunLoopGetCurrent())
-            numRtlabel.text = "<a href='huoquyanzheng'><font size=16 color='#f6390d'>获取验证码</font></a>"
+            numRtlabel.text = "<a href='huoquyanzheng'><font size=16 color='#fa713d'>获取验证码</font></a>"
         }else{
-            numRtlabel.text = "<a href='eeee'><font size=14 color='#f6390d'>"+String(describing: num!)+"s</font><font size=14 color='#333333'>后重新发送</font></a>"
+            numRtlabel.text = "<a href='eeee'><font size=14 color='#fa713d'>"+String(describing: num!)+"s</font><font size=14 color='#333333'>后重新发送</font></a>"
         }
     }
     
@@ -213,7 +212,12 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         let phoneNum = (self.bgView.viewWithTag(100) as! UITextField).text!
         let code = (self.bgView.viewWithTag(101) as! UITextField).text!
         let pw = (self.bgView.viewWithTag(102) as! UITextField).text ?? ""
-
+        
+        if !acceptButton.isSelected {
+            self.bgView.makeToast("请先同意《钢票网用户注册协议》")
+            return
+        }
+        
         //验证密码是否符合
         let regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
@@ -250,7 +254,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         let pw = (self.bgView.viewWithTag(102) as! UITextField).text!
         var dic = ["mobile":phoneNum]
         dic["password"] = pw
-        let yaostr = yaoCodeTextField.text ?? ""
+        let yaostr = inviterTextField.text ?? ""
         if yaostr.count > 1 {
             dic["invite_code"] = yaostr
         }
@@ -282,7 +286,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
                          strongSelf.flag = true
                         strongSelf.getVerificationCode()
                         strongSelf.num = 60
-                        strongSelf.numRtlabel.text = "<a href='eeee'><font size=14 color='#f6390d'>"+String(describing: strongSelf.num!)+"s</font><font size=14 color='#333333'>后重新发送</font></a>"
+                        strongSelf.numRtlabel.text = "<a href='eeee'><font size=14 color='#fa713d'>"+String(describing: strongSelf.num!)+"s</font><font size=14 color='#333333'>后重新发送</font></a>"
                         strongSelf.startTime()
                     }
                     }, failure: { (error) in

@@ -101,8 +101,7 @@ class GPWInvestViewController: GPWSecBaseViewController,UIScrollViewDelegate{
             })
 
             strongSelf.commonInit()
-            let count = strongSelf.redEnvelops.count + strongSelf.rateCoupons.count
-            strongSelf.couponNum = count
+            strongSelf.couponNum = json["coupon_count"].intValue
             strongSelf.resetCoupon()
             
             strongSelf.balanceLabel.text = json["balance_amount"].stringValue + "元"
@@ -663,8 +662,12 @@ extension GPWInvestViewController: UITextFieldDelegate {
             let redEnvelopAmount = 0.0
             //标的天数
             let deadline = dicJson["deadline"].doubleValue
-
-            resetCoupon()
+            
+            if let rateCoupon = currentRateCoupon {
+                rate_loaner += Double(rateCoupon.rate) ?? 0.00 / 100
+            } else {
+                resetCoupon()
+            }
             let text =  mon / 365.0 * deadline * rate_loaner / 100.0 + redEnvelopAmount
             incomeLabel.text = GPWHelper.notRounding(text, afterPoint: 2)
         }

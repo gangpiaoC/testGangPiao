@@ -26,6 +26,7 @@
 		5B473BCB207C556B00B09054 /* GPWVipListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BC7207C556B00B09054 /* GPWVipListViewController.swift */; };
 		5B473BCD207C673E00B09054 /* GPWFirstDetailCell4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BCC207C673E00B09054 /* GPWFirstDetailCell4.swift */; };
 		5B473BD1207C6A1A00B09054 /* UIButton+EX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BD0207C6A1900B09054 /* UIButton+EX.swift */; };
+		5B473BD7207DB91A00B09054 /* GPWProjectDetailAddRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B473BD6207DB91A00B09054 /* GPWProjectDetailAddRecordViewController.swift */; };
 		5B6115411E096FE9000BA2DC /* GPWProjectIntroduceCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6115401E096FE9000BA2DC /* GPWProjectIntroduceCell1.swift */; };
 		5B6115431E096FF7000BA2DC /* GPWProjectIntroduceCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6115421E096FF7000BA2DC /* GPWProjectIntroduceCell2.swift */; };
 		5B6115451E097006000BA2DC /* GPWProjectIntroduceCell3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6115441E097006000BA2DC /* GPWProjectIntroduceCell3.swift */; };
@@ -487,6 +488,7 @@
 		5B473BC7207C556B00B09054 /* GPWVipListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWVipListViewController.swift; sourceTree = "<group>"; };
 		5B473BCC207C673E00B09054 /* GPWFirstDetailCell4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWFirstDetailCell4.swift; sourceTree = "<group>"; };
 		5B473BD0207C6A1900B09054 /* UIButton+EX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+EX.swift"; sourceTree = "<group>"; };
+		5B473BD6207DB91A00B09054 /* GPWProjectDetailAddRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWProjectDetailAddRecordViewController.swift; sourceTree = "<group>"; };
 		5B6115401E096FE9000BA2DC /* GPWProjectIntroduceCell1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceCell1.swift; sourceTree = "<group>"; };
 		5B6115421E096FF7000BA2DC /* GPWProjectIntroduceCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceCell2.swift; sourceTree = "<group>"; };
 		5B6115441E097006000BA2DC /* GPWProjectIntroduceCell3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceCell3.swift; sourceTree = "<group>"; };
@@ -1167,6 +1169,7 @@
 			isa = PBXGroup;
 			children = (
 				5B68B6591E08CA37000355B5 /* GPWProjectDetailViewController.swift */,
+				5B473BD6207DB91A00B09054 /* GPWProjectDetailAddRecordViewController.swift */,
 				5B68B65D1E08CA7E000355B5 /* GPWSecondDetailViewController.swift */,
 				5B68B65F1E08CA9E000355B5 /* GPWSubPageBaseViewController.swift */,
 				5B68B6631E08CE5A000355B5 /* GPWProjectIntroduceVC.swift */,
@@ -3156,6 +3159,7 @@
 				808B98F01EBB0F0B0066AA40 /* GYCircleConst.swift in Sources */,
 				5B3EEBB81E0C3CB80092014C /* GPWNavigationController.swift in Sources */,
 				806EDCD51F3AE34D006A06AF /* TYWaterWaveView.m in Sources */,
+				5B473BD7207DB91A00B09054 /* GPWProjectDetailAddRecordViewController.swift in Sources */,
 				5B68B6741E09232E000355B5 /* GPWFirstDetailCell1.swift in Sources */,
 				80E737C81E9E22DF006BA745 /* GPWProjectIntroduceCell0.swift in Sources */,
 				808B98F31EBB0F0B0066AA40 /* GYLockLabel.swift in Sources */,

@@ -50,13 +50,15 @@ class GPWFirstDetailCell1: UITableViewCell {
     
     private let progressView: UIProgressView = {
         let progress = UIProgressView(progressViewStyle: .bar)
-        progress.backgroundColor = UIColor.hex("ffac59")
-        progress.progressTintColor = UIColor.hex("ffd199")
+        progress.backgroundColor = UIColor.hex("e9561f")
+        progress.progressImage = #imageLiteral(resourceName: "project_detail_progress")
         progress.layer.masksToBounds = true
-        progress.progressImage = #imageLiteral(resourceName: "tabBar_0")
         progress.layer.cornerRadius = 4
         return progress
     }()
+    
+    let progressImgView = UIImageView(image: #imageLiteral(resourceName: "project_detail_progressThumb"))
+    var progressImgConstraint: Constraint!
     
     private let progressLabel: UILabel = {
         let label = UILabel()
@@ -117,6 +119,7 @@ class GPWFirstDetailCell1: UITableViewCell {
         contentView.addSubview(bottomLeftSubtitleLabel)
         contentView.addSubview(bottomMiddleSubtitleLabel)
         contentView.addSubview(bottomRightSubtitleLabel)
+        contentView.addSubview(progressImgView)
         
         
         topBgView.snp.makeConstraints { (maker) in
@@ -162,6 +165,11 @@ class GPWFirstDetailCell1: UITableViewCell {
             maker.top.equalTo(staticIncomeLabel.snp.bottom).offset(37)
             maker.left.right.equalTo(topBgView).inset(16)
             maker.height.equalTo(6)
+        }
+        
+        progressImgView.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(progressView)
+            progressImgConstraint = maker.centerX.equalTo(progressView.snp.left).constraint
         }
         
         progressLabel.snp.makeConstraints { (maker) in
@@ -245,6 +253,7 @@ class GPWFirstDetailCell1: UITableViewCell {
         startInvestLabel.attributedText = NSAttributedString.attributedString(dict["begin_amount"].stringValue, mainColor: UIColor.white, mainFont: 18, mainFontWeight: .medium,  second: "天", secondColor: UIColor.hex("fdc3a7"), secondFont: 12)
         progressLabel.text =  "已完成\(dict["jindu"].floatValue)%"
         progressView.progress = dict["jindu"].floatValue / 100
+        progressImgConstraint.update(offset: CGFloat(progressView.progress) * progressView.width)
         
         bottomLeftSubtitleLabel.text = dict["daytime"].stringValue
         bottomMiddleSubtitleLabel.text = dict["daytime"].stringValue

@@ -59,6 +59,11 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -91,8 +96,6 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
             maker.bottom.equalTo(bottomView).offset(-16)
             maker.height.equalTo(46)
         }
-        
-        requestData()
     }
     
     @objc private func join() {
@@ -320,13 +323,20 @@ extension GPWProjectDetailViewController: UITableViewDelegate, UITableViewDataSo
             let cell: GPWFirstDetailCell4 = tableView.dequeueReusableCell(withIdentifier: "cell4", for: indexPath) as! GPWFirstDetailCell4
             cell.tapAction = { [weak self] (index) in
                 guard let strongSelf = self else { return }
+                guard let json = strongSelf.json else {
+                    strongSelf.bgView.makeToast("数据异常")
+                    return
+                }
                 switch index {
                 case 0:    //项目详情
-                    break
+                    let vc = GPWWebViewController(subtitle: "", url: json["details_link"].stringValue)
+                    strongSelf.navigationController?.show(vc, sender: nil)
                 case 1:   //风险控制
-                    break
+                    let vc = GPWWebViewController(subtitle: "", url: json["risk_link"].stringValue)
+                    strongSelf.navigationController?.show(vc, sender: nil)
                 case 2:     //加入记录
-                    break
+                    let vc = GPWProjectDetailAddRecordViewController(projectID: json["auto_id"].stringValue)
+                    strongSelf.navigationController?.show(vc, sender: nil)
                 default:
                     break
                 }

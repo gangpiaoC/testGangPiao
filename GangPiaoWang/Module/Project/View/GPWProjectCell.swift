@@ -133,7 +133,7 @@ class GPWProjectCell: UITableViewCell {
         }
         staticDateLabel.snp.makeConstraints { (maker) in
             maker.bottom.equalTo(incomeLabel).offset(-3)
-            maker.left.equalTo(contentView.snp.centerX)
+            maker.left.equalTo(contentView.snp.centerX).offset(-20)
         }
         dateLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(staticDateLabel)

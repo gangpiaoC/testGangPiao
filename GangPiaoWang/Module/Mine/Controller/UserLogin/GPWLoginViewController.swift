@@ -24,7 +24,7 @@ class GPWLoginViewController: GPWSecBaseViewController {
         super.viewDidLoad()
         self.bgView.backgroundColor = UIColor.white
         self.title = "登录"
-        let btntitleArray = ["密码登录","快捷登录"]
+        let btntitleArray = ["短信登录", "密码登录"]
         for i in 0 ..< btntitleArray.count {
             let btn = UIButton(type: .custom)
             btn.frame = CGRect(x: SCREEN_WIDTH / 2 * CGFloat(i), y: 0, width: SCREEN_WIDTH / 2, height: 56)
@@ -44,27 +44,27 @@ class GPWLoginViewController: GPWSecBaseViewController {
         havePWView.superController = self
         havePWView.flag = flag
         havePWView.setGestureFlag = flag
+        havePWView.isHidden = true
         self.bgView.addSubview(havePWView)
         
         quiretView = GPWQuirstView(frame: CGRect(x: 0, y: tempBtn.maxY + 20, width: SCREEN_WIDTH, height: 300))
         quiretView.superController = self
         quiretView.setGestureFlag = flag
         quiretView.flag = flag
-        quiretView.isHidden = true
         self.bgView.addSubview(quiretView)
     }
     
     @objc func changBtn(sender:UIButton) {
-        sender.setTitleColor(redColor, for: .normal)
+        sender.setTitleColor(UIColor.hex("fa713d"), for: .normal)
         sender.backgroundColor = UIColor.white
         var  btnTag = 1000
         if sender.tag == 1000 {
             btnTag = 1001
-            self.havePWView.isHidden = false
-            self.quiretView.isHidden = true
-        }else{
             self.havePWView.isHidden = true
             self.quiretView.isHidden = false
+        }else{
+            self.havePWView.isHidden = false
+            self.quiretView.isHidden = true
         }
         let tempBtn = self.bgView.viewWithTag(btnTag) as! UIButton
         tempBtn.setTitleColor(UIColor.hex("aaaaaa"), for: .normal)

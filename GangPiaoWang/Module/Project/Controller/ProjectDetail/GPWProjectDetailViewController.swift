@@ -133,6 +133,7 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
         navigationBar.addSubview(button)
         navigationBar.backgroundColor = UIColor.hex("fa713d")
         navigationBar.titleLabel.textColor = UIColor.white
+        navigationBar.isLineHidden = true
         
         let size = CGSize(width: 60, height: 44)
         let scaleImage = #imageLiteral(resourceName: "nav_left_wite").imageWithContentSize(size: size, drawInRect: CGRect(x: 16, y: 14, width: 8, height: 16))

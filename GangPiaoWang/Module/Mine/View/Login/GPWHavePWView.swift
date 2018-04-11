@@ -21,16 +21,18 @@ class GPWHavePWView: UIView {
     }
     func comminit()  {
         let array = [
-            ["img":"user_login_phone","place":"请输入手机号"],    ["img":"user_login_pw","place":"请输入密码"]
+            ["tip":"手机号","place":"请输入手机号"],    ["tip":"登录密码","place":"请输入密码"]
         ]
         
         var maxHeiht:CGFloat = 20.0
         for i in 0 ..< array.count  {
-            let imgView = UIImageView(frame: CGRect(x: 16, y: maxHeiht + 21, width: 18, height: 21))
-            imgView.image = UIImage(named: array[i]["img"]!)
-            self.addSubview(imgView)
+            let tipLabel = UILabel(frame: CGRect(x: 16, y: maxHeiht + 21, width: 66, height: 21))
+            tipLabel.text = array[i]["tip"]
+            tipLabel.textColor = UIColor.hex("4f4f4f")
+            tipLabel.font = UIFont.systemFont(ofSize: 16)
+            self.addSubview(tipLabel)
             
-            let  textField = UITextField(frame: CGRect(x: imgView.maxX + 14, y: imgView.y, width: 200, height: imgView.height))
+            let  textField = UITextField(frame: CGRect(x: tipLabel.maxX + 14, y: tipLabel.y, width: SCREEN_WIDTH - 160, height: tipLabel.height))
             textField.placeholder = array[i]["place"]
             textField.tag = 100 + i
             textField.font = UIFont.customFont(ofSize: 16)
@@ -53,7 +55,7 @@ class GPWHavePWView: UIView {
             }
             self.addSubview(textField)
             
-            let line = UIView(frame: CGRect(x: imgView.x, y: textField.maxY + 8, width: SCREEN_WIDTH - imgView.x * 2, height: 0.5))
+            let line = UIView(frame: CGRect(x: tipLabel.x, y: textField.maxY + 18, width: SCREEN_WIDTH - tipLabel.x * 2, height: 1))
             line.backgroundColor = lineColor
             self.addSubview(line)
             maxHeiht = line.maxY
@@ -61,20 +63,20 @@ class GPWHavePWView: UIView {
         
         maxHeiht += 40
         let btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: 10, y: maxHeiht, width: SCREEN_WIDTH - 10 * 2, height: 64)
+        btn.frame = CGRect(x: 10, y: maxHeiht, width: SCREEN_WIDTH - 10 * 2, height: 46)
         btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
         btn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         btn.tag = 100
-        btn.titleLabel?.font = UIFont.customFont(ofSize: 16)
+        btn.titleLabel?.font = UIFont.customFont(ofSize: 18)
         btn.setTitle("登录", for: .normal)
         self.addSubview(btn)
         maxHeiht = btn.maxY + 21
         
         //注册
         let zhuceBtn = UIButton(type: .custom)
-        zhuceBtn.frame = CGRect(x: btn.x, y: maxHeiht, width: 80, height: 13)
+        zhuceBtn.frame = CGRect(x: btn.x, y: maxHeiht, width: 80, height: 15)
         zhuceBtn.setTitle("注册领红包", for: .normal)
-        zhuceBtn.setTitleColor(redColor, for: .normal)
+        zhuceBtn.setTitleColor(UIColor.hex("fa713d"), for: .normal)
         zhuceBtn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         zhuceBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
         zhuceBtn.tag = 101
@@ -82,11 +84,11 @@ class GPWHavePWView: UIView {
         
         //忘记密码
         let forgetPwBtn = UIButton(type: .custom)
-        forgetPwBtn.frame = CGRect(x: SCREEN_WIDTH - 38 - 60, y: maxHeiht, width: 60, height: 13)
+        forgetPwBtn.frame = CGRect(x: SCREEN_WIDTH - 16 - 60, y: maxHeiht, width: 60, height: 15)
         forgetPwBtn.setTitle("忘记密码", for: .normal)
         forgetPwBtn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         forgetPwBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
-        forgetPwBtn.setTitleColor(redColor, for: .normal)
+        forgetPwBtn.setTitleColor(UIColor.hex("fa713d"), for: .normal)
         forgetPwBtn.tag = 102
         self.addSubview(forgetPwBtn)
     }

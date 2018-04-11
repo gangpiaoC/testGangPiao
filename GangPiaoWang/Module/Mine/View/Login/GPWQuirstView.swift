@@ -28,16 +28,18 @@ class GPWQuirstView: UIView,RTLabelDelegate {
     }
     func comminit()  {
         let array = [
-            ["img":"user_login_phone","place":"请输入手机号"],    ["img":"user_login_code","place":"请输入手机验证码"]
+            ["tip":"手机号","place":"请输入手机号"],    ["tip":"验证码","place":"请输入手机验证码"]
         ]
         
         var maxHeiht:CGFloat = 20.0
         for i in 0 ..< array.count  {
-            let imgView = UIImageView(frame: CGRect(x: 16, y: maxHeiht + 21, width: 18, height: 21))
-            imgView.image = UIImage(named: array[i]["img"]!)
-            self.addSubview(imgView)
+            let tipLabel = UILabel(frame: CGRect(x: 16, y: maxHeiht + 21, width: 50, height: 21))
+            tipLabel.text = array[i]["tip"]
+            tipLabel.textColor = UIColor.hex("4f4f4f")
+            tipLabel.font = UIFont.systemFont(ofSize: 16)
+            self.addSubview(tipLabel)
             
-            let  textField = UITextField(frame: CGRect(x: imgView.maxX + 14, y: imgView.y, width: 160, height: imgView.height))
+            let  textField = UITextField(frame: CGRect(x: tipLabel.maxX + 14, y: tipLabel.y, width: 160, height: tipLabel.height))
             textField.placeholder = array[i]["place"]
             textField.tag = 1000 + i
             textField.font = UIFont.customFont(ofSize: 16)
@@ -46,14 +48,14 @@ class GPWQuirstView: UIView,RTLabelDelegate {
                 //验证码按钮
                 numRtlabel = RTLabel(frame: CGRect(x: SCREEN_WIDTH - 80 - 16, y: textField.y, width: 70 + 16, height: textField.height))
                 numRtlabel.backgroundColor = UIColor.white
-                numRtlabel.text = "<a href='huoquyanzheng'><font size=13 color='#f6390d'>获取验证码</font></a>"
+                numRtlabel.text = "<a href='huoquyanzheng'><font size=13 color='#fa713d'>获取验证码</font></a>"
                 numRtlabel.delegate = self
                 numRtlabel.textAlignment = RTTextAlignmentCenter
                 numRtlabel.height = numRtlabel.optimumSize.height
                 numRtlabel.centerY = textField.centerY
                 self.addSubview(numRtlabel)
 
-                let  shuLine = UIView(frame: CGRect(x: numRtlabel.x - 18, y: 0, width: 0.5, height: 20))
+                let  shuLine = UIView(frame: CGRect(x: numRtlabel.x - 8, y: 0, width: 1, height: 20))
                 shuLine.backgroundColor = lineColor
                 shuLine.centerY = textField.centerY
                 self.addSubview(shuLine)
@@ -64,7 +66,7 @@ class GPWQuirstView: UIView,RTLabelDelegate {
                 }
             }
             self.addSubview(textField)
-            let line = UIView(frame: CGRect(x: imgView.x, y: textField.maxY + 8, width: SCREEN_WIDTH - imgView.x * 2 , height: 0.5))
+            let line = UIView(frame: CGRect(x: tipLabel.x, y: textField.maxY + 18, width: SCREEN_WIDTH - tipLabel.x * 2 , height: 1))
             line.backgroundColor = lineColor
             self.addSubview(line)
             maxHeiht = line.maxY
@@ -72,14 +74,24 @@ class GPWQuirstView: UIView,RTLabelDelegate {
         
         maxHeiht += 40
         let btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: 10, y: maxHeiht, width: SCREEN_WIDTH - 10 * 2, height: 64)
+        btn.frame = CGRect(x: 10, y: maxHeiht, width: SCREEN_WIDTH - 10 * 2, height: 46)
         btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
-        btn.titleLabel?.font = UIFont.customFont(ofSize: 16)
+        btn.titleLabel?.font = UIFont.customFont(ofSize: 18)
         btn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         btn.tag = 100
         btn.setTitle("登录", for: .normal)
         self.addSubview(btn)
-        maxHeiht = btn.maxY + 21
+        maxHeiht = btn.maxY + 20
+        
+        let registerLabel = RTLabel(frame: CGRect(x: 10, y: maxHeiht, width: 180, height: 20))
+        registerLabel.backgroundColor = UIColor.white
+        registerLabel.text = "<a href='zhuce'><font size=14 color='#666666'>还没有账号？</font><font size=14 color='#fa713d'>注册领红包</font></a>"
+        registerLabel.delegate = self
+        registerLabel.textAlignment = RTTextAlignmentCenter
+        registerLabel.height = registerLabel.optimumSize.height
+        registerLabel.centerX = btn.centerX
+        self.addSubview(registerLabel)
+        maxHeiht = registerLabel.maxY + 20
     }
     
     @objc func btnClick(sender:UIButton) {
@@ -157,9 +169,9 @@ class GPWQuirstView: UIView,RTLabelDelegate {
         if (num == 0) {
             timer.invalidate()
             CFRunLoopStop(CFRunLoopGetCurrent())
-            numRtlabel.text = "<a href='huoquyanzheng'><font size=13 color='#f6390d'>获取验证码</font></a>"
+            numRtlabel.text = "<a href='huoquyanzheng'><font size=13 color='#fa713d'>获取验证码</font></a>"
         }else{
-            numRtlabel.text = "<a href='eeee'><font size=13 color='#f6390d'>"+String(describing: num!)+"s</font><font size=11 color='#333333'>后重新发送</font></a>"
+            numRtlabel.text = "<a href='eeee'><font size=13 color='#fa713d'>"+String(describing: num!)+"s</font><font size=11 color='#333333'>后重新发送</font></a>"
         }
     }
     func rtLabel(_ rtLabel: Any!, didSelectLinkWithURL url: String!) {
@@ -173,7 +185,7 @@ class GPWQuirstView: UIView,RTLabelDelegate {
                     strongSelf.duanCode = json.string
                     strongSelf.getVerificationCode(phone: phoneNum)
                     strongSelf.num = 60
-                    strongSelf.numRtlabel.text = "<a href='eeee'><font size=13 color='#f6390d'>"+String(describing: strongSelf.num!)+"s</font><font size=13 color='#333333'>后重新发送</font></a>"
+                    strongSelf.numRtlabel.text = "<a href='eeee'><font size=13 color='#fa713d'>"+String(describing: strongSelf.num!)+"s</font><font size=13 color='#333333'>后重新发送</font></a>"
                     strongSelf.startTime()
                 }) { (error) in
                     

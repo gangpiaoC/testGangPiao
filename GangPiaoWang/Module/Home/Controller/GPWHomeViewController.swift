@@ -293,9 +293,9 @@ extension GPWHomeViewController{
                 return cell!
             }
         }else  if indexPath.section == 3 - adFlag{
-            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHProjectCell") as? GPWHProjectCell
+            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWProjectCell") as? GPWProjectCell
             if cell == nil {
-                cell = GPWHProjectCell(style: .default, reuseIdentifier: "GPWHProjectCell")
+                cell = GPWProjectCell(style: .default, reuseIdentifier: "GPWProjectCell")
             }
            cell?.setupCell(dict: (self.dic?["Item"][indexPath.row])!)
             return cell!

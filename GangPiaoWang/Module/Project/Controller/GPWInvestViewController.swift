@@ -486,7 +486,16 @@ extension GPWInvestViewController:RTLabelDelegate {
     fileprivate func resetText() {
         incomeLabel.text = "0.00"
         currentAmount = 0.0
-        resetCoupon()
+        if currentRateCoupon == nil {
+            if couponNum > 0 {
+                reduceLabel.text = "\(couponNum)张可用"
+                reduceLabel.textColor = UIColor.hex("fa713d")
+            } else {
+                reduceLabel.text = "暂无可用"
+                reduceLabel.textColor = UIColor.hex("999999")
+            }
+        }
+        currentRedEnvelop = nil
     }
     
   

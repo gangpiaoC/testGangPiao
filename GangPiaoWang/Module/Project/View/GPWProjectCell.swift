@@ -163,7 +163,7 @@ class GPWProjectCell: UITableViewCell {
     
     func setupCell(dict: JSON) {
         titleLabel.text = dict["title"].string ?? "钢票宝20161226"
-        if dict["is_index"].intValue == 1 {   //新手标
+        if dict["is_index"].intValue == 1 && GPWUser.sharedInstance().staue == 0 {   //新手标
             newbieButton.isHidden = false
             let attrText = NSMutableAttributedString()
             attrText.append(NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"])", secondColor: UIColor.hex("fa713d"), secondFont: 26, secondFontWeight: .medium))

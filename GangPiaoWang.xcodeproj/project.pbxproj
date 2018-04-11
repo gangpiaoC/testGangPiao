@@ -162,7 +162,6 @@
 		8065876C1E8BA37700456034 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8065875E1E8BA33D00456034 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8065876E1E8BA38500456034 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8065875F1E8BA33D00456034 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		806587701E8BA9F500456034 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8065876F1E8BA9F500456034 /* CoreGraphics.framework */; };
-		806E14CF1FB9AD5200E6F8F2 /* GPWHProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E14CE1FB9AD5200E6F8F2 /* GPWHProjectCell.swift */; };
 		806E14D11FB9AD7000E6F8F2 /* GPWHPTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806E14D01FB9AD7000E6F8F2 /* GPWHPTopCell.swift */; };
 		806EDCBB1F3AA99F006A06AF /* GPWFoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806EDCBA1F3AA99F006A06AF /* GPWFoundViewController.swift */; };
 		806EDCCF1F3AE34D006A06AF /* InvestScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 806EDCBF1F3AE34D006A06AF /* InvestScrollView.m */; };
@@ -661,7 +660,6 @@
 		806587601E8BA33D00456034 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		806587611E8BA33D00456034 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		8065876F1E8BA9F500456034 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		806E14CE1FB9AD5200E6F8F2 /* GPWHProjectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWHProjectCell.swift; sourceTree = "<group>"; };
 		806E14D01FB9AD7000E6F8F2 /* GPWHPTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWHPTopCell.swift; sourceTree = "<group>"; };
 		806EDCBA1F3AA99F006A06AF /* GPWFoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWFoundViewController.swift; sourceTree = "<group>"; };
 		806EDCBE1F3AE34D006A06AF /* InvestScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvestScrollView.h; sourceTree = "<group>"; };
@@ -1788,7 +1786,6 @@
 		806E14CD1FB9AD5200E6F8F2 /* GPWHProject */ = {
 			isa = PBXGroup;
 			children = (
-				806E14CE1FB9AD5200E6F8F2 /* GPWHProjectCell.swift */,
 				806E14D01FB9AD7000E6F8F2 /* GPWHPTopCell.swift */,
 			);
 			path = GPWHProject;
@@ -3234,7 +3231,6 @@
 				80EF03931F5FB0C500368493 /* GPWFVFirstDetailCell1.swift in Sources */,
 				80625ED91E07897500456B63 /* EScrollerView.m in Sources */,
 				80A570A41E8246BC00CCB2C7 /* GPWGetFriendsSecCell.swift in Sources */,
-				806E14CF1FB9AD5200E6F8F2 /* GPWHProjectCell.swift in Sources */,
 				80D207CD1FC5680E00D99C45 /* NSString+MIME.m in Sources */,
 				80A93C2F1F3ED0760006C1E0 /* UIRefreshControl+AFNetworking.m in Sources */,
 				80A5707E1E82451100CCB2C7 /* GPWUserMessageController.swift in Sources */,

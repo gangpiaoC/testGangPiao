@@ -15,20 +15,23 @@ class GPWHNowCJCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
+        let topView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 10))
+        topView.backgroundColor = bgColor
+        contentView.addSubview(topView)
 
-        let rightImgView = UIImageView(frame: CGRect(x: 16, y: 30, width: 42, height: 40))
+        let rightImgView = UIImageView(frame: CGRect(x: 16, y: topView.maxY + 32, width: 42, height: 40))
         rightImgView.image = UIImage(named:"home_bottom_right")
         contentView.addSubview(rightImgView)
 
-        let shuLine = UIView(frame: CGRect(x: rightImgView.maxX + 16, y: 24, width: 0.5, height: 54))
+        let shuLine = UIView(frame: CGRect(x: rightImgView.maxX + 16, y: topView.maxY + 24, width: 0.5, height: 54))
         shuLine.backgroundColor = UIColor.hex("d8d8d8")
         contentView.addSubview(shuLine)
 
-        scrollview = InvestScrollView(frame: CGRect(x: shuLine.maxX + 6, y: 20, width: SCREEN_WIDTH - shuLine.maxX - 6 - 16, height: 62))
+        scrollview = InvestScrollView(frame: CGRect(x: shuLine.maxX + 6, y: topView.maxY + 20, width: SCREEN_WIDTH - shuLine.maxX - 6 - 16, height: 62))
         let  gradientLayer = CAGradientLayer()
         gradientLayer.frame = scrollview.bounds
         //设置渐变的主颜色
-        gradientLayer.colors = [UIColor.white.cgColor, UIColor.hex("ffffff", alpha: 0.0).cgColor,UIColor.white.cgColor]
+        gradientLayer.colors = [UIColor.white.cgColor, UIColor.hex("ffffff", alpha: 0.05).cgColor,UIColor.white.cgColor]
         //将gradientLayer作为子layer添加到主layer上
         scrollview.layer.addSublayer(gradientLayer)
         
@@ -52,6 +55,10 @@ class GPWHNowCJCell: UITableViewCell {
         ]
         scrollview.push(titileArray, withW: scrollview.width)
         contentView.addSubview(scrollview)
+
+        let bottomView = UIView(frame: CGRect(x: 0, y: 120, width: SCREEN_WIDTH, height: 10))
+        bottomView.backgroundColor = bgColor
+        contentView.addSubview(bottomView)
     }
     
     func updata(_ inveArray:[JSON])  {

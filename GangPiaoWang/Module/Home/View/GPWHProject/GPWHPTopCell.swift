@@ -11,27 +11,67 @@ import SnapKit
 import SwiftyJSON
 class GPWHPTopCell: UITableViewCell {
 
-    //顶部名称（新手专享）
-    fileprivate var topLabel:UILabel!
+    fileprivate let titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.hex("222222")
+        titleLabel.font = UIFont.customFont(ofSize: 18.0)
+        titleLabel.text = "新手专享"
+        return titleLabel
+    }()
 
-    //横线
-    fileprivate var topLine:UIView!
+    fileprivate let btn: UIButton = {
+        let btn = UIButton(type: UIButtonType.custom)
+        btn.setBackgroundImage(UIImage(named: "home_p_pay"), for: UIControlState.normal)
+        btn.setTitle("新手加息，立即加入", for: UIControlState.normal)
+        btn.titleLabel?.font = UIFont.customFont(ofSize: 18)
+        btn.setTitleColor(UIColor.white, for: UIControlState.normal)
+        return btn
+    }()
 
-    //利率
-    fileprivate var lvLabel: RTLabel!
+    let staticIncomeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.hex("b7b7b7")
+        label.text = "历史年化利率"
+        label.font = UIFont.customFont(ofSize: 12.0)
+        return label
+    }()
 
-    //期限
-    fileprivate var timeLabel:RTLabel!
+    let incomeLabel: UILabel = {
+        let label = UILabel()
+        label.attributedText = NSAttributedString.attributedString("9.0", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("fa713d"), secondFont: 20, secondFontWeight: .medium)
+        return label
+    }()
 
-    //历史年华利率
-    fileprivate var histonryLvLabel:UILabel!
+    let staticDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "期限"
+        label.textColor = UIColor.hex("4f4f4f")
+        label.font = UIFont.customFont(ofSize: 18.0)
+        return label
+    }()
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.hex("fa713d")
+        label.font = UIFont.customFont(ofSize: 18.0)
+        label.text = "30天"
+        return label
+    }()
 
-    //起投和剩余  100元起投 剩余651,000元
-    fileprivate var bsLabel:UILabel!
+    fileprivate let balanceLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.hex("4f4f4f")
+        label.font = UIFont.customFont(ofSize: 12.0)
+        label.text = "100元起投 剩余651,000元"
+        return label
+    }()
 
-    //项目按钮
-    fileprivate var btn:UIButton!
+    fileprivate let bottomView: UIView = {
+        let bottomView = UIView()
+        bottomView.backgroundColor = bgColor
+        return bottomView
+    }()
 
+    let lineView = UIView(bgColor: UIColor.hex("f2f2f2"))
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,88 +80,108 @@ class GPWHPTopCell: UITableViewCell {
     }
 
     private func commonInitialize() {
-
-        topLabel = UILabel(frame: CGRect(x: 16, y: 22, width: SCREEN_WIDTH - 32, height: 18))
-        topLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        topLabel.textColor = UIColor.hex("222222")
-        topLabel.text = "新手专享"
-        contentView.addSubview(topLabel)
-
-        topLine = UIView(frame: CGRect(x: 16, y: topLabel.maxY + 16, width: SCREEN_WIDTH - 16, height: 1))
-        topLine.backgroundColor = UIColor.hex("f2f2f2")
-        contentView.addSubview(topLine)
-
-        timeLabel = RTLabel(frame: CGRect(x: SCREEN_WIDTH / 2, y: topLine.maxY + 39, width: 200, height: 36))
-        timeLabel.text = "<font face='Arial' size=18 color='#4f4f4f'>期限</font><font face='Arial' size=18 color='#fa713d'>30天</font>"
-        timeLabel.size = timeLabel.optimumSize
-        contentView.addSubview(timeLabel)
-
-        bsLabel = UILabel(frame: CGRect(x: timeLabel.x, y: timeLabel.maxY + 2, width: 150, height: 12))
-        bsLabel.font = UIFont.customFont(ofSize: 12)
-        bsLabel.textColor = UIColor.hex("4f4f4f")
-        bsLabel.text = "100元起投 剩余651,000元"
-        contentView.addSubview(bsLabel)
-
-        lvLabel = RTLabel(frame: CGRect(x: topLine.x, y: topLine.maxY + 22, width: 200, height: 36))
-        lvLabel.text = "<font face='Arial' size=36 color='#fa713d'>6.0</font><font face='Arial' size=26 color='#fa713d'>+4.0</font><font face='Arial' size=22 color='#fa713d'>%</font>"
-        lvLabel.size = lvLabel.optimumSize
-        lvLabel.maxY = timeLabel.maxY
-        contentView.addSubview(lvLabel)
-
-        histonryLvLabel = UILabel(frame: CGRect(x: lvLabel.x, y: lvLabel.maxY + 5, width: 150, height: 12))
-        histonryLvLabel.font = UIFont.customFont(ofSize: 12)
-        histonryLvLabel.textColor = UIColor.hex("b7b7b7")
-        histonryLvLabel.text = "历史年化利率"
-        contentView.addSubview(histonryLvLabel)
-        histonryLvLabel.maxY = bsLabel.maxY
-
-        btn = UIButton(frame: CGRect(x: 16, y: histonryLvLabel.maxY + 32, width: SCREEN_WIDTH - 32, height: 46))
-        btn.setBackgroundImage(UIImage(named: "home_pf"), for: .normal)
-        btn.titleLabel?.font = UIFont.customFont(ofSize: 18)
-        btn.titleLabel?.textColor = UIColor.white
-        btn.setTitle("已满标", for: .normal)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(lineView)
+        contentView.addSubview(staticIncomeLabel)
+        contentView.addSubview(incomeLabel)
+        contentView.addSubview(staticDateLabel)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(balanceLabel)
         contentView.addSubview(btn)
+        contentView.addSubview(bottomView)
 
-        let block = UIView(frame: CGRect(x: 0, y: 232, width: SCREEN_WIDTH, height: 10))
-        block.backgroundColor = bgColor
-        self.contentView.addSubview(block)
 
+        titleLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(contentView).offset(22)
+            maker.left.equalTo(16)
+        }
+        lineView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(titleLabel.snp.bottom).offset(16)
+            maker.left.equalTo(titleLabel)
+            maker.height.equalTo(1.0)
+            maker.right.equalTo(contentView)
+        }
+
+        incomeLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(lineView.snp.bottom).offset(22)
+            maker.left.equalTo(lineView)
+        }
+        staticDateLabel.snp.makeConstraints { (maker) in
+            maker.bottom.equalTo(incomeLabel).offset(-3)
+            maker.left.equalTo(contentView.centerX)
+        }
+        dateLabel.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(staticDateLabel)
+            maker.left.equalTo(staticDateLabel.snp.right).offset(3)
+        }
+        staticIncomeLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(incomeLabel.snp.bottom).offset(7)
+            maker.left.equalTo(contentView).offset(16)
+        }
+        balanceLabel.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(staticIncomeLabel)
+            maker.left.equalTo(staticDateLabel)
+            maker.right.equalTo(contentView).offset(-16)
+        }
+        btn.snp.makeConstraints { (maker) in
+            maker.top.equalTo(balanceLabel.snp.bottom).offset(32)
+            maker.left.equalTo(16)
+            maker.right.equalTo(contentView).offset(-16)
+            maker.height.equalTo(46)
+        }
+        bottomView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(btn.snp.bottom).offset(22)
+            maker.height.equalTo(10)
+            maker.bottom.width.equalTo(contentView)
+
+        }
 
     }
-    func setupCell(dict: JSON,index:NSInteger) {
-         lvLabel.text = "<font face='Arial' size=36 color='#fa713d'>\(dict["rate_loaner"])</font><font face='Arial' size=20 color='#fa713d'>%</font>"
-        lvLabel.text = "<font size=50 color='#f6390c'>\(dict["rate_loaner"])</font><font size=22 color='#f6390c'>%</font>"
-        if GPWUser.sharedInstance().staue == 0 && dict["rate_loaner"].doubleValue > 0  {
-             lvLabel.text = "<font face='Arial' size=36 color='#fa713d'>\(dict["rate_loaner"])</font><font face='Arial' size=26 color='#fa713d'>+\(dict["rate_new"])</font><font face='Arial' size=22 color='#fa713d'>%</font>"
-        }
-        bsLabel.text = "\(dict["deadline"])元起投 剩余\(dict["left_amount"])元"
 
-        let state1 = dict["status"].stringValue
-        switch state1 {
-        case "FULLSCALE":
-            btn.setTitle("已满标", for: .normal)
-            break
-        case "REPAYING":
-            btn.setTitle("回款中", for: .normal)
-            break
-        case "FINISH":
-            btn.setTitle("已满标", for: .normal)
-            break
-        case "COLLECTING":
-            btn.setTitle("立即抢购", for: .normal)
-            break
-        case "RELEASE":
-            btn.setTitle("即将开始", for: .normal)
-            break
-        default:
-            btn.setTitle("即将开始", for: .normal)
-            break
-        }
-        if GPWUser.sharedInstance().isLogin == false {
-            btn.setTitle("立即抢购", for: .normal)
-        }
-    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupCell(dict: JSON) {
+
+        if dict["is_index"].intValue == 1 && GPWUser.sharedInstance().staue == 0 {   //新手标
+            let attrText = NSMutableAttributedString()
+            attrText.append(NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"])", secondColor: UIColor.hex("fa713d"), secondFont: 26, secondFontWeight: .medium))
+            attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.hex("fa713d")]))
+            incomeLabel.attributedText = attrText
+        } else {
+            incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("fa713d"), secondFont: 20, secondFontWeight: .medium)
+        }
+        dateLabel.text = "\(dict["deadline"].int ?? 0)天"
+
+        balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000"))元"
+        balanceLabel.textColor = UIColor.hex("4f4f4f")
+        staticDateLabel.textColor = UIColor.hex("4f4f4f")
+        dateLabel.textColor = UIColor.hex("fa713d")
+        staticIncomeLabel.textColor = UIColor.hex("b7b7b7")
+        let state = dict["status"].string ?? "COLLECTING"
+        switch state {
+        case "FINISH", "REPAYING", "FULLSCALE":
+            btn.setBackgroundImage(UIImage(named: "home_p_no"), for: UIControlState.normal)
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+            incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("b9b9b9"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("b9b9b9"), secondFont: 20, secondFontWeight: .medium)
+            balanceLabel.textColor = UIColor.hex("b9b9b9")
+            staticDateLabel.textColor = UIColor.hex("b9b9b9")
+            dateLabel.textColor = UIColor.hex("b9b9b9")
+            staticIncomeLabel.textColor = UIColor.hex("b9b9b9")
+        case "COLLECTING":
+            btn.setBackgroundImage(UIImage(named: "home_p_pay"), for: UIControlState.normal)
+            btn.setTitle("新手加息，立即加入", for: UIControlState.normal)
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
+        case "RELEASE":
+            btn.setBackgroundImage(UIImage(named: "home_p_pay"), for: UIControlState.normal)
+            btn.setTitle("即将开放", for: UIControlState.normal)
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+        default:
+            btn.setBackgroundImage(UIImage(named: "home_p_pay"), for: UIControlState.normal)
+            btn.setTitle("即将开放", for: UIControlState.normal)
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+            break
+        }
     }
 }

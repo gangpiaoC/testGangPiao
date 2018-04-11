@@ -305,12 +305,12 @@ extension GPWVipFDetailViewController{
             }
         }else if indexPath.section == 3 - isHiddenFull {
             let cell: GPWFirstDetailCell2 = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! GPWFirstDetailCell2
-            cell.setupCell(["left": cell2LeftText[indexPath.row], "right": cell2RightText[indexPath.row]], index: indexPath.row, superVC: self)
-            if indexPath.row == 2 && rateMode == 1{
-                cell.markButton.isHidden = true
-            } else {
-                cell.markButton.isHidden = true
-            }
+//            cell.setupCell(["left": cell2LeftText[indexPath.row], "right": cell2RightText[indexPath.row]], index: indexPath.row, superVC: self)
+//            if indexPath.row == 2 && rateMode == 1{
+//                cell.markButton.isHidden = true
+//            } else {
+//                cell.markButton.isHidden = true
+//            }
             return cell
         } else {
             

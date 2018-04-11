@@ -9,11 +9,11 @@
 import Foundation
 
 extension NSAttributedString {
-    class func attributedString(_ main: String, mainColor: UIColor = titleColor, mainFont: CGFloat = 18, second: String, secondColor: UIColor = titleColor, secondFont: CGFloat = 12) -> NSAttributedString {
+    class func attributedString(_ main: String, mainColor: UIColor = titleColor, mainFont: CGFloat = 18, mainFontWeight: UIFont.Weight = .regular, second: String, secondColor: UIColor = titleColor, secondFont: CGFloat = 12, secondFontWeight: UIFont.Weight = .regular) -> NSAttributedString {
         let attr = NSMutableAttributedString()
-        let mainAttr = NSAttributedString(string: main, attributes: [NSAttributedStringKey.foregroundColor: mainColor, NSAttributedStringKey.font: UIFont.customFont(ofSize: mainFont)])
+        let mainAttr = NSAttributedString(string: main, attributes: [NSAttributedStringKey.foregroundColor: mainColor, NSAttributedStringKey.font: UIFont.systemFont(ofSize: mainFont, weight: mainFontWeight)])
         attr.append(mainAttr)
-        let secondAttr = NSAttributedString(string: second, attributes: [NSAttributedStringKey.foregroundColor: secondColor, NSAttributedStringKey.font: UIFont.customFont(ofSize: secondFont)])
+        let secondAttr = NSAttributedString(string: second, attributes: [NSAttributedStringKey.foregroundColor: secondColor, NSAttributedStringKey.font: UIFont.systemFont(ofSize: secondFont, weight: secondFontWeight)])
         attr.append(secondAttr)
         return attr.copy() as! NSAttributedString
     }

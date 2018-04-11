@@ -8,36 +8,24 @@
 
 import UIKit
 
-enum GPWAvailableType: Int {
-    
-    //红包
-    case REDBAG = 1
-    
-    //加息券
-    case RATECOPU
-}
-
 class GPWAvailableRateCouponViewController: GPWSecBaseViewController {
-    var handleRateCouponUsed: ((_ rateCoupon: RateCoupon?, _ isUse: Bool) -> Void)?
-    var handleRedEnvelopUsed: ((_ redEnvelop: RedEnvelop?, _ isUse: Bool) -> Void)?
+    var handleCoupon: ((RedEnvelop?, RateCoupon?) -> Void)?
     fileprivate var tableView: GPWTableView!
     fileprivate var rateCoupons = [RateCoupon]()
     fileprivate var redEnvelops = [RedEnvelop]()
     var currentRedEnvelop:RedEnvelop?
     var currentRateCoupon:RateCoupon?
+    var currentAmount: Double = 0.0
+    var deadLine: Int = 0
     
-    fileprivate var type:GPWAvailableType!
-    
-    init(_ redEnvelops: [RedEnvelop]) {
+    init(redEnvelops: [RedEnvelop], rateCoupons: [RateCoupon], currentRedEnvelop: RedEnvelop?, currentRateCoupon: RateCoupon?, currentAmount: Double, deadLine: Int) {
         super.init(nibName: nil, bundle: nil)
         self.redEnvelops = redEnvelops
-        self.type = .REDBAG
-    }
-    
-    init(_ rateCoupons: [RateCoupon]) {
-        super.init(nibName: nil, bundle: nil)
         self.rateCoupons = rateCoupons
-        self.type = .RATECOPU
+        self.currentRedEnvelop = currentRedEnvelop
+        self.currentRateCoupon = currentRateCoupon
+        self.currentAmount = currentAmount
+        self.deadLine = deadLine
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,11 +34,7 @@ class GPWAvailableRateCouponViewController: GPWSecBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if type == .REDBAG {
-            self.title = "可用红包"
-        }else{
-             self.title = "可用加息券"
-        }
+        self.title = "优惠券"
        
         tableView = GPWTableView(frame: self.bgView.bounds, delegate: self)
         tableView.register(GPWAvailableRateCouponCell.self, forCellReuseIdentifier: "RateCouponCell")
@@ -77,35 +61,17 @@ class GPWAvailableRateCouponViewController: GPWSecBaseViewController {
         selectImgView.centerY = noUseLabel.centerY
         button.addSubview(selectImgView)
         
-        if type == .REDBAG {
-            if currentRedEnvelop == nil {
-                 selectImgView.image = UIImage(named: "project_sure_selected")
-            }
-        }else{
-            if currentRateCoupon == nil {
-                selectImgView.image = UIImage(named: "project_sure_selected")
-            }
+        if currentRedEnvelop == nil && currentRateCoupon == nil {
+             selectImgView.image = UIImage(named: "project_sure_selected")
         }
         tableView.tableHeaderView = headView
         bgView.addSubview(tableView)
     }
     
     @objc private func notUsed() {
-        if type == .REDBAG {
-            MobClick.event("biao", label: "无红包")
-            if let handle = handleRedEnvelopUsed {
-                handle(nil, false)
-                let _ = navigationController?.popViewController(animated: true)
-            }
-        }else{
-            MobClick.event("biao", label: "无加息券")
-            if let handle = handleRateCouponUsed {
-                handle(nil, false)
-                let _ = navigationController?.popViewController(animated: true)
-            }
-        }
-        
-      
+        handleCoupon?(nil, nil)
+        let _ = navigationController?.popViewController(animated: true)
+        MobClick.event("biao", label: "不使用优惠券")
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,27 +80,25 @@ class GPWAvailableRateCouponViewController: GPWSecBaseViewController {
 }
 
 extension GPWAvailableRateCouponViewController: GPWTableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if type == .REDBAG {
+        if section == 0 {
              return redEnvelops.count
-        }else{
+        } else {
             return rateCoupons.count
         }
-       
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       
-        if type == .REDBAG {
-            return 136
-        }else{
-             return 116
-        }
-       
+       return 120
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if type == .REDBAG {
-            
+        if indexPath.section == 0 {
             let cell: GPWUserRBCell = tableView.dequeueReusableCell(withIdentifier: "GPWUserRBCell", for: indexPath) as! GPWUserRBCell
             cell.setupCell(redEnvelops[indexPath.row], selectFlag: currentRedEnvelop == nil ? false : (currentRedEnvelop?.auto_id == redEnvelops[indexPath.row].auto_id ? true : false))
             return cell
@@ -146,17 +110,23 @@ extension GPWAvailableRateCouponViewController: GPWTableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if type == .REDBAG {
-            if let handle = handleRedEnvelopUsed {
-                handle(redEnvelops[indexPath.row], true)
-                let _ = navigationController?.popViewController(animated: true)
+        if indexPath.section == 0 { //红包
+            let redEnvelop = redEnvelops[indexPath.row]
+            if Int(redEnvelop.limit) ?? 300 >= deadLine && currentAmount >= Double(redEnvelop.restrict_amount) {
+                handleCoupon?(redEnvelops[indexPath.row], nil)
+            } else {
+                bgView.makeToast("红包不可用")
+                return
             }
-        }else{
-            if let handle = handleRateCouponUsed {
-                handle(rateCoupons[indexPath.row], true)
-                let _ = navigationController?.popViewController(animated: true)
-            }
+        } else {  //加息
+//            let rateCoupon = rateCoupons[indexPath.row]
+//            if Int(rateCoupon.) ?? 300 >= deadLine {
+//                handleCoupon?(redEnvelops[indexPath.row], nil)
+//            } else {
+//                bgView.makeToast("")
+//            }
+            handleCoupon?(nil, rateCoupons[indexPath.row])
         }
+        let _ = navigationController?.popViewController(animated: true)
     }
 }

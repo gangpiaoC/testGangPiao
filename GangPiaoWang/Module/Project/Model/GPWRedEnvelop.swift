@@ -11,7 +11,7 @@ import SwiftyJSON
 
 struct RedEnvelop {
     var restrict_amount: Int
-    var amount: Int
+    var amount: Int     //红包金额
     var auto_id: String
     var status: String
     var expire: Double

@@ -129,7 +129,7 @@ class GPWUserRBCell: UITableViewCell {
         }
     }
     
-    func setupCell(_ redCoupon: RedEnvelop,selectFlag:Bool) {
+    func setupCell(_ redCoupon: RedEnvelop, selectFlag:Bool) {
         self.selectImgView.isHidden = false
         bagLabel.text = "<font size=24 color='#ffffff'>￥\(redCoupon.amount)</font>"
         temp1Label.text = "单笔出借满\(redCoupon.restrict_amount)元"

@@ -10,19 +10,13 @@ import UIKit
 import Kingfisher
 import SwiftyJSON
 
-class GPWProjectTypeController: GPWSecBaseViewController, GPWTableViewDelegate {
+class GPWProjectTypeController: GPWBaseViewController, GPWTableViewDelegate {
     fileprivate var tableView: GPWTableView!
-    var type:String = "GENERAL"
     fileprivate var page = 1
     fileprivate var dataArray = [JSON]()
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
-        if type == "GENERAL" {
-            self.title = "钢票盈"
-        }else{
-            self.title = "钢融宝"
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +43,7 @@ class GPWProjectTypeController: GPWSecBaseViewController, GPWTableViewDelegate {
     }
     
     private func requestNetData() {
-        GPWNetwork.requetWithGet(url: Financing_list, parameters: ["page": page,"type":self.type], responseJSON:  {
+        GPWNetwork.requetWithGet(url: Financing_list, parameters: ["page": page], responseJSON:  {
             [weak self] (json, msg) in
             guard let strongSelf = self else { return }
             guard let info = json["info"].array else {
@@ -91,20 +85,11 @@ extension GPWProjectTypeController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: GPWProjectCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GPWProjectCell
         cell.setupCell(dict: dataArray[indexPath.row])
-        cell.buyHandle = { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-            let projectID = strongSelf.dataArray[indexPath.row]["auto_id"]
-            let vc = GPWProjectDetailViewController(projectID: "\(projectID)")
-            vc.title = strongSelf.dataArray[indexPath.row]["title"].string
-            strongSelf.navigationController?.show(vc, sender: nil)
-        }
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         printLog(message: "cell-->>index: \(indexPath.row)")
-        let projectID = dataArray[indexPath.row]["auto_id"]
+        let projectID = dataArray[indexPath.row]["auto_id"].intValue
         printLog(message: projectID)
         let vc = GPWProjectDetailViewController(projectID: "\(projectID)")
         vc.title = dataArray[indexPath.row]["title"].string

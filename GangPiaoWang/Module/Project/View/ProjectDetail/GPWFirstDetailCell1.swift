@@ -11,119 +11,78 @@ import SnapKit
 import SwiftyJSON
 
 class GPWFirstDetailCell1: UITableViewCell {
-    private var staticNoviceLabelHeight: Constraint!
-    private var staticDateLabelTop: Constraint!
     private let staticIncomeLabel: UILabel = {
         let label = UILabel()
-        label.textColor = subTitleColor
-        label.text = "年化利率"
-        label.textAlignment = .center
-        label.font = UIFont.customFont(ofSize: 14)
+        label.textColor = UIColor.hex("fdc3a7")
+        label.text = "历史年化利率"
+        label.font = UIFont.customFont(ofSize: 12)
         return label
     }()
-    private let incomeLabel: RTLabel = {
-        let label = RTLabel()
-        label.textAlignment = RTTextAlignmentCenter
-        return label
-    }()
-
-    private let staticNoviceLabel: UILabel = {
+    private let incomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "新手专享"
-        label.textAlignment = .center
-        label.textColor = redTitleColor
-        label.font = UIFont.customFont(ofSize: 11.0)
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 3.0
-        label.layer.borderWidth = 0.5
-        label.layer.borderColor = redTitleColor.cgColor
-        label.isHidden = true
-        return label
-    }()
-    
-    private let staticLimitLabel: UILabel = {
-        let label = UILabel()
-        label.text = "限投3万"
-        label.textAlignment = .center
-        label.textColor = redTitleColor
-        label.font = UIFont.customFont(ofSize: 11.0)
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 3.0
-        label.layer.borderWidth = 0.5
-        label.layer.borderColor = redTitleColor.cgColor
-        label.isHidden = true
         return label
     }()
 
     private let staticDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "借款期限"
-        label.textColor = UIColor.hex("999999")
+        label.text = "产品期限"
+        label.textColor = UIColor.hex("fdc3a7")
         label.font = UIFont.customFont(ofSize: 14.0)
-        return label
-    }()
-    private let dateLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont.customFont(ofSize: 18)
-        label.text = "30天"
         return label
     }()
     
-    private let staticMoneyLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "出借次数"
-        label.textColor = UIColor.hex("999999")
-        label.font = UIFont.customFont(ofSize: 14.0)
-        return label
-    }()
-    private let moneyLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.font = UIFont.customFont(ofSize: 18)
-        label.text = "20万元"
         return label
     }()
     
     private let staticStartInvestLabel: UILabel = {
         let label = UILabel()
         label.text = "起投金额"
-        label.textColor = UIColor.hex("999999")
+        label.textColor = UIColor.hex("fdc3a7")
         label.font = UIFont.customFont(ofSize: 14.0)
         return label
     }()
     private let startInvestLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.customFont(ofSize: 18)
-        label.textAlignment = .center
-        label.text = "100元"
         return label
     }()
     
     private let progressView: UIProgressView = {
         let progress = UIProgressView(progressViewStyle: .bar)
-        progress.backgroundColor = UIColor.hex("efefef")
-        progress.progressTintColor = UIColor.hex("fcc30c")
+        progress.backgroundColor = UIColor.hex("e9561f")
+        progress.progressImage = #imageLiteral(resourceName: "project_detail_progress")
         progress.layer.masksToBounds = true
         progress.layer.cornerRadius = 4
         return progress
     }()
     
-    private let balanceLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor.hex("999999")
-        label.text = "剩余金额：10,000元"
-        label.font = UIFont.customFont(ofSize: 14.0)
-        return label
-    }()
+    let progressImgView = UIImageView(image: #imageLiteral(resourceName: "project_detail_progressThumb"))
+    var progressImgConstraint: Constraint!
     
     private let progressLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.hex("999999")
-        label.text = "65%"
-        label.font = UIFont.customFont(ofSize: 14.0)
+        label.textColor = UIColor.hex("fdc3a7")
+        label.text = "已完成65%"
+        label.font = UIFont.customFont(ofSize: 12.0)
         return label
     }()
+    
+    let bottomLeftDotImgView = UIImageView(image: #imageLiteral(resourceName: "project_detail_circel"))
+    let bottomMiddleDotImgView = UIImageView(image: #imageLiteral(resourceName: "project_detail_circel"))
+    let bottomRightDotImgView = UIImageView(image: #imageLiteral(resourceName: "project_detail_circel"))
+    
+    let bottomLeftLineView = UIView(bgColor: UIColor.hex("fa713d"))
+    let bottomRightLineView = UIView(bgColor: UIColor.hex("fa713d"))
+    
+    let bottomLeftTitleLabel = UILabel(title: "今日出借", color: UIColor.hex("4f4f4f"), fontSize: 14)
+    let bottomMiddleTitleLabel = UILabel(title: "今日计息", color: UIColor.hex("4f4f4f"), fontSize: 14)
+    let bottomRightTitleLabel = UILabel(title: "到期还本息", color: UIColor.hex("4f4f4f"), fontSize: 14)
+    
+    let bottomLeftSubtitleLabel = UILabel(title: "2018.04.06", color: UIColor.hex("b7b7b7"), fontSize: 12)
+    let bottomMiddleSubtitleLabel = UILabel(title: "2018.04.06", color: UIColor.hex("b7b7b7"), fontSize: 12)
+    let bottomRightSubtitleLabel = UILabel(title: "2018.04.06", color: UIColor.hex("b7b7b7"), fontSize: 12)
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -136,129 +95,169 @@ class GPWFirstDetailCell1: UITableViewCell {
     }
     
     private func commonInit() {
-        contentView.addSubview(staticIncomeLabel)
-        contentView.addSubview(incomeLabel)
-        contentView.addSubview(staticNoviceLabel)
-        contentView.addSubview(staticLimitLabel)
-        contentView.addSubview(staticDateLabel)
-        contentView.addSubview(dateLabel)
-        contentView.addSubview(staticMoneyLabel)
-        contentView.addSubview(moneyLabel)
-        contentView.addSubview(staticStartInvestLabel)
-        contentView.addSubview(startInvestLabel)
-        contentView.addSubview(progressView)
-        contentView.addSubview(balanceLabel)
-        contentView.addSubview(progressLabel)
+        let topBgView = UIView(bgColor: UIColor.hex("fa713d"))
+        topBgView.addSubview(staticIncomeLabel)
+        topBgView.addSubview(incomeLabel)
+        topBgView.addSubview(staticDateLabel)
+        topBgView.addSubview(dateLabel)
+        topBgView.addSubview(staticStartInvestLabel)
+        topBgView.addSubview(startInvestLabel)
+        topBgView.addSubview(progressView)
+        topBgView.addSubview(progressLabel)
+        contentView.addSubview(topBgView)
         
-        let placeholderView = UIView()
-        placeholderView.backgroundColor = bgColor
-        contentView.addSubview(placeholderView)
-     
-        staticIncomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(contentView).offset(25)
-            maker.left.right.equalTo(contentView)
+        let bottomGuide = UILayoutGuide()
+        contentView.addLayoutGuide(bottomGuide)
+        contentView.addSubview(bottomLeftDotImgView)
+        contentView.addSubview(bottomLeftLineView)
+        contentView.addSubview(bottomMiddleDotImgView)
+        contentView.addSubview(bottomRightLineView)
+        contentView.addSubview(bottomRightDotImgView)
+        contentView.addSubview(bottomLeftTitleLabel)
+        contentView.addSubview(bottomMiddleTitleLabel)
+        contentView.addSubview(bottomRightTitleLabel)
+        contentView.addSubview(bottomLeftSubtitleLabel)
+        contentView.addSubview(bottomMiddleSubtitleLabel)
+        contentView.addSubview(bottomRightSubtitleLabel)
+        contentView.addSubview(progressImgView)
+        
+        
+        topBgView.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalTo(contentView)
         }
         
         incomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(staticIncomeLabel.snp.bottom).offset(10)
-            maker.left.right.equalTo(contentView)
-            maker.height.equalTo(100)
+            maker.top.equalTo(topBgView).offset(35)
+            maker.left.equalTo(topBgView).offset(42)
+            maker.height.equalTo(36)
         }
         
-        staticNoviceLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(incomeLabel.snp.bottom).offset(18)
-            maker.centerX.equalTo(contentView).offset(-40)
-            staticNoviceLabelHeight = maker.height.equalTo(0).constraint
-            maker.width.equalTo(58)
-        }
-        
-        staticLimitLabel.snp.makeConstraints { (maker) in
-            maker.centerY.equalTo(staticNoviceLabel)
-            maker.centerX.equalTo(contentView).offset(40)
-            maker.height.equalTo(staticNoviceLabel)
-            maker.width.equalTo(staticNoviceLabel)
+        staticIncomeLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(incomeLabel.snp.bottom).offset(8)
+            maker.left.equalTo(incomeLabel)
         }
         
         staticDateLabel.snp.makeConstraints { (maker) in
-            staticDateLabelTop =  maker.top.equalTo(staticNoviceLabel.snp.bottom).offset(11).constraint
-            maker.left.equalTo(contentView).offset(36)
+            maker.bottom.equalTo(incomeLabel)
+            maker.width.equalTo(60)
         }
         
         dateLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(staticDateLabel.snp.bottom).offset(9)
-            maker.left.equalTo(staticDateLabel)
-        }
-        
-        staticMoneyLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(staticDateLabel)
-            maker.centerX.equalTo(contentView)
+            maker.left.equalTo(staticDateLabel.snp.right).offset(6)
+            maker.right.equalTo(topBgView).offset(-16)
+            maker.width.equalTo(80)
         }
         
-        moneyLabel.snp.makeConstraints { (maker) in
-            maker.centerY.equalTo(dateLabel)
-            maker.centerX.equalTo(contentView)
-        }
         
         staticStartInvestLabel.snp.makeConstraints { (maker) in
-            maker.centerY.equalTo(staticDateLabel)
-            maker.right.equalTo(contentView).offset(-36)
+            maker.left.equalTo(staticDateLabel)
+            maker.centerY.equalTo(staticIncomeLabel)
+            maker.width.equalTo(staticDateLabel)
         }
         
         startInvestLabel.snp.makeConstraints { (maker) in
-            maker.centerY.equalTo(dateLabel)
-            maker.centerX.equalTo(staticStartInvestLabel)
+            maker.centerY.equalTo(staticStartInvestLabel)
+            maker.left.right.equalTo(dateLabel)
         }
         
         progressView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(dateLabel.snp.bottom).offset(17)
-            maker.left.equalTo(contentView).offset(32)
-            maker.right.equalTo(contentView).offset(-32)
+            maker.top.equalTo(staticIncomeLabel.snp.bottom).offset(37)
+            maker.left.right.equalTo(topBgView).inset(16)
             maker.height.equalTo(6)
         }
         
-        balanceLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(progressView.snp.bottom).offset(11)
-            maker.left.equalTo(contentView).offset(32)
+        progressImgView.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(progressView)
+            progressImgConstraint = maker.centerX.equalTo(progressView.snp.left).constraint
         }
         
         progressLabel.snp.makeConstraints { (maker) in
-            maker.centerY.equalTo(balanceLabel)
-            maker.right.equalTo(contentView).offset(-31)
+            maker.top.equalTo(progressView.snp.bottom).offset(6)
+            maker.right.equalTo(progressView)
+            maker.bottom.equalTo(topBgView).offset(-20)
         }
         
-        placeholderView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(balanceLabel.snp.bottom).offset(21)
-            maker.left.right.equalTo(contentView)
-            maker.height.equalTo(8)
-            maker.bottom.equalTo(contentView)
+        bottomGuide.snp.makeConstraints { (maker) in
+            maker.top.equalTo(topBgView.snp.bottom)
+            maker.left.right.bottom.equalTo(contentView)
+            maker.height.equalTo(100)
+        }
+        
+        bottomLeftDotImgView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(bottomGuide).offset(23)
+            maker.centerX.equalTo(bottomLeftTitleLabel)
+            maker.width.height.equalTo(9)
+        }
+        bottomLeftLineView.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(bottomLeftDotImgView)
+            maker.left.equalTo(bottomLeftDotImgView.snp.right).offset(5)
+            maker.height.equalTo(1)
+        }
+        bottomMiddleDotImgView.snp.makeConstraints { (maker) in
+            maker.centerY.width.height.equalTo(bottomLeftDotImgView)
+            maker.centerX.equalTo(bottomGuide)
+            maker.left.equalTo(bottomLeftLineView.snp.right).offset(5)
+        }
+        bottomRightLineView.snp.makeConstraints { (maker) in
+            maker.centerY.height.equalTo(bottomLeftLineView)
+            maker.left.equalTo(bottomMiddleDotImgView.snp.right).offset(5)
+        }
+        bottomRightDotImgView.snp.makeConstraints { (maker) in
+            maker.centerY.width.height.equalTo(bottomLeftDotImgView)
+            maker.centerX.equalTo(bottomRightTitleLabel)
+            maker.left.equalTo(bottomRightLineView.snp.right).offset(5)
+        }
+        bottomLeftTitleLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(bottomLeftDotImgView.snp.bottom).offset(11)
+            maker.left.equalTo(bottomGuide).offset(19)
+        }
+        bottomLeftSubtitleLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(bottomLeftTitleLabel.snp.bottom).offset(8)
+            maker.centerX.equalTo(bottomLeftTitleLabel)
+            maker.bottom.equalTo(bottomGuide).offset(-20)
+        }
+        bottomMiddleTitleLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalTo(bottomGuide)
+            maker.centerY.equalTo(bottomLeftTitleLabel)
+        }
+        bottomMiddleSubtitleLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalTo(bottomGuide)
+            maker.centerY.equalTo(bottomLeftSubtitleLabel)
+        }
+        bottomRightTitleLabel.snp.makeConstraints { (maker) in
+            maker.right.equalTo(bottomGuide).offset(-16)
+            maker.centerY.equalTo(bottomLeftTitleLabel)
+        }
+        bottomRightSubtitleLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalTo(bottomRightTitleLabel)
+            maker.centerY.equalTo(bottomLeftSubtitleLabel)
         }
     }
-    
+
     func setupCell(_ dict: JSON) {
-         incomeLabel.text = "<font size=70 color='#f6390c'>\(dict["rate_loaner"])</font><font size=36 color='#f6390c'>%</font>"
+        incomeLabel.attributedText = NSAttributedString.attributedString(dict["rate_loaner"].stringValue, mainColor: UIColor.white, mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.white, secondFont: 18, secondFontWeight: .medium)
         //是否为新手标
         let isNewbie: Bool = dict["is_index"].intValue == 1 ? true : false
         if isNewbie {
-            
             if GPWUser.sharedInstance().staue == 0 {
-                staticNoviceLabel.isHidden = false
-                staticLimitLabel.isHidden = false
-                staticNoviceLabelHeight.update(offset: 19)
-                staticDateLabelTop.update(offset: 30)
-                setNeedsUpdateConstraints()
-                staticNoviceLabel.text = "新手专享"
-                staticLimitLabel.text = "限投\(dict["begin_amount_sx"].stringValue)万"
                 if dict["rate_loaner"].doubleValue > 0 {
-                    incomeLabel.text = "<font size=70 color='#f6390c'>\(dict["rate_loaner"])</font><font size=36 color='#f6390c'>%</font><font size=36 color='#f6390c'>+</font><font size=48 color='#f6390c'>\(dict["rate_new"])</font><font size=24 color='#f6390c'>%</font>"
+                    let attrText = NSMutableAttributedString()
+                    attrText.append(NSAttributedString.attributedString(dict["rate_loaner"].stringValue, mainColor: UIColor.white, mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"].stringValue)", secondColor: UIColor.white, secondFont: 26, secondFontWeight: .medium))
+                    attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium)]))
+                    incomeLabel.attributedText = attrText
                 }
             }
         }
-        dateLabel.attributedText = NSAttributedString.attributedString(dict["deadline"].stringValue, second: "天")
-        moneyLabel.attributedText = NSAttributedString.attributedString(dict["count"].stringValue, second: "次")
-        startInvestLabel.attributedText = NSAttributedString.attributedString(dict["begin_amount"].stringValue, second: "元")
-        balanceLabel.text = "剩余金额: \(dict["balance_amount"].stringValue)元"
-        progressLabel.text =  "\(dict["jindu"].floatValue)%"
+        dateLabel.attributedText = NSAttributedString.attributedString(dict["deadline"].stringValue, mainColor: UIColor.white, mainFont: 18, mainFontWeight: .medium, second: "天", secondColor: UIColor.hex("fdc3a7"), secondFont: 12)
+        startInvestLabel.attributedText = NSAttributedString.attributedString(dict["begin_amount"].stringValue, mainColor: UIColor.white, mainFont: 18, mainFontWeight: .medium,  second: "天", secondColor: UIColor.hex("fdc3a7"), secondFont: 12)
+        progressLabel.text =  "已完成\(dict["jindu"].floatValue)%"
         progressView.progress = dict["jindu"].floatValue / 100
+        progressImgConstraint.update(offset: CGFloat(progressView.progress) * progressView.width)
+        
+        bottomLeftSubtitleLabel.text = dict["daytime"].stringValue
+        bottomMiddleSubtitleLabel.text = dict["daytime"].stringValue
+        bottomRightSubtitleLabel.text = dict["daytimeout"].stringValue
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

@@ -25,12 +25,12 @@ class GPWTabBarController: UITabBarController {
     
     fileprivate func commonInitialization() {
         let homeVC = GPWHomeViewController()
-        let projectVC = GPWProjectViewController()
+        let projectVC = GPWProjectTypeController()
         let foundVC = GPWFoundViewController()
         let myVC = UserController()
 
         let controllers = [homeVC, projectVC,foundVC, myVC]
-        let titles = ["首页", "项目",  "发现","我的"]
+        let titles = ["首页", "产品",  "发现","我的"]
         var navControllers = [GPWNavigationController]()
         
         var index = 0

@@ -84,6 +84,7 @@
 		8002D1771E76AB02007E7B4C /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8002D1701E76AB02007E7B4C /* LaunchScreen.strings */; };
 		8002D1781E76AB02007E7B4C /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8002D1721E76AB02007E7B4C /* Main.strings */; };
 		8002D1791E76AB02007E7B4C /* SobotLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8002D1741E76AB02007E7B4C /* SobotLocalizable.strings */; };
+		8003E0F5207C76F1001492A1 /* GPWHomeAdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8003E0F4207C76F1001492A1 /* GPWHomeAdCell.swift */; };
 		800634251EEF867A00B1B2C3 /* GPWProjectIntroduceBottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800634241EEF867A00B1B2C3 /* GPWProjectIntroduceBottomCell.swift */; };
 		8010FC701E85032B00A94577 /* GPWRuleTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8010FC6F1E85032B00A94577 /* GPWRuleTopCell.swift */; };
 		8010FC721E850B3700A94577 /* GPWRuleContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8010FC711E850B3700A94577 /* GPWRuleContentCell.swift */; };
@@ -227,7 +228,7 @@
 		80A570291E7F7A4B00CCB2C7 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A570281E7F7A4B00CCB2C7 /* UserNotifications.framework */; };
 		80A5702B1E7F7A5600CCB2C7 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5702A1E7F7A5600CCB2C7 /* libresolv.tbd */; };
 		80A570371E80DA6600CCB2C7 /* GPWMessagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A570361E80DA6600CCB2C7 /* GPWMessagesCell.swift */; };
-		80A570391E80DC6800CCB2C7 /* GPWHomeNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A570381E80DC6800CCB2C7 /* GPWHomeNewsCell.swift */; };
+		80A570391E80DC6800CCB2C7 /* GPWHNowCJCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A570381E80DC6800CCB2C7 /* GPWHNowCJCell.swift */; };
 		80A5703B1E80FFA900CCB2C7 /* GPWHomeNewListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5703A1E80FFA900CCB2C7 /* GPWHomeNewListController.swift */; };
 		80A5703D1E81008A00CCB2C7 /* GPWHomeNewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5703C1E81008A00CCB2C7 /* GPWHomeNewListCell.swift */; };
 		80A5703F1E8123DD00CCB2C7 /* GPWProjectIRuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5703E1E8123DD00CCB2C7 /* GPWProjectIRuleController.swift */; };
@@ -552,6 +553,7 @@
 		8002D1711E76AB02007E7B4C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = LaunchScreen.strings; sourceTree = "<group>"; };
 		8002D1731E76AB02007E7B4C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Main.strings; sourceTree = "<group>"; };
 		8002D1751E76AB02007E7B4C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = SobotLocalizable.strings; sourceTree = "<group>"; };
+		8003E0F4207C76F1001492A1 /* GPWHomeAdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWHomeAdCell.swift; sourceTree = "<group>"; };
 		800634241EEF867A00B1B2C3 /* GPWProjectIntroduceBottomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIntroduceBottomCell.swift; sourceTree = "<group>"; };
 		8010FC6F1E85032B00A94577 /* GPWRuleTopCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWRuleTopCell.swift; sourceTree = "<group>"; };
 		8010FC711E850B3700A94577 /* GPWRuleContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWRuleContentCell.swift; sourceTree = "<group>"; };
@@ -739,7 +741,7 @@
 		80A570281E7F7A4B00CCB2C7 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		80A5702A1E7F7A5600CCB2C7 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		80A570361E80DA6600CCB2C7 /* GPWMessagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWMessagesCell.swift; sourceTree = "<group>"; };
-		80A570381E80DC6800CCB2C7 /* GPWHomeNewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWHomeNewsCell.swift; sourceTree = "<group>"; };
+		80A570381E80DC6800CCB2C7 /* GPWHNowCJCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWHNowCJCell.swift; sourceTree = "<group>"; };
 		80A5703A1E80FFA900CCB2C7 /* GPWHomeNewListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWHomeNewListController.swift; sourceTree = "<group>"; };
 		80A5703C1E81008A00CCB2C7 /* GPWHomeNewListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWHomeNewListCell.swift; sourceTree = "<group>"; };
 		80A5703E1E8123DD00CCB2C7 /* GPWProjectIRuleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWProjectIRuleController.swift; sourceTree = "<group>"; };
@@ -1475,13 +1477,14 @@
 				80625F051E08E51B00456B63 /* GPWHTTopCell.swift */,
 				80625F071E090B2B00456B63 /* GPWHTSecCell.swift */,
 				80625F091E091F1D00456B63 /* GPWHTOtherCell.swift */,
-				80A570381E80DC6800CCB2C7 /* GPWHomeNewsCell.swift */,
+				80A570381E80DC6800CCB2C7 /* GPWHNowCJCell.swift */,
 				80A5703C1E81008A00CCB2C7 /* GPWHomeNewListCell.swift */,
 				8045C1071EC0420100DEFB5D /* GPWActiveCell.swift */,
 				80118F6D1F78E0AC00A18370 /* GPWHTLCell.swift */,
 				80A3E75F1F78EA6200E0C465 /* GPWHTListCell.swift */,
 				80F487511FBE88740082D19D /* GPWHMessageView.swift */,
 				80D2080E1FC920C000D99C45 /* GPWHomeBottomCell.swift */,
+				8003E0F4207C76F1001492A1 /* GPWHomeAdCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1781,7 +1784,6 @@
 			isa = PBXGroup;
 			children = (
 				806EDCB71F3AA98C006A06AF /* Controller */,
-				806EDCB81F3AA98C006A06AF /* Model */,
 				806EDCB91F3AA98C006A06AF /* View */,
 			);
 			path = Found;
@@ -1797,13 +1799,6 @@
 				8027DDB01F41D7EB00CC923A /* GPWVFschooliewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		806EDCB81F3AA98C006A06AF /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		806EDCB91F3AA98C006A06AF /* View */ = {
@@ -3032,6 +3027,7 @@
 				8051098B1F26089D001010CA /* myImageView.m in Sources */,
 				80A570A51E8246BC00CCB2C7 /* GPWGetFriendsThreeCell.swift in Sources */,
 				80A5706F1E82451100CCB2C7 /* GPWUserSetLoginPwViewController.swift in Sources */,
+				8003E0F5207C76F1001492A1 /* GPWHomeAdCell.swift in Sources */,
 				80A570A11E8246BC00CCB2C7 /* GPWGetFriendsBottomCell.swift in Sources */,
 				80625EE21E078BEA00456B63 /* GPWHomeTopCell.swift in Sources */,
 				80D207D01FC5680E00D99C45 /* NSArray+SafeAccess.m in Sources */,
@@ -3085,7 +3081,7 @@
 				80625F461E095AA300456B63 /* GPWUserMoneyFundViewController.swift in Sources */,
 				5B68B6681E08CECA000355B5 /* GPWBidRecordViewController.swift in Sources */,
 				80D207BE1FC5680E00D99C45 /* NSString+Encrypt.m in Sources */,
-				80A570391E80DC6800CCB2C7 /* GPWHomeNewsCell.swift in Sources */,
+				80A570391E80DC6800CCB2C7 /* GPWHNowCJCell.swift in Sources */,
 				805835872057B65F00A40CDE /* GPWWDKTViewController.swift in Sources */,
 				80D207DF1FC5680E00D99C45 /* NSObject+AutoCoding.m in Sources */,
 				80625F341E095A4B00456B63 /* PNBar.m in Sources */,
@@ -3559,8 +3555,8 @@
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gangpiaowang.gangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9ea6607b-099e-429a-98f9-09ab46a228cf";
-				PROVISIONING_PROFILE_SPECIFIER = gangpiao_2018newdev;
+				PROVISIONING_PROFILE = "892a295a-68ba-46bd-bfb4-a54e04d68553";
+				PROVISIONING_PROFILE_SPECIFIER = 2019dev;
 				SDKROOT = iphoneos;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GangPiaoWang/Main/GangPiaoWang-Bridging-Header.h";
@@ -3617,8 +3613,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gangpiaowang.gangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57b8c172-3cbe-416f-a36a-9aa8c50676c6";
-				PROVISIONING_PROFILE_SPECIFIER = gangpiao_2018dis;
+				PROVISIONING_PROFILE = "facbb524-285b-44be-a0ae-a6dbed99bc7d";
+				PROVISIONING_PROFILE_SPECIFIER = 2019dis;
 				SDKROOT = iphoneos;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GangPiaoWang/Main/GangPiaoWang-Bridging-Header.h";

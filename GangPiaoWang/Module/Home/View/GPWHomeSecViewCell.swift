@@ -13,10 +13,10 @@ class GPWHomeSecViewCell: UITableViewCell {
    weak var superControl:UIViewController?
     var dataDic:JSON?
     let array = [
-                  ["img":"home_zhiyin","title":"平台介绍"],
+                  ["img":"home_zhiyin","title":"平台实力"],
                   ["img":"home_safe","title":"安全保障"],
-                  ["img":"home_yaoqing","title":"邀请有礼"],
-                  ["img":"home_getrb_bg","title":"拼手气"]
+                  ["img":"home_yaoqing","title":"邀请赚钱"],
+                  ["img":"home_pinshouqi","title":"签到有奖"]
                 ]
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,32 +24,25 @@ class GPWHomeSecViewCell: UITableViewCell {
         let btnWith = SCREEN_WIDTH / 4
         for i in 0..<array.count {
             let btn = UIButton(type: .custom)
-            btn.frame = CGRect(x: btnWith * CGFloat(i), y: 0, width: btnWith, height: 114)
+            btn.frame = CGRect(x: btnWith * CGFloat(i), y: 0, width: btnWith, height: 97)
             btn.tag = 100 + i
             btn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
             self.contentView.addSubview(btn)
             
-            let imgView = UIImageView(frame: CGRect(x: 36, y: 21, width: 46, height: 46))
+            let imgView = UIImageView(frame: CGRect(x: 36, y: 18, width: 38, height: 38))
             imgView.image = UIImage(named: array[i]["img"]!)
             imgView.centerX = btn.width / 2
             btn.addSubview(imgView)
-            if i == 3 {
-                //红包
-                let bgImgView = UIImageView(frame: CGRect(x: 0, y: 0, width: 46, height: 46))
-                bgImgView.center = imgView.center
-                 btn.addSubview(bgImgView)
-                bgImgView.tag = 1000
-                bgImgView.image = UIImage.gif(name: "redbag")
-            }
-            let titleLabel = UILabel(frame: CGRect(x: 0, y: imgView.maxY + 7, width: btn.width, height: 16))
+
+            let titleLabel = UILabel(frame: CGRect(x: 0, y: imgView.maxY + 6, width: btn.width, height: 14))
             titleLabel.text = array[i]["title"]
-            titleLabel.font = UIFont.customFont(ofSize: 16)
+            titleLabel.font = UIFont.customFont(ofSize: 14)
             titleLabel.textAlignment = .center
-            titleLabel.textColor = UIColor.hex("555555")
+            titleLabel.textColor = UIColor.hex("4f4f4f")
             btn.addSubview(titleLabel)
         }
         
-        let block = UIView(frame: CGRect(x: 0, y: 114, width: SCREEN_WIDTH, height: 10))
+        let block = UIView(frame: CGRect(x: 0, y: 97, width: SCREEN_WIDTH, height: 10))
         block.backgroundColor = bgColor
         self.contentView.addSubview(block)
     }
@@ -57,9 +50,7 @@ class GPWHomeSecViewCell: UITableViewCell {
     func updata(dic:JSON,superControl:UIViewController) {
         self.dataDic = dic
         self.superControl = superControl
-        let  btn = self.contentView.viewWithTag(103) as! UIButton
-        let  imgView = btn.viewWithTag(1000) as! UIImageView
-        imgView.image = UIImage.gif(name: "redbag")
+
     }
     
     @objc func btnClick(sender:UIButton) {
@@ -74,11 +65,7 @@ class GPWHomeSecViewCell: UITableViewCell {
             self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["invite_courtesy"].string)!), animated: true)
         }else if sender.tag == 103 {
             MobClick.event("home", label: "菜单栏-拼手气")
-            if GPWUser.sharedInstance().isLogin {
-                self.superControl?.navigationController?.pushViewController(GPWHomeGetBageController(), animated: true)
-            }else{
-                self.superControl?.navigationController?.pushViewController(GPWLoginViewController(), animated: true)
-            }
+            self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["insurance"].string)!), animated: true)
         }
     }
     required init?(coder aDecoder: NSCoder) {

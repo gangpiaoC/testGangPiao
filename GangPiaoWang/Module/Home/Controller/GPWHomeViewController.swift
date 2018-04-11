@@ -1,6 +1,6 @@
 //
 //  GPWHomeViewController.swift
-//  GangPiaoWang
+//  GangPiaoWang   
 //   首页
 //  Created by GC on 16/12/2.
 //  Copyright © 2016年 GC. All rights reserved.
@@ -14,6 +14,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
     fileprivate var _scrollviewOffY:CGFloat = 0
     fileprivate var showTableView:UITableView!
     fileprivate var  messageImgView:UIImageView!
+    fileprivate var adFlag = 1 //是否有广告位  0 有  1没有
     
     //首页出现此时
     var  showNum = 0
@@ -137,6 +138,11 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
                 guard let strongSelf = self else { return }
                 strongSelf.showTableView.endHeaderRefreshing()
                 strongSelf.dic = json
+            if json["new_banner"].dictionaryObject?.count ?? 0 > 0 {
+                strongSelf.adFlag = 0
+            }else{
+                strongSelf.adFlag = 1
+            }
                 strongSelf.showTableView.reloadData()
             }, failure:  {[weak self] error in
                 printLog(message: error.localizedDescription)
@@ -165,24 +171,23 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
 extension GPWHomeViewController{
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.dic != nil {
-            return 5
+
+            return 5 + adFlag
         }
        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
-        }else if section == 1 {
-            if GPWUser.sharedInstance().isLogin {
-                return 1
-            }else{
-                return 2
-            }
-        }else if section == 2{
+            return 3
+        }else if section == 1 - adFlag {
+            return 1
+        }else if section == 2 - adFlag{
+            return 1
+        }else if section == 3 - adFlag{
             return self.dic!["Item"].count
-        }else if section == 3 {
-            return 2
+        }else if section == 4 - adFlag {
+            return 1
         }else{
             return 1
         }
@@ -191,40 +196,51 @@ extension GPWHomeViewController{
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 3 - adFlag {
+            return 56
+        }
         return 0.0001
     }
+
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                   return pixw(p: 206)
-            }else{
-                return 40
-            }
-        }else if indexPath.section == 1 {
-            if indexPath.row == 0 {
-                return 114 + 10
-            }else{
-                return pixw(p: 120) + 10
-            }
-        }else if indexPath.section == 2{
-
-            if indexPath.row == 0 {
-                return 264 + 12
-            }else{
-                return 151 + 10
-            }
-        }else if indexPath.section == 3 {
-            if indexPath.row == 0 {
+                   return pixw(p: 197)
+            }else if indexPath.row == 1{
                 return 40
             }else{
-                return 102
+                return 97 + 10
             }
+        }else if indexPath.section == 1 - adFlag{
+            return pixw(p: 120) + 10
+        }else if indexPath.section == 2 - adFlag{
+            return 232 + 10
+        }else if indexPath.section == 3 - adFlag{
+            return 143
+        }else if indexPath.section == 4 - adFlag{
+            return 130
         }else{
-            return 118 / 2 
+            return 301
         }
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 3 - adFlag {
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 56))
+            view.backgroundColor = UIColor.white
+
+            let titleLabel = UILabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH - 32, height: 56))
+            titleLabel.font = UIFont.customFont(ofSize: 18)
+            titleLabel.textColor = UIColor.hex("222222")
+            titleLabel.text = "推荐产品"
+            view.addSubview(titleLabel)
+            return view
+
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -236,7 +252,7 @@ extension GPWHomeViewController{
                 }
                 cell?.showInfo(array: (self.dic?["banner"])! , control: self)
                 return cell!
-            }else{
+            }else if indexPath.row == 1{
                 var cell = tableView.dequeueReusableCell(withIdentifier: "GPWMessagesCell") as? GPWMessagesCell
                 if cell == nil {
                     cell = GPWMessagesCell(style: .default, reuseIdentifier: "GPWMessagesCell")
@@ -244,42 +260,23 @@ extension GPWHomeViewController{
                 cell?.updata(array: (self.dic?["indexMessage"])!)
                 cell?.superController = self
                 return cell!
-            }
-        } else if indexPath.section == 1 {
-            if indexPath.row == 0 {
+            }else{
                 var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeSecTableViewCell") as? GPWHomeSecViewCell
                 if cell == nil {
                     cell = GPWHomeSecViewCell(style: .default, reuseIdentifier: "GPWHomeSecTableViewCell")
                 }
                 cell?.updata(dic: (self.dic?["pager"])!, superControl: self)
                 return cell!
-            }else{
-                var cell = tableView.dequeueReusableCell(withIdentifier: "newReisterCell")
-                if cell == nil {
-                    cell = UITableViewCell(style: .default, reuseIdentifier: "newReisterCell")
-                    cell?.selectionStyle = .none
-                    let newImgView = UIImageView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: pixw(p: 120)))
-                    newImgView.image = UIImage(named: "home_new_register")
-                    cell?.contentView.addSubview(newImgView)
-                    
-                    let btn = UIButton(type: .custom)
-                    btn.frame = CGRect(x: SCREEN_WIDTH - pixw(p: 116), y: pixw(p: 16), width: pixw(p: 100), height: pixw(p: 36))
-                    btn.addTarget(self, action: #selector(self.gotoRegister), for: .touchUpInside)
-                    cell?.contentView.addSubview(btn)
-
-                    let  label = RTLabel(frame: CGRect(x: pixw(p: 16), y: pixw(p: 79), width: SCREEN_WIDTH - pixw(p: 72 + 29), height: 0))
-                    label.text = "<font size=22 color='#666666'>\(GPWGlobal.sharedInstance().app_exper_amount)</font><font size=14 color='#666666'>元</font><font size=14 color='#666666'>体验金+</font><font size=22 color='#666666'>\(GPWGlobal.sharedInstance().app_accountsred)</font><font size=14 color='#666666'>元</font><font size=14 color='#666666'>红包</font>"
-                    label.height = label.optimumSize.height
-                    cell?.contentView.addSubview(label)
-
-                    
-                    let block = UIView(frame: CGRect(x: 0, y: pixw(p: 120), width: SCREEN_WIDTH, height: 10))
-                    block.backgroundColor = bgColor
-                    cell?.contentView.addSubview(block)
-                }
-                return cell!
             }
-        } else  if indexPath.section == 2{
+        } else if indexPath.section == 1 - adFlag{
+            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeAdCell") as? GPWHomeAdCell
+            if cell == nil {
+                cell = GPWHomeAdCell(style: .default, reuseIdentifier: "GPWHomeAdCell")
+            }
+            cell?.updata((self.dic?["new_banner"])!, self)
+            return cell!
+
+        } else  if indexPath.section == 2 - adFlag{
             if indexPath.row == 0 {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHPTopCell") as? GPWHPTopCell
                 if cell == nil {
@@ -295,27 +292,20 @@ extension GPWHomeViewController{
                 cell?.setupCell(dict: (self.dic?["Item"][indexPath.row])!)
                 return cell!
             }
-        }else  if indexPath.section == 3{
-            if indexPath.row == 0 {
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHThone")
-                if cell == nil {
-                    cell = UITableViewCell(style: .default, reuseIdentifier: "GPWHThone")
-                    cell?.textLabel?.font = UIFont.customFont(ofSize: 14)
-                    cell?.textLabel?.text = "恒丰银行资金存管"
-                    cell?.textLabel?.textAlignment = .center
-                    cell?.textLabel?.textColor = UIColor.hex("9e9e9e")
-                    cell?.backgroundColor = UIColor.clear
-                }
-                return cell!
-            }else{
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeNewsCell") as? GPWHomeNewsCell
-                if cell == nil {
-                    cell = GPWHomeNewsCell(style: .default, reuseIdentifier: "GPWHomeNewsCell")
-                }
-                cell?.updata((self.dic?["invest"].arrayValue)!)
-                cell?.surperController = self
-                return cell!
+        }else  if indexPath.section == 3 - adFlag{
+            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHProjectCell") as? GPWHProjectCell
+            if cell == nil {
+                cell = GPWHProjectCell(style: .default, reuseIdentifier: "GPWHProjectCell")
             }
+           cell?.setupCell(dict: (self.dic?["Item"][indexPath.row])!)
+            return cell!
+        }else  if indexPath.section == 4 - adFlag{
+            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHNowCJCell") as? GPWHNowCJCell
+            if cell == nil {
+                cell = GPWHNowCJCell(style: .default, reuseIdentifier: "GPWHNowCJCell")
+            }
+            cell?.updata((self.dic?["invest"].arrayValue)!)
+            return cell!
         }else{
             var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeBottomCell") as? GPWHomeBottomCell
             if cell == nil {
@@ -349,11 +339,7 @@ extension GPWHomeViewController{
             }
         }
     }
-    
-    @objc func gotoRegister(){
-        MobClick.event("home", label: "新手注册")
-        self.navigationController?.pushViewController(GPWUserRegisterViewController(), animated: true)
-    }
+
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var navAlpha = self.navigationBar.alpha

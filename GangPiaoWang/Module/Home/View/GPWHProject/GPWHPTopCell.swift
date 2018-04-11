@@ -10,209 +10,116 @@ import UIKit
 import SnapKit
 import SwiftyJSON
 class GPWHPTopCell: UITableViewCell {
-    fileprivate var rightLabelWith: Constraint!
-    fileprivate var rateLabelY: Constraint!
-    fileprivate var bottomLabelY: Constraint!
-    fileprivate var LeftImgX: Constraint!
-    fileprivate let bgView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
-        view.layer.cornerRadius =  6
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.12
-        view.layer.shadowRadius = 3
-        view.layer.shadowOffset = CGSize(width: 2, height: 2)
-        return view
-    }()
 
-    fileprivate let topImgView: UIImageView = {
-        let imgView = UIImageView()
-        imgView.image = UIImage(named:"home_project_top")
-        return imgView
-    }()
+    //顶部名称（新手专享）
+    fileprivate var topLabel:UILabel!
 
-    //新手标   体验标  钢融宝-第几期等
-    fileprivate let topTitleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = "钢票盈-第13期"
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont.customFont(ofSize: 15.0)
-        return titleLabel
-    }()
-
-    fileprivate let leftImgView: UIImageView = {
-        let imgView = UIImageView()
-        imgView.image = UIImage(named:"home_project_top_mianfei")
-        return imgView
-    }()
-
-    fileprivate let rightTtileLabel: UILabel = {
-        let companyLabel = UILabel()
-        companyLabel.text = "中建二局"
-        companyLabel.textColor = redTitleColor
-        companyLabel.textAlignment = .center
-        companyLabel.layer.masksToBounds = true
-        companyLabel.layer.cornerRadius = 10
-        companyLabel.layer.borderColor = UIColor.hex("ef785b").cgColor
-        companyLabel.layer.borderWidth = 0.5
-        companyLabel.font = UIFont.customFont(ofSize: 14.0)
-        return companyLabel
-    }()
+    //横线
+    fileprivate var topLine:UIView!
 
     //利率
-    private let rateLabel: RTLabel = {
-        let label = RTLabel()
-        label.text = "<font size=50 color='#f6390c'>7.0</font><font size=22 color='#f6390c'>%</font><font size=32 color='#f6390c'> + </font><font size=28 color='#f6390c'>3.0</font><font size=24 color='#f6390c'>%</font>"
-        label.textAlignment = RTTextAlignmentCenter
-        printLog(message: label.optimumSize.height)
-        return label
-    }()
+    fileprivate var lvLabel: RTLabel!
 
-    //剩余金额+ 项目期限
-    private let bottomLabel: UILabel = {
-        let label = UILabel()
-        label.text = "剩余 260,000元        项目期限30天"
-        label.textColor = UIColor.hex("666666")
-        label.textAlignment = .center
-        return label
-    }()
+    //期限
+    fileprivate var timeLabel:RTLabel!
 
-    //抢购
-    fileprivate let bottomImgBtn: UIButton = {
-        let tempBtn = UIButton()
-        tempBtn.setImage(UIImage(named:"home_project_pay"), for: .normal)
-        tempBtn.isUserInteractionEnabled = false
-        return tempBtn
-    }()
+    //历史年华利率
+    fileprivate var histonryLvLabel:UILabel!
+
+    //起投和剩余  100元起投 剩余651,000元
+    fileprivate var bsLabel:UILabel!
+
+    //项目按钮
+    fileprivate var btn:UIButton!
+
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        self.backgroundColor = UIColor.clear
         commonInitialize()
     }
 
     private func commonInitialize() {
 
-        contentView.addSubview(bgView)
-        bgView.snp.makeConstraints { (maker) in
-            maker.left.equalTo(contentView).offset(16)
-            maker.top.equalTo(contentView).offset(6)
-            maker.bottom.equalTo(contentView).offset(-6)
-            maker.right.equalTo(contentView).offset(-16)
-        }
+        topLabel = UILabel(frame: CGRect(x: 16, y: 22, width: SCREEN_WIDTH - 32, height: 18))
+        topLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        topLabel.textColor = UIColor.hex("222222")
+        topLabel.text = "新手专享"
+        contentView.addSubview(topLabel)
 
-        contentView.addSubview(topImgView)
-        topImgView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(contentView).offset(1)
-            maker.centerX.equalTo(contentView)
-        }
-        contentView.addSubview(topTitleLabel)
-        topTitleLabel.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalTo(topImgView)
-        }
+        topLine = UIView(frame: CGRect(x: 16, y: topLabel.maxY + 16, width: SCREEN_WIDTH - 16, height: 1))
+        topLine.backgroundColor = UIColor.hex("f2f2f2")
+        contentView.addSubview(topLine)
 
-        contentView.addSubview(leftImgView)
-        leftImgView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(bgView).offset(44)
-            LeftImgX = maker.left.equalTo(bgView).offset(82).constraint
-        }
+        timeLabel = RTLabel(frame: CGRect(x: SCREEN_WIDTH / 2, y: topLine.maxY + 39, width: 200, height: 36))
+        timeLabel.text = "<font face='Arial' size=18 color='#4f4f4f'>期限</font><font face='Arial' size=18 color='#fa713d'>30天</font>"
+        timeLabel.size = timeLabel.optimumSize
+        contentView.addSubview(timeLabel)
 
-        contentView.addSubview(rightTtileLabel)
-        rightTtileLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(bgView).offset(44)
-            rightLabelWith = maker.width.equalTo(84).constraint
-            maker.height.equalTo(20)
-            maker.left.equalTo(leftImgView.snp.right).offset(8)
-        }
-        contentView.addSubview(rateLabel)
-        rateLabel.snp.makeConstraints { (maker) in
-            maker.left.right.equalTo(bgView)
-            rateLabelY = maker.top.equalTo(rightTtileLabel.snp.bottom).offset(20).constraint
-            maker.height.equalTo(61)
-        }
+        bsLabel = UILabel(frame: CGRect(x: timeLabel.x, y: timeLabel.maxY + 2, width: 150, height: 12))
+        bsLabel.font = UIFont.customFont(ofSize: 12)
+        bsLabel.textColor = UIColor.hex("4f4f4f")
+        bsLabel.text = "100元起投 剩余651,000元"
+        contentView.addSubview(bsLabel)
 
-        contentView.addSubview(bottomLabel)
-        bottomLabel.snp.makeConstraints { (maker) in
-            maker.left.right.equalTo(bgView)
-            bottomLabelY =  maker.top.equalTo(rateLabel.snp.bottom).offset(13).constraint
-            maker.height.equalTo(16)
-        }
+        lvLabel = RTLabel(frame: CGRect(x: topLine.x, y: topLine.maxY + 22, width: 200, height: 36))
+        lvLabel.text = "<font face='Arial' size=36 color='#fa713d'>6.0</font><font face='Arial' size=26 color='#fa713d'>+4.0</font><font face='Arial' size=22 color='#fa713d'>%</font>"
+        lvLabel.size = lvLabel.optimumSize
+        lvLabel.maxY = timeLabel.maxY
+        contentView.addSubview(lvLabel)
 
-        contentView.addSubview(bottomImgBtn)
-        bottomImgBtn.snp.makeConstraints { (maker) in
-            maker.left.equalTo(bgView).offset(44)
-            maker.right.equalTo(bgView).offset(-44)
-            maker.height.equalTo(40)
-            maker.bottom.equalTo(bgView).offset(-25)
-        }
+        histonryLvLabel = UILabel(frame: CGRect(x: lvLabel.x, y: lvLabel.maxY + 5, width: 150, height: 12))
+        histonryLvLabel.font = UIFont.customFont(ofSize: 12)
+        histonryLvLabel.textColor = UIColor.hex("b7b7b7")
+        histonryLvLabel.text = "历史年化利率"
+        contentView.addSubview(histonryLvLabel)
+        histonryLvLabel.maxY = bsLabel.maxY
+
+        btn = UIButton(frame: CGRect(x: 16, y: histonryLvLabel.maxY + 32, width: SCREEN_WIDTH - 32, height: 46))
+        btn.setBackgroundImage(UIImage(named: "home_pf"), for: .normal)
+        btn.titleLabel?.font = UIFont.customFont(ofSize: 18)
+        btn.titleLabel?.textColor = UIColor.white
+        btn.setTitle("已满标", for: .normal)
+        contentView.addSubview(btn)
+
+        let block = UIView(frame: CGRect(x: 0, y: 232, width: SCREEN_WIDTH, height: 10))
+        block.backgroundColor = bgColor
+        self.contentView.addSubview(block)
+
+
     }
     func setupCell(dict: JSON,index:NSInteger) {
-
-        //得到图片宽度
-        var tempLeftImgWith:CGFloat = 0
-        if dict["is_index"].intValue == 2 {
-            tempLeftImgWith = 80
-            leftImgView.image = UIImage(named:"home_project_top_mianfei")
-            rateLabel.text = "<font size=24 color='#f6390c'>￥</font><font size=36 color='#f6390c'>\(dict["exper_amount"].intValue)</font>"
-            rateLabelY.update(offset: 35)
-            bottomLabel.text = "体验金"
-            bottomLabelY.update(offset: -15)
-        }else {
-            if dict["is_index"].intValue == 1 && GPWUser.sharedInstance().staue == 0{
-                tempLeftImgWith = 70
-                 leftImgView.image = UIImage(named:"home_project_top_xinshou")
-            }else{
-                tempLeftImgWith = 84
-                leftImgView.image = UIImage(named:"home_project_top_hot")
-            }
-              rateLabel.text = "<font size=50 color='#f6390c'>\(dict["rate_loaner"])</font><font size=22 color='#f6390c'>%</font>"
-            if GPWUser.sharedInstance().staue == 0 && dict["rate_loaner"].doubleValue > 0  {
-                rateLabel.text = "<font size=50 color='#f6390c'>\(dict["rate_loaner"])</font><font size=22 color='#f6390c'>%</font><font size=32 color='#f6390c'> + </font><font size=28 color='#f6390c'>\(dict["rate_new"])</font><font size=24 color='#f6390c'>%</font>"
-            }
-            rateLabelY.update(offset: 20)
-            bottomLabel.text =  "剩余 \(dict["balance_amount"])元        借款期限\(dict["deadline"])天"
-            bottomLabelY.update(offset: 18)
-            bottomLabel.font = UIFont.customFont(ofSize: 14)
+         lvLabel.text = "<font face='Arial' size=36 color='#fa713d'>\(dict["rate_loaner"])</font><font face='Arial' size=20 color='#fa713d'>%</font>"
+        lvLabel.text = "<font size=50 color='#f6390c'>\(dict["rate_loaner"])</font><font size=22 color='#f6390c'>%</font>"
+        if GPWUser.sharedInstance().staue == 0 && dict["rate_loaner"].doubleValue > 0  {
+             lvLabel.text = "<font face='Arial' size=36 color='#fa713d'>\(dict["rate_loaner"])</font><font face='Arial' size=26 color='#fa713d'>+\(dict["rate_new"])</font><font face='Arial' size=22 color='#fa713d'>%</font>"
         }
-        topTitleLabel.text = dict["title"].stringValue
-        rightTtileLabel.text = dict["acceptance_enterprise"].stringValue
-        let  rightLabelW = getWith(str: rightTtileLabel.text!, font: rightTtileLabel.font)
-        rightLabelWith.update(offset: rightLabelW + 10)
-
-        //顶部左侧图片距离左侧距离
-        let  leftImgX = ( SCREEN_WIDTH - 32 - ( tempLeftImgWith + rightLabelW + 8 + 10 )) / 2
-        LeftImgX.update(offset: leftImgX)
+        bsLabel.text = "\(dict["deadline"])元起投 剩余\(dict["left_amount"])元"
 
         let state1 = dict["status"].stringValue
         switch state1 {
         case "FULLSCALE":
-            bottomImgBtn.setImage(UIImage(named: "home_project_top_qiangguang"), for: .normal)
+            btn.setTitle("已满标", for: .normal)
             break
         case "REPAYING":
-            bottomImgBtn.setImage(UIImage(named: "home_project_top_huikuanzhong"), for: .normal)
+            btn.setTitle("回款中", for: .normal)
             break
         case "FINISH":
-            bottomImgBtn.setImage(UIImage(named: "home_project_top_yihuikuan"), for: .normal)
+            btn.setTitle("已满标", for: .normal)
             break
         case "COLLECTING":
-            bottomImgBtn.setImage(UIImage(named: "home_project_top_pay"), for: .normal)
+            btn.setTitle("立即抢购", for: .normal)
             break
         case "RELEASE":
-            bottomImgBtn.setImage(UIImage(named: "home_project_top_rightnow"), for: .normal)
+            btn.setTitle("即将开始", for: .normal)
             break
         default:
-            bottomImgBtn.setImage(UIImage(named: "home_project_top_qiangguang"), for: .normal)
+            btn.setTitle("即将开始", for: .normal)
             break
         }
         if GPWUser.sharedInstance().isLogin == false {
-            bottomImgBtn.setImage(UIImage(named: "home_project_top_pay"), for: .normal)
+            btn.setTitle("立即抢购", for: .normal)
         }
-    }
-    func getWith(str:String,font:UIFont) -> CGFloat{
-        let options:NSStringDrawingOptions = .usesLineFragmentOrigin
-        let boundingRect = str.boundingRect(with:  CGSize(width: 300, height: 22), options: options, attributes:[NSAttributedStringKey.font:font], context: nil)
-        return boundingRect.width
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

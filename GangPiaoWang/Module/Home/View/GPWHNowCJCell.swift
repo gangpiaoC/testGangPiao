@@ -1,14 +1,14 @@
 //
 //  GPWHomeNewsCell.swift
 //  GangPiaoWang
-//
+//  出借实况
 //  Created by gangpiaowang on 2017/3/21.
 //  Copyright © 2017年 GC. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
-class GPWHomeNewsCell: UITableViewCell {
+class GPWHNowCJCell: UITableViewCell {
     weak var surperController:UIViewController?
     fileprivate var bankurl:String?
     fileprivate var scrollview:InvestScrollView!

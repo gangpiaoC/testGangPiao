@@ -11,6 +11,7 @@ import UIKit
 extension UIFont {
     @objc static func customFont(ofSize fontSize: CGFloat) -> UIFont {
         return self.systemFont(ofSize: fontSize)
-        //return self.systemFont(ofSize: fontSize, weight: UIFontWeightLight)
+        //return self.boldSystemFont(ofSize:fontSize)
+        //return self.systemFont(ofSize: fontSize, weight: UIFont.Weight.light)
     }
 }

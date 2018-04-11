@@ -21,7 +21,7 @@ class VierticalScrollView: UIView {
         self.index = 100
         
         //图标
-        let  imgView = UIImageView(frame: CGRect(x: 16, y: 0, width: 18, height: 18))
+        let  imgView = UIImageView(frame: CGRect(x: 16, y: 0, width: 17, height: 15))
         imgView.centerY = self.height / 2
         imgView.image = UIImage(named: "home_indexs_gonggao")
         self.addSubview(imgView)
@@ -45,7 +45,7 @@ class VierticalScrollView: UIView {
         titleLabel.font = UIFont.customFont(ofSize: 14)
         titleLabel.isUserInteractionEnabled = false
         titleLabel.tag = 1000
-        titleLabel.textColor = UIColor.hex("666666")
+        titleLabel.textColor = UIColor.hex("4f4f4f")
         btn.addSubview(titleLabel)
     }
     

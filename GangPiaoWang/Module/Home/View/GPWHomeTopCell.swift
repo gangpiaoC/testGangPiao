@@ -30,7 +30,7 @@ class GPWHomeTopCell: UITableViewCell,EScrollerViewDelegate {
             return
         }
         _scrollView?.removeFromSuperview()
-        _scrollView = EScrollerView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: pixw(p: 206)), pageCount: (_data?.count)!, delegate: self)
+        _scrollView = EScrollerView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: pixw(p: 197)), pageCount: (_data?.count)!, delegate: self)
         let line = UIView(frame: CGRect(x: 0, y: (_scrollView?.height)! - 0.5, width: SCREEN_WIDTH, height: 0.5))
         line.backgroundColor = lineColor
         _scrollView?.addSubview(line)

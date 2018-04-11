@@ -10,42 +10,79 @@ import UIKit
 
 class GPWHomeBottomCell: UITableViewCell {
 
-    fileprivate let array = [
-        ["img":"home_bottom_01","detail":"除非亲自尝试，否则你永远不知来自我的默默关心"],
-        ["img":"home_bottom_02","detail":"你并不孤单，毕竟我还在你身边"],
-        ["img":"home_bottom_03","detail":"看尘世沧海桑田，我就在这里，等你归来"],
-        ["img":"home_bottom_04","detail":"关于未来，关于我，敬请期待"],
-        ["img":"home_bottom_05","detail":"365天，钢宝儿在这里，为你守住每一分财富"],
-        ["img":"home_bottom_06","detail":"时间和金钱，钢票网都在竭尽全力为您争取"]
-    ]
-    fileprivate var index = 0
-    var imgView:UIImageView!
-    var  bottomLabel:UILabel!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        self.backgroundColor = UIColor.clear
-        imgView = UIImageView(frame: CGRect(x: 0, y: 4, width: 90, height: 90))
-        imgView.image = UIImage(named:array[0]["img"]!)
-        imgView.centerX = SCREEN_WIDTH / 2
-        self.contentView.addSubview(imgView)
-
-        bottomLabel = UILabel(frame: CGRect(x: 0, y: imgView.maxY - 4, width: SCREEN_WIDTH, height: 12))
-        bottomLabel.font = UIFont.customFont(ofSize: 12)
-        bottomLabel.text = array[0]["detail"]!
-        bottomLabel.textAlignment = .center
-        bottomLabel.textColor = UIColor.hex("999999")
-        self.contentView.addSubview(bottomLabel)
+        initView()
     }
 
-    func updata() {
-        index = index + 1
-        if index == array.count{
-            index = 0
+
+    /// 初始化界面
+    func initView() {
+
+        let topTitleLabel = UILabel(frame: CGRect(x: 16, y: 22, width: 300, height: 18))
+        topTitleLabel.text = "靠谱的互联网金融平台"
+        topTitleLabel.textColor = UIColor.hex("222222")
+        topTitleLabel.font = UIFont.customFont(ofSize: 18)
+        contentView.addSubview(topTitleLabel)
+
+        let topLine = UIView(frame: CGRect(x: topTitleLabel.x, y: topTitleLabel.maxY + 16, width: SCREEN_WIDTH - 16, height: 1))
+        topLine.backgroundColor = bgColor
+        contentView.addSubview(topLine)
+
+        let logoArray = [
+            ["img":"home_hengfeng","name":"恒丰银行资金存管"],
+            ["img":"home_xinsiban","name":"新四板上市公司"]
+        ]
+
+        var maxY:CGFloat = 0.0
+
+        for i in 0 ..< logoArray.count {
+            let tempView = UIView(frame: CGRect(x: i == 0 ? 16 : (SCREEN_WIDTH / 2 + 12), y: topLine.maxY + 20, width: 160, height: 87))
+            tempView.backgroundColor = bgColor
+            tempView.layer.cornerRadius = 4
+            contentView.addSubview(tempView)
+
+            let tempImgView = UIImageView(frame: CGRect(x: 0, y: 6, width: 54, height: 45))
+            tempImgView.centerX = tempView.width / 2
+            tempImgView.image = UIImage(named: logoArray[i]["img"]!)
+            tempView.addSubview(tempImgView)
+
+            let tempTtitleLabel = UILabel(frame: CGRect(x: 0, y: tempImgView.maxY + 8, width: tempView.width, height: 14))
+            tempTtitleLabel.text = logoArray[i]["name"]!
+            tempTtitleLabel.textColor = UIColor.hex("4f4f4f")
+            tempTtitleLabel.font = UIFont.customFont(ofSize: 14)
+            tempTtitleLabel.textAlignment = .center
+            tempView.addSubview(tempTtitleLabel)
+            maxY = tempView.maxY
         }
-        imgView.image = UIImage(named:array[index]["img"]!)
-        bottomLabel.text = array[index]["detail"]!
+
+        let contentArray = [
+            "资产来自央企、国企、上市公司",
+            "公安部三级等保备案证明",
+            "中国互联网金融企业家俱乐部副理事长单位"
+        ]
+
+        maxY = maxY + 8
+
+        for i in 0 ..< contentArray.count {
+
+            let tempTtitleLabel = UILabel(frame: CGRect(x: 29, y: maxY + 8, width: 280, height: 14))
+            tempTtitleLabel.text = contentArray[i]
+            tempTtitleLabel.textColor = UIColor.hex("4f4f4f")
+            tempTtitleLabel.font = UIFont.customFont(ofSize: 14)
+            contentView.addSubview(tempTtitleLabel)
+
+            let yuanView = UIView(frame: CGRect(x: 16, y: maxY, width: 5, height: 5))
+            yuanView.centerY = tempTtitleLabel.centerY
+            yuanView.backgroundColor = UIColor.hex("4f4f4f")
+            contentView.addSubview(yuanView)
+
+            maxY = maxY + 8 + 16
+
+        }
+
     }
 
     required init?(coder aDecoder: NSCoder) {

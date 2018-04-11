@@ -108,7 +108,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
         self.navigationBar.layer.addSublayer(gradientLayer)
         self.navigationBar.insertSubview(self.navigationBar.titleLabel, at: 100)
         
-        showTableView = UITableView(frame: self.bgView.bounds, style: .plain)
+        showTableView = UITableView(frame: self.bgView.bounds, style: .grouped)
         showTableView.backgroundColor = bgColor
         showTableView?.delegate = self
         showTableView?.dataSource = self
@@ -116,7 +116,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
         showTableView.separatorStyle = .none
         self.bgView.addSubview(showTableView)
         if #available(iOS 11.0, *) {
-            showTableView.estimatedRowHeight = 0
+            showTableView.estimatedRowHeight = 143
             showTableView.estimatedSectionHeaderHeight = 0
             showTableView.estimatedSectionFooterHeight = 0
             showTableView.contentInsetAdjustmentBehavior = .never
@@ -171,8 +171,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
 extension GPWHomeViewController{
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.dic != nil {
-
-            return 5 + adFlag
+            return 5 + (adFlag == 0 ? 1 : 0)
         }
        return 0
     }
@@ -218,9 +217,9 @@ extension GPWHomeViewController{
         }else if indexPath.section == 1 - adFlag{
             return pixw(p: 120) + 10
         }else if indexPath.section == 2 - adFlag{
-            return 232 + 10
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 3 - adFlag{
-            return 143
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 4 - adFlag{
             return 130
         }else{
@@ -237,6 +236,11 @@ extension GPWHomeViewController{
             titleLabel.textColor = UIColor.hex("222222")
             titleLabel.text = "推荐产品"
             view.addSubview(titleLabel)
+
+
+            let bottomLine = UIView(frame: CGRect(x: 16, y: 55, width: SCREEN_WIDTH - 16, height: 1))
+            bottomLine.backgroundColor = bgColor
+            view.addSubview(bottomLine)
             return view
 
         }
@@ -277,21 +281,12 @@ extension GPWHomeViewController{
             return cell!
 
         } else  if indexPath.section == 2 - adFlag{
-            if indexPath.row == 0 {
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHPTopCell") as? GPWHPTopCell
-                if cell == nil {
-                    cell = GPWHPTopCell(style: .default, reuseIdentifier: "GPWHPTopCell")
-                }
-                cell?.setupCell(dict: (self.dic?["Item"][indexPath.row])!, index: indexPath.row)
-                return cell!
-            }else{
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHProjectCell") as? GPWHProjectCell
-                if cell == nil {
-                    cell = GPWHProjectCell(style: .default, reuseIdentifier: "GPWHProjectCell")
-                }
-                cell?.setupCell(dict: (self.dic?["Item"][indexPath.row])!)
-                return cell!
+            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHPTopCell") as? GPWHPTopCell
+            if cell == nil {
+                cell = GPWHPTopCell(style: .default, reuseIdentifier: "GPWHPTopCell")
             }
+            cell?.setupCell(dict: self.dic!["Item"][indexPath.row])
+            return cell!
         }else  if indexPath.section == 3 - adFlag{
             var cell = tableView.dequeueReusableCell(withIdentifier: "GPWProjectCell") as? GPWProjectCell
             if cell == nil {
@@ -311,7 +306,6 @@ extension GPWHomeViewController{
             if cell == nil {
                 cell = GPWHomeBottomCell(style: .default, reuseIdentifier: "GPWHomeBottomCell")
             }
-            cell?.updata()
             return cell!
         }
     }
@@ -336,35 +330,6 @@ extension GPWHomeViewController{
                 let vc = GPWProjectDetailViewController(projectID: "\(projectID!)")
                 vc.title = self.dic?["Item"][indexPath.row - arrayIndex]["title"].string
                 self.navigationController?.show(vc, sender: nil)
-            }
-        }
-    }
-
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        var navAlpha = self.navigationBar.alpha
-        
-        if scrollView.contentOffset.y <= 0 {
-            navAlpha = 0.0
-        }else  if scrollView.contentOffset.y >= 100 {
-            navAlpha = maxAplha
-        }else {
-            if scrollView.contentOffset.y > _scrollviewOffY {
-                navAlpha = navAlpha + maxAplha / 100
-            }else if scrollView.contentOffset.y < _scrollviewOffY {
-                navAlpha = navAlpha - maxAplha / 100
-            }
-        }
-         self.navigationBar.alpha = navAlpha
-        _scrollviewOffY = scrollView.contentOffset.y
-    }
-
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if self.dic != nil {
-            let index = IndexPath(row: 0, section: 4)
-            let  cell = showTableView.cellForRow(at: index) as? GPWHomeBottomCell
-            if cell != nil {
-                cell?.updata()
             }
         }
     }

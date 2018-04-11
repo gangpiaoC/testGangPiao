@@ -177,7 +177,7 @@ class GPWProjectCell: UITableViewCell {
        
         statusLabel.text = "即将开放"
         statusImgView.isHidden = true
-        balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
+        balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000"))元"
         titleLabel.textColor = UIColor.hex("4f4f4f")
         balanceLabel.textColor = UIColor.hex("4f4f4f")
         staticDateLabel.textColor = UIColor.hex("4f4f4f")
@@ -199,7 +199,7 @@ class GPWProjectCell: UITableViewCell {
         case "COLLECTING":
             statusLabel.text = "立即加入"
             statusImgView.isHidden = true
-            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
         case "RELEASE":
             statusLabel.text = "即将开放"
             statusImgView.isHidden = true

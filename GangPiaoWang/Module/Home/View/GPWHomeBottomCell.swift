@@ -76,6 +76,7 @@ class GPWHomeBottomCell: UITableViewCell {
 
             let yuanView = UIView(frame: CGRect(x: 16, y: maxY, width: 5, height: 5))
             yuanView.centerY = tempTtitleLabel.centerY
+            yuanView.layer.cornerRadius = 2.5
             yuanView.backgroundColor = titleColor
             contentView.addSubview(yuanView)
 

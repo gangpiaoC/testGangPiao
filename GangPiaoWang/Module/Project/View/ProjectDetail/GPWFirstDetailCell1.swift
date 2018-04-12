@@ -72,12 +72,12 @@ class GPWFirstDetailCell1: UITableViewCell {
     let bottomMiddleDotImgView = UIImageView(image: #imageLiteral(resourceName: "project_detail_circel"))
     let bottomRightDotImgView = UIImageView(image: #imageLiteral(resourceName: "project_detail_circel"))
     
-    let bottomLeftLineView = UIView(bgColor: UIColor.hex("fa713d"))
-    let bottomRightLineView = UIView(bgColor: UIColor.hex("fa713d"))
+    let bottomLeftLineView = UIView(bgColor: redColor)
+    let bottomRightLineView = UIView(bgColor: redColor)
     
-    let bottomLeftTitleLabel = UILabel(title: "今日出借", color: UIColor.hex("4f4f4f"), fontSize: 14)
-    let bottomMiddleTitleLabel = UILabel(title: "今日计息", color: UIColor.hex("4f4f4f"), fontSize: 14)
-    let bottomRightTitleLabel = UILabel(title: "到期还本息", color: UIColor.hex("4f4f4f"), fontSize: 14)
+    let bottomLeftTitleLabel = UILabel(title: "今日出借", color: titleColor, fontSize: 14)
+    let bottomMiddleTitleLabel = UILabel(title: "今日计息", color: titleColor, fontSize: 14)
+    let bottomRightTitleLabel = UILabel(title: "到期还本息", color: titleColor, fontSize: 14)
     
     let bottomLeftSubtitleLabel = UILabel(title: "2018.04.06", color: UIColor.hex("b7b7b7"), fontSize: 12)
     let bottomMiddleSubtitleLabel = UILabel(title: "2018.04.06", color: UIColor.hex("b7b7b7"), fontSize: 12)
@@ -95,7 +95,7 @@ class GPWFirstDetailCell1: UITableViewCell {
     }
     
     private func commonInit() {
-        let topBgView = UIView(bgColor: UIColor.hex("fa713d"))
+        let topBgView = UIView(bgColor: redColor)
         topBgView.addSubview(staticIncomeLabel)
         topBgView.addSubview(incomeLabel)
         topBgView.addSubview(staticDateLabel)

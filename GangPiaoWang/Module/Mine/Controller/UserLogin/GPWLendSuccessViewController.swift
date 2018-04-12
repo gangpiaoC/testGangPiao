@@ -38,7 +38,7 @@ class GPWLendSuccessViewController: GPWSecBaseViewController {
             label.text = "体验金出借成功"
             label.textAlignment = .center
             label.font = UIFont.customFont(ofSize: 20)
-            label.textColor = UIColor.hex("4f4f4f")
+            label.textColor = titleColor
             return label
         }()
         
@@ -46,8 +46,8 @@ class GPWLendSuccessViewController: GPWSecBaseViewController {
             let label = UILabel()
             label.textAlignment = .center
             label.font = UIFont.customFont(ofSize: 18)
-            label.textColor = UIColor.hex("4f4f4f")
-            label.attributedText = NSAttributedString.attributedString("\(GPWGlobal.sharedInstance().app_exper_income)元", mainColor: UIColor.hex("fa713d"), mainFont: 18, second: "体验金收益已到账", secondColor: UIColor.hex("4f4f4f"), secondFont: 18)
+            label.textColor = titleColor
+            label.attributedText = NSAttributedString.attributedString("\(GPWGlobal.sharedInstance().app_exper_income)元", mainColor: redColor, mainFont: 18, second: "体验金收益已到账", secondColor: titleColor, secondFont: 18)
             return label
         }()
         
@@ -60,11 +60,11 @@ class GPWLendSuccessViewController: GPWSecBaseViewController {
         let redCouponLabel: UILabel = {
             let label = UILabel()
             label.textAlignment = .center
-            label.textColor = UIColor.hex("4f4f4f")
+            label.textColor = titleColor
             label.font = UIFont.systemFont(ofSize: 18)
             let attrText = NSMutableAttributedString()
             attrText.append(NSAttributedString(string: "完成身份验证即送"))
-            attrText.append(NSAttributedString(string: "\(GPWGlobal.sharedInstance().app_accountsred)元", attributes: [NSAttributedStringKey.foregroundColor: UIColor.hex("fa713d")]))
+            attrText.append(NSAttributedString(string: "\(GPWGlobal.sharedInstance().app_accountsred)元", attributes: [NSAttributedStringKey.foregroundColor: redColor]))
             attrText.append(NSAttributedString(string: "红包"))
             label.attributedText = attrText
             label.numberOfLines = 0

@@ -51,7 +51,7 @@ class GPWHomeBottomCell: UITableViewCell {
 
             let tempTtitleLabel = UILabel(frame: CGRect(x: 0, y: tempImgView.maxY + 8, width: tempView.width, height: 14))
             tempTtitleLabel.text = logoArray[i]["name"]!
-            tempTtitleLabel.textColor = UIColor.hex("4f4f4f")
+            tempTtitleLabel.textColor = titleColor
             tempTtitleLabel.font = UIFont.customFont(ofSize: 14)
             tempTtitleLabel.textAlignment = .center
             tempView.addSubview(tempTtitleLabel)
@@ -70,13 +70,13 @@ class GPWHomeBottomCell: UITableViewCell {
 
             let tempTtitleLabel = UILabel(frame: CGRect(x: 29, y: maxY + 8, width: 280, height: 14))
             tempTtitleLabel.text = contentArray[i]
-            tempTtitleLabel.textColor = UIColor.hex("4f4f4f")
+            tempTtitleLabel.textColor = titleColor
             tempTtitleLabel.font = UIFont.customFont(ofSize: 14)
             contentView.addSubview(tempTtitleLabel)
 
             let yuanView = UIView(frame: CGRect(x: 16, y: maxY, width: 5, height: 5))
             yuanView.centerY = tempTtitleLabel.centerY
-            yuanView.backgroundColor = UIColor.hex("4f4f4f")
+            yuanView.backgroundColor = titleColor
             contentView.addSubview(yuanView)
 
             maxY = maxY + 8 + 16

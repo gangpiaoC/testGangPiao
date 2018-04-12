@@ -45,7 +45,7 @@ class VierticalScrollView: UIView {
         titleLabel.font = UIFont.customFont(ofSize: 14)
         titleLabel.isUserInteractionEnabled = false
         titleLabel.tag = 1000
-        titleLabel.textColor = UIColor.hex("4f4f4f")
+        titleLabel.textColor = titleColor
         btn.addSubview(titleLabel)
     }
     

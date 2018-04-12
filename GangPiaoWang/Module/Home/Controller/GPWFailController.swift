@@ -57,7 +57,7 @@ class GPWFailController: GPWBaseViewController {
         self.bgView.addSubview(tipleLabel)
 
         let  btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: 16, y: tipleLabel.maxY + 96, width: SCREEN_WIDTH - 32, height: 64)
+        btn.frame = CGRect(x: 16, y: tipleLabel.maxY + 96, width: SCREEN_WIDTH - 32, height: 48)
         btn.setImage(UIImage(named:"user_fail_btn"), for: .normal)
         btn.addTarget(self, action: #selector(self.btnClick), for: .touchUpInside)
         self.bgView.addSubview(btn)

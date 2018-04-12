@@ -16,7 +16,7 @@ class GPWFirstDetailCell3: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFont(ofSize: 16)
-        label.textColor = UIColor.hex("4f4f4f")
+        label.textColor = titleColor
         label.text = "出借10000元，30天后预计可赚"
         return label
     }()
@@ -24,7 +24,7 @@ class GPWFirstDetailCell3: UITableViewCell {
     //赚的钱
     private var returnLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.hex("fa713d")
+        label.textColor = redColor
         label.font = UIFont.customFont(ofSize: 32)
         label.text = "52.65元"
         return label

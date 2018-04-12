@@ -35,7 +35,7 @@ class GPWQuirstView: UIView,RTLabelDelegate {
         for i in 0 ..< array.count  {
             let tipLabel = UILabel(frame: CGRect(x: 16, y: maxHeiht + 21, width: 50, height: 21))
             tipLabel.text = array[i]["tip"]
-            tipLabel.textColor = UIColor.hex("4f4f4f")
+            tipLabel.textColor = titleColor
             tipLabel.font = UIFont.systemFont(ofSize: 16)
             self.addSubview(tipLabel)
             

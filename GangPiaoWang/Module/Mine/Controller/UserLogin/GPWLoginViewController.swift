@@ -55,7 +55,12 @@ class GPWLoginViewController: GPWSecBaseViewController {
     }
     
     @objc func changBtn(sender:UIButton) {
-        sender.setTitleColor(UIColor.hex("fa713d"), for: .normal)
+        
+        let vc = GPWUserRegisterSViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+        return
+        
+        sender.setTitleColor(redColor, for: .normal)
         sender.backgroundColor = UIColor.white
         var  btnTag = 1000
         if sender.tag == 1000 {

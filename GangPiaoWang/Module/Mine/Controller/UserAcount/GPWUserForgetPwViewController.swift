@@ -68,7 +68,7 @@ class GPWUserForgetPwViewController: GPWSecBaseViewController,RTLabelDelegate {
         
         maxheight += 32
         nextBtn = UIButton(type: .custom)
-        nextBtn.frame = CGRect(x: 10, y: maxheight, width: SCREEN_WIDTH - 10 * 2, height: 64)
+        nextBtn.frame = CGRect(x: 10, y: maxheight, width: SCREEN_WIDTH - 10 * 2, height: 48)
         nextBtn.setTitle("下一步", for: .normal)
         nextBtn.addTarget(self, action: #selector(self.btnClick), for: .touchUpInside)
         nextBtn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)

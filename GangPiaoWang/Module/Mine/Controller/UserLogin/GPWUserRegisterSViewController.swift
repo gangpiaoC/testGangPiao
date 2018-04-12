@@ -39,7 +39,7 @@ class GPWUserRegisterSViewController: GPWSecBaseViewController {
             label.text = "注册成功"
             label.textAlignment = .center
             label.font = UIFont.customFont(ofSize: 20)
-            label.textColor = UIColor.hex("4f4f4f")
+            label.textColor = titleColor
             return label
         }()
         
@@ -47,8 +47,8 @@ class GPWUserRegisterSViewController: GPWSecBaseViewController {
             let label = UILabel()
             label.textAlignment = .center
             label.font = UIFont.customFont(ofSize: 18)
-            label.textColor = UIColor.hex("4f4f4f")
-            label.attributedText = NSAttributedString.attributedString("\(GPWGlobal.sharedInstance().app_exper_amount)元", mainColor: UIColor.hex("fa713d"), mainFont: 18, second: "体验金已到账", secondColor: UIColor.hex("4f4f4f"), secondFont: 18)
+            label.textColor = titleColor
+            label.attributedText = NSAttributedString.attributedString("\(GPWGlobal.sharedInstance().app_exper_amount)元", mainColor: redColor, mainFont: 18, second: "体验金已到账", secondColor: titleColor, secondFont: 18)
             return label
         }()
         

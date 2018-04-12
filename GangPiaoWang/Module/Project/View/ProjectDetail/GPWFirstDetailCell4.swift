@@ -15,7 +15,7 @@ class GPWFirstDetailCell4: UITableViewCell {
         button.setImage(#imageLiteral(resourceName: "project_detail_projectDetail"), for: .normal)
         button.setImage(#imageLiteral(resourceName: "project_detail_projectDetail"), for: .highlighted)
         button.setTitle("项目详情", for: .normal)
-        button.setTitleColor(UIColor.hex("4f4f4f"), for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         return button
     }()
@@ -25,7 +25,7 @@ class GPWFirstDetailCell4: UITableViewCell {
         button.setImage(#imageLiteral(resourceName: "project_detail_dangerControl"), for: .normal)
         button.setImage(#imageLiteral(resourceName: "project_detail_dangerControl"), for: .highlighted)
         button.setTitle("风险控制", for: .normal)
-        button.setTitleColor(UIColor.hex("4f4f4f"), for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         return button
     }()
@@ -35,7 +35,7 @@ class GPWFirstDetailCell4: UITableViewCell {
         button.setImage(#imageLiteral(resourceName: "project_detail_addRecord"), for: .normal)
         button.setImage(#imageLiteral(resourceName: "project_detail_addRecord"), for: .highlighted)
         button.setTitle("加入记录", for: .normal)
-        button.setTitleColor(UIColor.hex("4f4f4f"), for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         return button
     }()

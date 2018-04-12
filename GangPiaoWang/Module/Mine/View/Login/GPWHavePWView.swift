@@ -28,7 +28,7 @@ class GPWHavePWView: UIView {
         for i in 0 ..< array.count  {
             let tipLabel = UILabel(frame: CGRect(x: 16, y: maxHeiht + 21, width: 66, height: 21))
             tipLabel.text = array[i]["tip"]
-            tipLabel.textColor = UIColor.hex("4f4f4f")
+            tipLabel.textColor = titleColor
             tipLabel.font = UIFont.systemFont(ofSize: 16)
             self.addSubview(tipLabel)
             
@@ -76,7 +76,7 @@ class GPWHavePWView: UIView {
         let zhuceBtn = UIButton(type: .custom)
         zhuceBtn.frame = CGRect(x: btn.x, y: maxHeiht, width: 80, height: 15)
         zhuceBtn.setTitle("注册领红包", for: .normal)
-        zhuceBtn.setTitleColor(UIColor.hex("fa713d"), for: .normal)
+        zhuceBtn.setTitleColor(redColor, for: .normal)
         zhuceBtn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         zhuceBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
         zhuceBtn.tag = 101
@@ -88,7 +88,7 @@ class GPWHavePWView: UIView {
         forgetPwBtn.setTitle("忘记密码", for: .normal)
         forgetPwBtn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         forgetPwBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
-        forgetPwBtn.setTitleColor(UIColor.hex("fa713d"), for: .normal)
+        forgetPwBtn.setTitleColor(redColor, for: .normal)
         forgetPwBtn.tag = 102
         self.addSubview(forgetPwBtn)
     }

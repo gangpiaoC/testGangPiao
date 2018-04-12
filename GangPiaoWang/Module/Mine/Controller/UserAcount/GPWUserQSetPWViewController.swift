@@ -92,21 +92,21 @@ class GPWUserQSetPWViewController: GPWSecBaseViewController {
         let middleView = UIView(bgColor: UIColor.white)
         let phoneTipLabel: UILabel = {
             let label = UILabel()
-            label.textColor = UIColor.hex("4f4f4f")
+            label.textColor = titleColor
             label.font = UIFont.systemFont(ofSize: 16)
             label.text = "手机号"
             return label
         }()
         let authTipLabel: UILabel = {
             let label = UILabel()
-            label.textColor = UIColor.hex("4f4f4f")
+            label.textColor = titleColor
             label.font = UIFont.systemFont(ofSize: 16)
             label.text = "验证码"
             return label
         }()
         let passwordTipLabel: UILabel = {
             let label = UILabel()
-            label.textColor = UIColor.hex("4f4f4f")
+            label.textColor = titleColor
             label.font = UIFont.systemFont(ofSize: 16)
             label.text = "登录密码"
             return label

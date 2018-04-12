@@ -59,7 +59,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
     ]
     let contentArray = [
         ["name":"实名认证","title":""],
-        ["name":"真实姓名","title":"请输入姓名"],
+        ["name":"真实姓名","title":"请输入真实姓名"],
         ["name":"身份证号","title":"请输入身份证号"],
         ["name":"银行卡信息","title":""],
         ["name":"银行卡号","title":"请输入本人银行卡号"]
@@ -160,7 +160,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         topTitleLabel.textColor = UIColor.hex("f6a623")
         topTitleLabel.textAlignment = .center
         topTitleLabel.backgroundColor = UIColor.hex("fff4e1")
-        topTitleLabel.text = "钢票网携手银行开通资金存管服务"
+        topTitleLabel.text = "开通恒丰银行存管，资金更安全"
         tempBgView.addSubview(topTitleLabel)
 
         var maxHeight = topTitleLabel.maxY
@@ -259,7 +259,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         bottomView.addSubview(bankBtn)
 
         let  btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: 16, y:  bankBtn.maxY, width: SCREEN_WIDTH - 32, height: 64)
+        btn.frame = CGRect(x: 16, y:  bankBtn.maxY, width: SCREEN_WIDTH - 32, height: 48)
         btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
         btn.setTitle("确定", for: .normal)
         btn.addTarget(self, action: #selector(self.btnClick), for: .touchUpInside)

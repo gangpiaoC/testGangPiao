@@ -169,7 +169,7 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
         if self.prizeNum > 0 {
             let  prizeLabel = RTLabel(frame: CGRect(x: 0, y: maxY, width: SCREEN_WIDTH, height: 0))
             prizeLabel.textAlignment = RTTextAlignmentCenter
-            prizeLabel.text = "<font size=16 color='#888888'>恭喜您获得满标奖励的</font><font size=16 color='#f6390c'>\(self.prizeNum)元</font><font  size=16 color='#888888'>红包</font>"
+            prizeLabel.text = "<font size=16 color='#888888'>恭喜您获得满标奖励的</font><font size=16 color='#fa713d'>\(self.prizeNum)元</font><font  size=16 color='#888888'>红包</font>"
             prizeLabel.height = prizeLabel.optimumSize.height
             tempBgView.addSubview(prizeLabel)
             maxY = prizeLabel.maxY + 10
@@ -222,7 +222,7 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
         tempBgView.height = maxY
         
         let btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: 16, y: tempBgView.maxY + 30, width: SCREEN_WIDTH - 16 * 2, height: 64)
+        btn.frame = CGRect(x: 16, y: tempBgView.maxY + 30, width: SCREEN_WIDTH - 16 * 2, height: 48)
         btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
         btn.setTitle("完成", for: .normal)
         btn.titleLabel?.font = UIFont.customFont(ofSize: 18)

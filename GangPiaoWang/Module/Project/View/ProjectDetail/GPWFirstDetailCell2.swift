@@ -16,7 +16,7 @@ class GPWFirstDetailCell2: UITableViewCell {
     private let rightLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.customFont(ofSize: 16)
-        label.textColor = UIColor.hex("4f4f4f")
+        label.textColor = titleColor
         label.text = "资产来自于央企、国企、上市公司"
         return label
     }()

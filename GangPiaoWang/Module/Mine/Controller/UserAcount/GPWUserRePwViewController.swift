@@ -48,7 +48,7 @@ class GPWUserRePwViewController: GPWSecBaseViewController {
         
         maxheight += 32
         let btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: 10, y:  maxheight, width: SCREEN_WIDTH - 20 * 2, height: 64)
+        btn.frame = CGRect(x: 10, y:  maxheight, width: SCREEN_WIDTH - 20 * 2, height: 48)
         btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
         btn.setTitle("确定", for: .normal)
         btn.addTarget(self, action: #selector(self.btnClick), for: .touchUpInside)

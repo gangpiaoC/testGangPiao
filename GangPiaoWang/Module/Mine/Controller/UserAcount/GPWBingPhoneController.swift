@@ -80,7 +80,7 @@ class GPWBingPhoneController: GPWSecBaseViewController,RTLabelDelegate {
         shuLine.backgroundColor = UIColor.hex("e0e0e0")
         self.bgView.addSubview(shuLine)
         
-        let btn = UIButton(frame: CGRect(x: 16, y: topBgView.maxY + 60, width: SCREEN_WIDTH - 16 * 2, height: 64))
+        let btn = UIButton(frame: CGRect(x: 16, y: topBgView.maxY + 60, width: SCREEN_WIDTH - 16 * 2, height: 48))
         btn.layer.masksToBounds = true
         btn.layer.cornerRadius = 3
         btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)

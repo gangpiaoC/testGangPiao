@@ -45,7 +45,7 @@ class GPWUserFackViewController: GPWSecBaseViewController,RTLabelDelegate ,UITex
         bgView.addSubview( textField)
         
         let btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: 16, y: bgView.maxY + 30, width: SCREEN_WIDTH - 16 * 2, height: 64)
+        btn.frame = CGRect(x: 16, y: bgView.maxY + 30, width: SCREEN_WIDTH - 16 * 2, height: 48)
         btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
         btn.setTitle("确定", for: .normal)
         btn.titleLabel?.font = UIFont.customFont(ofSize: 18)

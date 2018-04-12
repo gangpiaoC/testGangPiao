@@ -248,7 +248,7 @@ class GPWHelper {
         bgView.tag = 10001
         wid?.addSubview(bgView)
         
-        let  tempBgView = UIView(frame: CGRect(x: 0, y: 0, width: 296, height: 320))
+        let  tempBgView = UIView(frame: CGRect(x: 0, y: 0, width: 296, height: 279))
         tempBgView.layer.masksToBounds = true
         tempBgView.layer.cornerRadius = 4
         tempBgView.centerX = bgView.width / 2
@@ -261,25 +261,18 @@ class GPWHelper {
         imgView.image = UIImage(named: "project_investSucess")
         tempBgView.addSubview(imgView)
         
-        let  temp1Label = UILabel(frame: CGRect(x: 0, y: imgView.maxY + 26, width: tempBgView.width, height: 21))
+        let  temp1Label = UILabel(frame: CGRect(x: 0, y: imgView.maxY + 30, width: tempBgView.width, height: 21))
         temp1Label.text = "存管帐户开通成功"
         temp1Label.textAlignment = .center
         temp1Label.font = UIFont.customFont(ofSize: 20)
-        temp1Label.textColor = UIColor.hex("666666")
+        temp1Label.textColor = titleColor
         tempBgView.addSubview(temp1Label)
         
-        let  temp2Label = RTLabel(frame: CGRect(x: 0, y: temp1Label.maxY + 24, width: tempBgView.width, height: 21))
+        let  temp2Label = RTLabel(frame: CGRect(x: 0, y: temp1Label.maxY + 32, width: tempBgView.width, height: 21))
         temp2Label.text =  "<font size=18 color='#666666'>已成功获得</font><font size=18 color='#f6390d'>\(GPWGlobal.sharedInstance().app_accountsred)元</font><font size=18 color='#666666'>红包</font>"
         temp2Label.textAlignment = RTTextAlignmentCenter
         temp2Label.height = temp2Label.optimumSize.height
         tempBgView.addSubview(temp2Label)
-        
-        let btn = UIButton(frame: CGRect(x: 30, y: temp2Label.maxY + 16, width: tempBgView.width - 30 * 2, height: 54))
-        btn.setBackgroundImage(UIImage(named: "user_realname_success"), for: .normal)
-        btn.setTitle("首次投资得1%加息券", for: .normal)
-        btn.addTarget(self, action: #selector(GPWHelper.gotoFirstPay), for: .touchUpInside)
-        btn.titleLabel?.font = UIFont.customFont(ofSize: 16)
-        tempBgView.addSubview(btn)
         
         //取消
         let cancelBtn = UIButton(type: .custom)

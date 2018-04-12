@@ -13,7 +13,7 @@ import SwiftyJSON
 class GPWProjectCell: UITableViewCell {
     fileprivate let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.hex("4f4f4f")
+        titleLabel.textColor = titleColor
         titleLabel.font = UIFont.customFont(ofSize: 16.0)
         titleLabel.text = "新手专享"
         return titleLabel
@@ -58,20 +58,20 @@ class GPWProjectCell: UITableViewCell {
     
     let incomeLabel: UILabel = {
         let label = UILabel()
-        label.attributedText = NSAttributedString.attributedString("9.0", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("fa713d"), secondFont: 20, secondFontWeight: .medium)
+        label.attributedText = NSAttributedString.attributedString("9.0", mainColor: redColor, mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: redColor, secondFont: 20, secondFontWeight: .medium)
         return label
     }()
 
     let staticDateLabel: UILabel = {
         let label = UILabel()
         label.text = "期限"
-        label.textColor = UIColor.hex("4f4f4f")
+        label.textColor = titleColor
         label.font = UIFont.customFont(ofSize: 18.0)
         return label
     }()
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.hex("fa713d")
+        label.textColor = redColor
         label.font = UIFont.customFont(ofSize: 18.0)
         label.text = "30天"
         return label
@@ -79,7 +79,7 @@ class GPWProjectCell: UITableViewCell {
     
     fileprivate let balanceLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.hex("4f4f4f")
+        label.textColor = titleColor
         label.font = UIFont.customFont(ofSize: 12.0)
         label.text = "100元起投 剩余651,000元"
         return label
@@ -174,23 +174,23 @@ class GPWProjectCell: UITableViewCell {
             newbieButton.isHidden = false
             newbieButtonWidthConstraint.update(offset: 90)
             let attrText = NSMutableAttributedString()
-            attrText.append(NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"])", secondColor: UIColor.hex("fa713d"), secondFont: 26, secondFontWeight: .medium))
-            attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.hex("fa713d")]))
+            attrText.append(NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: redColor, mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"])", secondColor: redColor, secondFont: 26, secondFontWeight: .medium))
+            attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium), NSAttributedStringKey.foregroundColor: redColor]))
             incomeLabel.attributedText = attrText
         } else {
             newbieButton.isHidden = true
             newbieButtonWidthConstraint.update(offset: 0)
-            incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("fa713d"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("fa713d"), secondFont: 20, secondFontWeight: .medium)
+            incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: redColor, mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: redColor, secondFont: 20, secondFontWeight: .medium)
         }
         dateLabel.text = "\(dict["deadline"].int ?? 0)天"
        
         statusLabel.text = "即将开放"
         statusImgView.isHidden = true
         balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000"))元"
-        titleLabel.textColor = UIColor.hex("4f4f4f")
-        balanceLabel.textColor = UIColor.hex("4f4f4f")
-        staticDateLabel.textColor = UIColor.hex("4f4f4f")
-        dateLabel.textColor = UIColor.hex("fa713d")
+        titleLabel.textColor = titleColor
+        balanceLabel.textColor = titleColor
+        staticDateLabel.textColor = titleColor
+        dateLabel.textColor = redColor
         staticIncomeLabel.textColor = UIColor.hex("b7b7b7")
         let state = dict["status"].string ?? "COLLECTING"
         switch state {

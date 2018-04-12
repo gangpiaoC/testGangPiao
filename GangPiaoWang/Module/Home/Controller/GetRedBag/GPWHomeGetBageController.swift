@@ -332,7 +332,7 @@ class GPWHomeGetBageController: GPWSecBaseViewController {
             
             //去使用
             let toBtn = UIButton(type: .custom)
-            toBtn.frame = CGRect(x: 0, y: tempMaxY, width: 330, height: 64)
+            toBtn.frame = CGRect(x: 0, y: tempMaxY, width: 330, height: 48)
             toBtn.setImage(UIImage(named: "home_getbag_topay"), for: .normal)
             toBtn.centerX = SCREEN_WIDTH / 2
             toBtn.tag = 1001

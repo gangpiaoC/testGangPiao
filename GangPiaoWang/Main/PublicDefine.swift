@@ -52,11 +52,11 @@ let USER了OGINPHONE = "USER了OGINPHONE"
 let baseColor = UIColor.hex("ffffff")
 let lineColor = UIColor.hex("e6e6e6")
 let bgColor = UIColor.hex("f2f2f2")
-let titleColor = UIColor.hex("333333")
+let titleColor = UIColor.hex("4f4f4f")
 let subTitleColor = UIColor.hex("666666")
 let timeColor = UIColor.hex("999999")
 let urlColor = UIColor.hex("00affe")
-let redColor = UIColor.hex("f6390d")
+let redColor = UIColor.hex("fa713d")
 let redTitleColor = UIColor.hex("f6390c")
 
 #if DEBUG

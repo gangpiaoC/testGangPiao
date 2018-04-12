@@ -60,7 +60,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         for i in 0 ..< array.count {
             
             let tipLabel = UILabel(frame: CGRect(x: 16, y: maxheight + 21, width: 66, height: 21))
-            tipLabel.textColor = UIColor.hex("4f4f4f")
+            tipLabel.textColor = titleColor
             tipLabel.font = UIFont.systemFont(ofSize: 16)
             tipLabel.text = array[i]["tip"]
             scrollView.addSubview(tipLabel)
@@ -102,7 +102,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         scrollView.addSubview(inviterBgView)
         
         let yaoCodeLabel = UILabel(frame: CGRect(x: 16, y: 21, width: 66, height: 21))
-        yaoCodeLabel.textColor = UIColor.hex("4f4f4f")
+        yaoCodeLabel.textColor = titleColor
         yaoCodeLabel.font = UIFont.systemFont(ofSize: 16)
         yaoCodeLabel.text = "邀请人"
         inviterBgView.addSubview(yaoCodeLabel)

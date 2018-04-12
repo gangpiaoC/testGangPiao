@@ -38,7 +38,7 @@ class GPWHomeSecViewCell: UITableViewCell {
             titleLabel.text = array[i]["title"]
             titleLabel.font = UIFont.customFont(ofSize: 14)
             titleLabel.textAlignment = .center
-            titleLabel.textColor = UIColor.hex("4f4f4f")
+            titleLabel.textColor = titleColor
             btn.addSubview(titleLabel)
         }
         

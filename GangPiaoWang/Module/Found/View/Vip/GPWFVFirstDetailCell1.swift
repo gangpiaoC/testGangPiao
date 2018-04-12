@@ -235,7 +235,7 @@ class GPWFVFirstDetailCell1: UITableViewCell {
     }
     
     func setupCell(_ dict: JSON) {
-         incomeLabel.text = "<font size=70 color='#f6390c'>\(dict["rate_loaner"])</font><font size=36 color='#f6390c'>%</font>"
+         incomeLabel.text = "<font size=70 color='#fa713d'>\(dict["rate_loaner"])</font><font size=36 color='#fa713d'>%</font>"
         
         //是否为新手标
         if GPWUser.sharedInstance().identity == 2 || GPWUser.sharedInstance().identity == 4{
@@ -247,7 +247,7 @@ class GPWFVFirstDetailCell1: UITableViewCell {
             staticNoviceLabel.text = "新手专享"
             staticLimitLabel.text = "限投\(dict["begin_amount_sx"].stringValue)万"
             if dict["rate_loaner"].doubleValue > 0 {
-                incomeLabel.text = "<font size=70 color='#f6390c'>\(dict["rate_loaner"])</font><font size=36 color='#f6390c'>%</font><font size=36 color='#f6390c'>+</font><font size=48 color='#f6390c'>\(dict["rate_new"])</font><font size=24 color='#f6390c'>%</font>"
+                incomeLabel.text = "<font size=70 color='#fa713d'>\(dict["rate_loaner"])</font><font size=36 color='#fa713d'>%</font><font size=36 color='#fa713d'>+</font><font size=48 color='#fa713d'>\(dict["rate_new"])</font><font size=24 color='#fa713d'>%</font>"
             }
         }
         dateLabel.attributedText = NSAttributedString.attributedString(dict["deadline"].stringValue, second: "天")

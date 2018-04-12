@@ -16,7 +16,7 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
     private var json: JSON?
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: .plain)
+        let tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
@@ -35,7 +35,7 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
     let balanceLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.attributedText = NSAttributedString.attributedString("剩余金额 ", mainColor: UIColor.hex("4f4f4f"), mainFont: 14, second: "1000元", secondColor: UIColor.hex("fa713d"), secondFont: 14)
+        label.attributedText = NSAttributedString.attributedString("剩余金额 ", mainColor: titleColor, mainFont: 14, second: "1000元", secondColor: redColor, secondFont: 14)
         return label
     }()
     let joinButton: UIButton = {
@@ -131,7 +131,7 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
         button.adjustsImageWhenHighlighted = false
         button.addTarget(self, action: #selector(share), for: .touchUpInside)
         navigationBar.addSubview(button)
-        navigationBar.backgroundColor = UIColor.hex("fa713d")
+        navigationBar.backgroundColor = redColor
         navigationBar.titleLabel.textColor = UIColor.white
         navigationBar.isLineHidden = true
         
@@ -236,13 +236,13 @@ extension GPWProjectDetailViewController: UITableViewDelegate, UITableViewDataSo
                 strongSelf.joinButton.isEnabled = false
                 return
             }
-            strongSelf.balanceLabel.attributedText = NSAttributedString.attributedString("募集总额 ", mainColor: UIColor.hex("4f4f4f"), mainFont: 14, second: "\(json["amount"].stringValue)元", secondColor: UIColor.hex("fa713d"), secondFont: 14)
+            strongSelf.balanceLabel.attributedText = NSAttributedString.attributedString("募集总额 ", mainColor: titleColor, mainFont: 14, second: "\(json["amount"].stringValue)元", secondColor: redColor, secondFont: 14)
             switch status {
             case "COLLECTING":
                 strongSelf.joinButton.isEnabled = true
                 strongSelf.joinButton.setTitle("立即加入", for: .normal)
-                strongSelf.joinButton.backgroundColor = UIColor.hex("fa713d")
-                strongSelf.balanceLabel.attributedText = NSAttributedString.attributedString("剩余金额 ", mainColor: UIColor.hex("4f4f4f"), mainFont: 14, second: "\(json["balance_amount"].stringValue)元", secondColor: UIColor.hex("fa713d"), secondFont: 14)
+                strongSelf.joinButton.backgroundColor = redColor
+                strongSelf.balanceLabel.attributedText = NSAttributedString.attributedString("剩余金额 ", mainColor: titleColor, mainFont: 14, second: "\(json["balance_amount"].stringValue)元", secondColor: redColor, secondFont: 14)
             case "FULLSCALE", "REPAYING", "FINISH":
                 strongSelf.joinButton.setTitle("已满标", for: .normal)
                 strongSelf.joinButton.backgroundColor = UIColor.hex("d8d8d8")
@@ -344,6 +344,10 @@ extension GPWProjectDetailViewController: UITableViewDelegate, UITableViewDataSo
             }
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

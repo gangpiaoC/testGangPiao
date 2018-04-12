@@ -80,7 +80,7 @@ class UserTopCell: UITableViewCell {
         let temp1Label = UILabel(frame: CGRect(x: 0,y: 26,width: moneyBgView.width,height:  17))
         temp1Label.text = "资金总额(元)"
         temp1Label.font = UIFont.customFont(ofSize: 16)
-        temp1Label.textColor = UIColor.hex("999999")
+        temp1Label.textColor = UIColor.hex("b7b7b7")
         temp1Label.textAlignment = .center
         moneyBgView.addSubview(temp1Label)
 
@@ -94,7 +94,7 @@ class UserTopCell: UITableViewCell {
         acountMoneyLabel = UILabel(frame:CGRect(x: 0,y: temp1Label.maxY +  12,width: temp1Label.width,height: 29))
         acountMoneyLabel.text = "0.00"
         acountMoneyLabel.font = UIFont.systemFont(ofSize: 28)
-        acountMoneyLabel.textColor = UIColor.hex("f85015")
+        acountMoneyLabel.textColor = redColor
         acountMoneyLabel.textAlignment = .center
         moneyBgView.addSubview(acountMoneyLabel)
         
@@ -102,14 +102,14 @@ class UserTopCell: UITableViewCell {
         let temp2Label = UILabel(frame: CGRect(x: 0,y: acountMoneyLabel.maxY + 31,width: moneyBgView.width / 2,height:  15))
         temp2Label.text = "累计收益(元)"
         temp2Label.font = UIFont.customFont(ofSize:  14)
-        temp2Label.textColor = UIColor.hex("999999")
+        temp2Label.textColor = UIColor.hex("b7b7b7")
         temp2Label.textAlignment = .center
         moneyBgView.addSubview(temp2Label)
         
         everyAddMoneyLabel = UILabel(frame:CGRect(x: 0,y: temp2Label.maxY + 11,width: temp2Label.width,height:  21))
         everyAddMoneyLabel.text = "0.00"
         everyAddMoneyLabel.font = UIFont.systemFont(ofSize:  20)
-        everyAddMoneyLabel.textColor = UIColor.hex("666666")
+        everyAddMoneyLabel.textColor = UIColor.hex("525252")
         everyAddMoneyLabel.textAlignment = .center
         moneyBgView.addSubview(everyAddMoneyLabel)
 
@@ -117,14 +117,14 @@ class UserTopCell: UITableViewCell {
         temp3Label.text = "账户余额(元)"
         temp3Label.textAlignment = .center
         temp3Label.font = UIFont.customFont(ofSize:  14)
-        temp3Label.textColor = UIColor.hex("999999")
+        temp3Label.textColor = UIColor.hex("b7b7b7")
        moneyBgView.addSubview(temp3Label)
 
         partLabel =  UILabel(frame:CGRect(x: temp3Label.x,y: everyAddMoneyLabel.y,width: temp3Label.width,height:  21))
         partLabel.text = "0.00"
         partLabel.font = UIFont.systemFont(ofSize:  20)
         partLabel.textAlignment = .center
-        partLabel.textColor = UIColor.hex("666666")
+        partLabel.textColor = UIColor.hex("525252")
         moneyBgView.addSubview(partLabel)
 
 

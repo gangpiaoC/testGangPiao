@@ -427,7 +427,6 @@
 		80EE1A931FF4D32900726933 /* MallTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80EE1A921FF4D32900726933 /* MallTopCell.swift */; };
 		80EF03931F5FB0C500368493 /* GPWFVFirstDetailCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80EF03921F5FB0C500368493 /* GPWFVFirstDetailCell1.swift */; };
 		80F095A41EE942590039318C /* UserThridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F095A31EE942590039318C /* UserThridCell.swift */; };
-		80F487501FBE7A9F0082D19D /* GPWUserYouhuiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F4874F1FBE7A9F0082D19D /* GPWUserYouhuiCell.swift */; };
 		80F487521FBE88740082D19D /* GPWHMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F487511FBE88740082D19D /* GPWHMessageView.swift */; };
 		80F7F6281F40572500400889 /* GPWBankQuotaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7F6271F40572500400889 /* GPWBankQuotaViewController.swift */; };
 		80F7F62A1F4057FF00400889 /* GPWBankQCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F7F6291F4057FF00400889 /* GPWBankQCell.swift */; };
@@ -1046,7 +1045,6 @@
 		80EE1A921FF4D32900726933 /* MallTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallTopCell.swift; sourceTree = "<group>"; };
 		80EF03921F5FB0C500368493 /* GPWFVFirstDetailCell1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWFVFirstDetailCell1.swift; sourceTree = "<group>"; };
 		80F095A31EE942590039318C /* UserThridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserThridCell.swift; sourceTree = "<group>"; };
-		80F4874F1FBE7A9F0082D19D /* GPWUserYouhuiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWUserYouhuiCell.swift; sourceTree = "<group>"; };
 		80F487511FBE88740082D19D /* GPWHMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWHMessageView.swift; sourceTree = "<group>"; };
 		80F7F6271F40572500400889 /* GPWBankQuotaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWBankQuotaViewController.swift; sourceTree = "<group>"; };
 		80F7F6291F4057FF00400889 /* GPWBankQCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWBankQCell.swift; sourceTree = "<group>"; };
@@ -2191,7 +2189,6 @@
 				80A570921E8246BC00CCB2C7 /* UserSecondCell.swift */,
 				80A570931E8246BC00CCB2C7 /* UserTopCell.swift */,
 				80F095A31EE942590039318C /* UserThridCell.swift */,
-				80F4874F1FBE7A9F0082D19D /* GPWUserYouhuiCell.swift */,
 			);
 			path = UserCenter;
 			sourceTree = "<group>";
@@ -3125,7 +3122,6 @@
 				80D2080F1FC920C000D99C45 /* GPWHomeBottomCell.swift in Sources */,
 				5B473BCB207C556B00B09054 /* GPWVipListViewController.swift in Sources */,
 				5B781F931DF16CB000748955 /* GPWTabBarController.swift in Sources */,
-				80F487501FBE7A9F0082D19D /* GPWUserYouhuiCell.swift in Sources */,
 				803D052D1E0D09EE0098C2AD /* GPWAddDayMoneyController.swift in Sources */,
 				80D207A11FC5680E00D99C45 /* NSDictionary+URL.m in Sources */,
 				80D207D61FC5680E00D99C45 /* NSNumber+Round.m in Sources */,

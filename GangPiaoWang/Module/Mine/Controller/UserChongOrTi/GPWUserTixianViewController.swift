@@ -53,7 +53,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         tempBgView.addSubview(topBlock)
         
         //可提现金额
-        let temp1Label = UILabel(frame: CGRect(x: 16, y: topBlock.maxY, width: 90, height: 56))
+        let temp1Label = UILabel(frame: CGRect(x: 16, y: topBlock.maxY, width: 90, height: 50))
         temp1Label.textColor = UIColor.hex("333333")
         temp1Label.text = "可提现金额"
         temp1Label.font = UIFont.customFont(ofSize: 16)
@@ -64,8 +64,23 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         temp11Label.text =  "\(self.dic?["money_cash"].string ?? "0.00")元"
         temp11Label.font = UIFont.customFont(ofSize: 16)
         tempBgView.addSubview(temp11Label)
+
+        let  tipView =  UIView(frame: CGRect(x: 0, y: temp11Label.maxY, width: SCREEN_WIDTH, height: 54))
+        tipView.backgroundColor = UIColor.hex("ffffff")
+        tempBgView.addSubview(tipView)
+
+        if (dic?["money_tyj"].doubleValue ?? 0) <= 0 {
+            tipView.height = 0
+            tipView.isHidden = true
+        }
+
+        let tiyanLabel = RTLabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH -  32, height: 32))
+        tiyanLabel.text = "<font size=14 color='#b7b7b7'>体验金收益</font><font size=14 color='#f6390d'>\(self.dic?["money_tyj"] ?? "0.00")元</font><font size=14 color='#b7b7b7'>\n单笔出借满\(self.dic?["money_quota"].intValue ?? 0)元即可提现</font>"
+        tiyanLabel.height = tiyanLabel.optimumSize.height
+        tipView.addSubview(tiyanLabel)
+
         
-        let sceBlock = UIView(frame: CGRect(x: 0, y: temp11Label.maxY, width: SCREEN_WIDTH, height: 10))
+        let sceBlock = UIView(frame: CGRect(x: 0, y: tipView.maxY, width: SCREEN_WIDTH, height: 10))
         sceBlock.backgroundColor = bgColor
         tempBgView.addSubview(sceBlock)
         
@@ -85,7 +100,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
             bankNameStr = GPWUser.sharedInstance().bank_name!
         }
         if GPWUser.sharedInstance().is_valid == "1" {
-            let str = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.characters.count)! - 4,length: 4))
+            let str = ((GPWUser.sharedInstance().bank_num! as NSString)).substring(with: NSRange(location: (GPWUser.sharedInstance().bank_num?.count)! - 4,length: 4))
             bankNumStr = "尾号" + str
         }
         
@@ -95,22 +110,9 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         bankLabel.height = bankLabel.optimumSize.height
         bankLabel.centerY = bankIcon.centerY
         tempBgView.addSubview(bankLabel)
+
         
-        let  tipView =  UIView(frame: CGRect(x: 0, y: bankIcon.maxY + 21, width: SCREEN_WIDTH, height: 32))
-        tipView.backgroundColor = UIColor.hex("fff4dd")
-        tempBgView.addSubview(tipView)
-        
-        if (dic?["money_tyj"].doubleValue ?? 0) <= 0 {
-            tipView.height = 0
-            tipView.isHidden = true
-        }
-        
-        let tiyanLabel = RTLabel(frame: CGRect(x: 16, y: 6, width: SCREEN_WIDTH -  32, height: 32))
-        tiyanLabel.text = "<font size=14 color='#333333'>体验金收益</font><font size=14 color='#f6390d'>\(self.dic?["money_tyj"] ?? "0.00")</font><font size=14 color='#333333'>元，出借满\(self.dic?["money_quota"].intValue ?? 0)元即可提现</font>"
-        tiyanLabel.height = tiyanLabel.optimumSize.height
-        tipView.addSubview(tiyanLabel)
-        
-        let threeBlock = UIView(frame: CGRect(x: 0, y: tipView.maxY, width: SCREEN_WIDTH, height: 10))
+        let threeBlock = UIView(frame: CGRect(x: 0, y: bankIcon.maxY + 21, width: SCREEN_WIDTH, height: 10))
         threeBlock.backgroundColor = bgColor
         tempBgView.addSubview(threeBlock)
         

@@ -269,7 +269,7 @@ class GPWHelper {
         tempBgView.addSubview(temp1Label)
         
         let  temp2Label = RTLabel(frame: CGRect(x: 0, y: temp1Label.maxY + 32, width: tempBgView.width, height: 21))
-        temp2Label.text =  "<font size=18 color='#666666'>已成功获得</font><font size=18 color='#f6390d'>\(GPWGlobal.sharedInstance().app_accountsred)元</font><font size=18 color='#666666'>红包</font>"
+        temp2Label.text =  "<font size=18 color='#666666'>已成功获得</font><font size=18 color='#f8703d'>\(GPWGlobal.sharedInstance().app_accountsred)元</font><font size=18 color='#666666'>红包</font>"
         temp2Label.textAlignment = RTTextAlignmentCenter
         temp2Label.height = temp2Label.optimumSize.height
         tempBgView.addSubview(temp2Label)

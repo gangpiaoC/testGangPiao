@@ -98,8 +98,8 @@ class GPWSafeMangerController: GPWSecBaseViewController ,UITableViewDelegate,UIT
                 }
                
                 if GPWUser.sharedInstance().set_pwd == 0 {
-                    let con = GPWUserQSetPWViewController()
-                    con.setpwFlag = 0
+                    let phoneNum = GPWUser.sharedInstance().telephone ?? ""
+                    let con = GPWUserQSetPWViewController(phone: phoneNum)
                     self.navigationController?.pushViewController(con, animated: true)
                 }else{
                     self.navigationController?.pushViewController(GPWUserChangepwViewController(), animated: true)

@@ -19,46 +19,154 @@ class GPWUserRegisterSViewController: GPWSecBaseViewController {
           (navigationController as! GPWNavigationController).canDrag = true
     }
     
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView(bgColor: UIColor.white)
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "注册成功"
+        title = "注册成功"
         MobClick.event("__cust_event_1")
         MobClick.event("__register", attributes:["userid":GPWUser.sharedInstance().user_name ?? "00"])
-        self.bgView.backgroundColor = UIColor.white
-        self.leftButton.removeFromSuperview()
-        let  imgView = UIImageView(frame: CGRect(x: 0, y: 70, width: 69, height: 70))
-        imgView.centerX = SCREEN_WIDTH / 2
-        imgView.image = UIImage(named: "project_investSucess")
-        self.bgView.addSubview(imgView)
+        leftButton.removeFromSuperview()
         
-        let  temp1Label = UILabel(frame: CGRect(x: 0, y: imgView.maxY + 38, width: SCREEN_WIDTH, height: 21))
-        temp1Label.text = "恭喜您，注册成功"
-        temp1Label.textAlignment = .center
-        temp1Label.font = UIFont.customFont(ofSize: 20)
-        temp1Label.textColor = UIColor.hex("666666")
-        self.bgView.addSubview(temp1Label)
+        let topImgView = UIImageView(image: #imageLiteral(resourceName: "project_investSucess") )
+        let titleLabel: UILabel = {
+            let label = UILabel()
+            label.text = "注册成功"
+            label.textAlignment = .center
+            label.font = UIFont.customFont(ofSize: 20)
+            label.textColor = UIColor.hex("4f4f4f")
+            return label
+        }()
         
-        let  temp2Label = RTLabel(frame: CGRect(x: 0, y: temp1Label.maxY + 66, width: SCREEN_WIDTH, height: 21))
-        temp2Label.text =  "<font size=18 color='#666666'>已成功获得</font><font size=18 color='#f6390d'>\(GPWGlobal.sharedInstance().app_exper_amount)元</font><font size=18 color='#666666'>体验金</font>"
-        temp2Label.textAlignment = RTTextAlignmentCenter
-        temp2Label.height = temp2Label.optimumSize.height
-        self.bgView.addSubview(temp2Label)
+        let subTitleLabel: UILabel = {
+            let label = UILabel()
+            label.textAlignment = .center
+            label.font = UIFont.customFont(ofSize: 18)
+            label.textColor = UIColor.hex("4f4f4f")
+            label.attributedText = NSAttributedString.attributedString("\(GPWGlobal.sharedInstance().app_exper_amount)元", mainColor: UIColor.hex("fa713d"), mainFont: 18, second: "体验金已到账", secondColor: UIColor.hex("4f4f4f"), secondFont: 18)
+            return label
+        }()
         
-        let btn = UIButton(frame: CGRect(x: 16, y: temp2Label.maxY + 20, width: SCREEN_WIDTH - 16 * 2, height: 64))
-        btn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
-        btn.setTitle("开通存管帐户领取\(GPWGlobal.sharedInstance().app_accountsred)元红包", for: .normal)
-        btn.tag = 100
-        btn.addTarget(self, action: #selector(self.btnclick(sender:)), for: .touchUpInside)
-        btn.titleLabel?.font = UIFont.customFont(ofSize: 18)
-        self.bgView.addSubview(btn)
+        let hatImgView = UIImageView(image: #imageLiteral(resourceName: "user_register_successHat"))
+        let hatLabel = UILabel(title: "专享体验标", color: UIColor.white, fontSize: 16)
+        let outBgView: UIView = {
+            let view = UIView(bgColor: UIColor.hex("ffbe52"))
+            view.layer.masksToBounds = true
+            view.layer.cornerRadius = 3.0
+            return view
+        }()
         
-        let noBtn = UIButton(frame: CGRect(x: 38, y: btn.maxY + 10, width: SCREEN_WIDTH - 38 * 2, height: 44))
-        noBtn.setTitleColor(UIColor.hex("999999"), for: .normal)
-        noBtn.setTitle("稍后认证", for: .normal)
-        noBtn.tag = 101
-        noBtn.addTarget(self, action: #selector(self.btnclick(sender:)), for: .touchUpInside)
-        noBtn.titleLabel?.font = UIFont.customFont(ofSize: 16)
-        self.bgView.addSubview(noBtn)
+        let outBgImgView = UIImageView(image: #imageLiteral(resourceName: "user_register_successOutBg"))
+        
+        let innerBgView: UIView = {
+           let view = UIView(bgColor: UIColor.hex("fff6e5"))
+            view.layer.masksToBounds = true
+            view.layer.cornerRadius = 12.0
+            return view
+        }()
+        let rateLabel: UILabel = {
+            let label = UILabel()
+            label.textAlignment = .center
+            label.attributedText = NSAttributedString.attributedString("\(GPWGlobal.sharedInstance().app_exper_rate)", mainColor: UIColor.hex("f65d23"), mainFont: 64, second: "%", secondColor: UIColor.hex("f65d23"), secondFont: 30)
+            return label
+        }()
+        
+        let lendButton: UIButton = {
+            let button = UIButton(type: .custom)
+            button.setBackgroundImage(#imageLiteral(resourceName: "user_register_successButtonBg"), for: .normal)
+            button.setTitle("立即出借体验金", for: .normal)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+            button.setTitleColor(UIColor.white, for: .normal)
+            button.addTarget(self, action: #selector(lendHandle), for: .touchUpInside)
+            return button
+        }()
+        
+        let bottomTipLabel: UILabel = {
+            let label = UILabel()
+            label.text = "收益可提现"
+            label.textAlignment = .center
+            label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+            label.textColor = UIColor.hex("f76832")
+            return label
+        }()
+        
+        
+        
+        scrollView.addSubview(topImgView)
+        scrollView.addSubview(titleLabel)
+        scrollView.addSubview(subTitleLabel)
+        scrollView.addSubview(outBgView)
+        outBgView.addSubview(outBgImgView)
+        outBgView.addSubview(innerBgView)
+        innerBgView.addSubview(rateLabel)
+        innerBgView.addSubview(lendButton)
+        outBgView.addSubview(bottomTipLabel)
+        scrollView.addSubview(hatImgView)
+        scrollView.addSubview(hatLabel)
+        bgView.addSubview(scrollView)
+        
+        scrollView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(bgView)
+        }
+        topImgView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(scrollView).offset(42)
+            maker.centerX.equalTo(scrollView)
+        }
+        titleLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(topImgView.snp.bottom).offset(27)
+            maker.left.right.equalTo(scrollView)
+            maker.width.equalTo(bgView)
+        }
+        subTitleLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(titleLabel.snp.bottom).offset(12)
+            maker.left.right.equalTo(scrollView)
+        }
+        hatImgView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(subTitleLabel.snp.bottom).offset(61)
+            maker.centerX.equalTo(scrollView)
+        }
+        hatLabel.snp.makeConstraints { (maker) in
+            maker.center.equalTo(hatImgView)
+        }
+        outBgView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(subTitleLabel.snp.bottom).offset(67)
+            maker.left.right.equalTo(scrollView).inset(24)
+            maker.bottom.equalTo(scrollView).offset(-134)
+        }
+        outBgImgView.setContentHuggingPriority(UILayoutPriority(rawValue: 49), for: .horizontal)
+        outBgImgView.setContentHuggingPriority(UILayoutPriority(rawValue: 49), for: .vertical)
+        outBgImgView.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 49), for: .horizontal)
+        outBgImgView.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 49), for: .vertical)
+        outBgImgView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(outBgView)
+        }
+        innerBgView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(outBgView).offset(pixw(p: 48))
+            maker.left.right.equalTo(outBgView).inset(16)
+        }
+        
+        rateLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(innerBgView).offset(pixw(p: 38))
+            maker.centerX.equalTo(innerBgView)
+        }
+        
+        lendButton.snp.makeConstraints { (maker) in
+            maker.top.equalTo(rateLabel.snp.bottom).offset(pixw(p: 30))
+            maker.left.right.equalTo(innerBgView).inset(23)
+            maker.height.equalTo(42)
+            maker.bottom.equalTo(innerBgView).offset(-pixw(p: 18))
+        }
+        
+        bottomTipLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(innerBgView.snp.bottom).offset(pixw(p: 9))
+            maker.centerX.equalTo(outBgView)
+            maker.bottom.equalTo(outBgView).offset(-pixw(p: 19))
+        }
         
     }
     
@@ -78,23 +186,13 @@ class GPWUserRegisterSViewController: GPWSecBaseViewController {
         }
     }
 
-    override func back(sender: GPWButton) {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @objc func lendHandle() {
+       let vc = GPWLendSuccessViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    */
-
 }

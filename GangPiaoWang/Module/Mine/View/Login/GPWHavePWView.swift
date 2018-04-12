@@ -160,7 +160,12 @@ class GPWHavePWView: UIView {
                         }
                     }
                     
-                    }, failure: {_ in })
+                    }, failure: {[weak self] error in
+                        if (error as? NSError)?.code == 1712 {
+                            let vc = GPWUserQSetPWViewController(phone: acountNum)
+                            self?.superController?.navigationController?.pushViewController(vc, animated: true)
+                        }
+                })
             }else{
                 self.makeToast("请输入正确手机号")
             }

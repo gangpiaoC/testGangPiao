@@ -33,7 +33,11 @@ class GPWGlobal {
     var  appUpdata:JSON?
     
     //体验金
-    var app_exper_amount:String = "58888"
+    var app_exper_amount:String = "80000"
+    //体验金收益
+    var app_exper_income: String = "10.96"
+    //体验金收益率
+    var app_exper_rate: String = "5"
     
     //红包
     var app_accountsred:String = "618"

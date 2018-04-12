@@ -87,6 +87,7 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
             if GPWUser.sharedInstance().isLogin {
                 tempUrl = tempUrl + "user_id=\(GPWUser.sharedInstance().user_id!)"
                 tempUrl = tempUrl + "&invite_code=\(GPWUser .sharedInstance().invite_code ?? "00")"
+                tempUrl += "&real=\(GPWUser.sharedInstance().is_idcard ?? 0)"
             }
             printLog(message: tempUrl)
             if let url = URL(string:tempUrl) {

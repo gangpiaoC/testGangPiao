@@ -153,7 +153,7 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        printLog(message: userContentController)
+        printLog(message: "wwwwwwww=====\(userContentController) eeeeee===\(message.body)")
         // 判断是否是调用原生的
         if "NativeMethod" == message.name {
             let date = NSDate()
@@ -228,13 +228,35 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
                 printLog(message: "eeee====\(message.body)")
             }else{
                 printLog(message: "eeee====\(message.body)")
-                if (message.body as! String).hasPrefix("hmShareDesc") {
+                if ((message.body as! String).range(of: "linkShare") != nil){
+
+                    //分享
                     let  array = (message.body as! String).components(separatedBy: "***")
-                    let title = (array[1].components(separatedBy: "title="))[1]
-                    let subtitle = (array[2].components(separatedBy: "content="))[1]
-                    let toUrl = (array[3].components(separatedBy: "url="))[1]
-                    let logo = (array[4].components(separatedBy: "urlicon="))[1]
+                    let title = (array[2].components(separatedBy: "title="))[1]
+                    let subtitle = (array[3].components(separatedBy: "content="))[1]
+                    let toUrl = (array[4].components(separatedBy: "url="))[1]
+                    let logo = (array[5].components(separatedBy: "urlicon="))[1]
                     GPWShare.shared.show(title: title, subtitle: subtitle, imgUrl: logo, toUrl: toUrl)
+                }else if ((message.body as! String).range(of: "linkHome") != nil) {
+                    //跳转标列表
+                    GPWHelper.selectTabBar(index: INDEXBARTAG)
+                }else if ((message.body as! String).range(of: "linkProject") != nil) {
+                    //项目列表
+                    GPWHelper.selectTabBar(index: PROJECTBARTAG)
+                }else if ((message.body as! String).range(of: "linkLogin") != nil) {
+                    //登录
+                    self.navigationController?.pushViewController( GPWLoginViewController(), animated: true)
+                }else if ((message.body as! String).range(of: "linkUser") != nil) {
+                    //我的
+                    GPWHelper.selectTabBar(index: MINEBARTAG)
+                }else if ((message.body as! String).range(of: "linkDetail") != nil) {
+                    //项目详情
+                    let  array = (message.body as! String).components(separatedBy: "***")
+                    let auto_id = (array[2].components(separatedBy: "title="))[1] as String
+                    self.navigationController?.pushViewController( GPWProjectDetailViewController(projectID: auto_id), animated: true)
+                }else if ((message.body as! String).range(of: "linkReadName") != nil) {
+                    //实名
+                    self.navigationController?.pushViewController( UserReadInfoViewController(), animated: true)
                 }
             }
         }

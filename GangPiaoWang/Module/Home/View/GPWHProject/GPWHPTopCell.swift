@@ -25,6 +25,7 @@ class GPWHPTopCell: UITableViewCell {
         btn.setTitle("新手加息，立即加入", for: UIControlState.normal)
         btn.titleLabel?.font = UIFont.customFont(ofSize: 18)
         btn.setTitleColor(UIColor.white, for: UIControlState.normal)
+        btn.isUserInteractionEnabled = false
         return btn
     }()
 
@@ -174,11 +175,11 @@ class GPWHPTopCell: UITableViewCell {
             btn.setTitle("新手加息，立即加入", for: UIControlState.normal)
             balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
         case "RELEASE":
-            btn.setBackgroundImage(UIImage(named: "home_p_pay"), for: UIControlState.normal)
+            btn.setBackgroundImage(UIImage(named: "home_p_right"), for: UIControlState.normal)
             btn.setTitle("即将开放", for: UIControlState.normal)
             balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
         default:
-            btn.setBackgroundImage(UIImage(named: "home_p_pay"), for: UIControlState.normal)
+            btn.setBackgroundImage(UIImage(named: "home_p_right"), for: UIControlState.normal)
             btn.setTitle("即将开放", for: UIControlState.normal)
             balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
             break

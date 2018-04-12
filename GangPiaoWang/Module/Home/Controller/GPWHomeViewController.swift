@@ -114,11 +114,23 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
         showTableView?.dataSource = self
         showTableView.showsVerticalScrollIndicator = false
         showTableView.separatorStyle = .none
+        showTableView.register(GPWHomeTopCell.self, forCellReuseIdentifier: "GPWHomeTopCell")
+        showTableView.register(GPWMessagesCell.self, forCellReuseIdentifier: "GPWMessagesCell")
+        showTableView.register(GPWHomeSecViewCell.self, forCellReuseIdentifier: "GPWHomeSecViewCell")
+        showTableView.register(GPWHomeAdCell.self, forCellReuseIdentifier: "GPWHomeAdCell")
+        showTableView.register(GPWHPTopCell.self, forCellReuseIdentifier: "GPWHPTopCell")
+        showTableView.register(GPWProjectCell.self, forCellReuseIdentifier: "GPWProjectCell")
+        showTableView.register(GPWHNowCJCell.self, forCellReuseIdentifier: "GPWHNowCJCell")
+        showTableView.register(GPWHomeBottomCell.self, forCellReuseIdentifier: "GPWHomeBottomCell")
+
         self.bgView.addSubview(showTableView)
+
+        showTableView.estimatedRowHeight = 143
+        showTableView.estimatedSectionHeaderHeight = 56
+        showTableView.estimatedSectionFooterHeight = 0.00001
+
         if #available(iOS 11.0, *) {
-            showTableView.estimatedRowHeight = 143
-            showTableView.estimatedSectionHeaderHeight = 56
-            showTableView.estimatedSectionFooterHeight = 0.00001
+
             showTableView.contentInsetAdjustmentBehavior = .never
             showTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)//导航栏如果使用系统原生半透明的，top设置为64
             showTableView.scrollIndicatorInsets = showTableView.contentInset
@@ -273,41 +285,26 @@ extension GPWHomeViewController{
         let staue = GPWUser.sharedInstance().staue == 0 ? 0 : 1
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeTopCell") as? GPWHomeTopCell
-                if cell == nil {
-                    cell = GPWHomeTopCell(style: .default, reuseIdentifier: "GPWHomeTopCell")
-                }
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeTopCell") as? GPWHomeTopCell
                 cell?.showInfo(array: (self.dic?["banner"])! , control: self)
                 return cell!
             }else if indexPath.row == 1{
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWMessagesCell") as? GPWMessagesCell
-                if cell == nil {
-                    cell = GPWMessagesCell(style: .default, reuseIdentifier: "GPWMessagesCell")
-                }
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GPWMessagesCell") as? GPWMessagesCell
                 cell?.updata(array: (self.dic?["indexMessage"])!)
                 cell?.superController = self
                 return cell!
             }else{
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeSecTableViewCell") as? GPWHomeSecViewCell
-                if cell == nil {
-                    cell = GPWHomeSecViewCell(style: .default, reuseIdentifier: "GPWHomeSecTableViewCell")
-                }
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeSecViewCell") as? GPWHomeSecViewCell
                 cell?.updata(dic: (self.dic?["pager"])!, superControl: self)
                 return cell!
             }
         } else if indexPath.section == 1 - adFlag{
-            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeAdCell") as? GPWHomeAdCell
-            if cell == nil {
-                cell = GPWHomeAdCell(style: .default, reuseIdentifier: "GPWHomeAdCell")
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeAdCell") as? GPWHomeAdCell
             cell?.updata((self.dic?["new_banner"])!, self)
             return cell!
 
         } else  if indexPath.section == 2 - adFlag - staue {
-            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHPTopCell") as? GPWHPTopCell
-            if cell == nil {
-                cell = GPWHPTopCell(style: .default, reuseIdentifier: "GPWHPTopCell")
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHPTopCell") as? GPWHPTopCell
             cell?.setupCell(dict: self.dic!["Item"][indexPath.row])
             return cell!
         }else  if indexPath.section == 3 - adFlag - staue {
@@ -322,17 +319,11 @@ extension GPWHomeViewController{
            cell?.setupCell(dict: (self.dic?["Item"][tempInedx])!)
             return cell!
         }else  if indexPath.section == 4 - adFlag - staue {
-            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHNowCJCell") as? GPWHNowCJCell
-            if cell == nil {
-                cell = GPWHNowCJCell(style: .default, reuseIdentifier: "GPWHNowCJCell")
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHNowCJCell") as? GPWHNowCJCell
             cell?.updata((self.dic?["invest"].arrayValue)!)
             return cell!
         }else{
-            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeBottomCell") as? GPWHomeBottomCell
-            if cell == nil {
-                cell = GPWHomeBottomCell(style: .default, reuseIdentifier: "GPWHomeBottomCell")
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeBottomCell") as? GPWHomeBottomCell
             return cell!
         }
     }
@@ -349,7 +340,7 @@ extension GPWHomeViewController{
             vc.title = self.dic?["Item"][0]["title"].string
             self.navigationController?.show(vc, sender: nil)
         }else if indexPath.section == 3 - adFlag - staue{
-            MobClick.event("home", label: "标")
+            MobClick.event("home", label: "普通标")
             var tempInedx = indexPath.row
             if GPWUser.sharedInstance().staue == 0 {
                 tempInedx = indexPath.row + 1

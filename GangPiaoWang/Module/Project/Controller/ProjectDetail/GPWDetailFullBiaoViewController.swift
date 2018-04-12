@@ -47,7 +47,7 @@ class GPWDetailFullBiaoViewController: GPWSecBaseViewController {
         redImgView.addSubview(redNumLabel)
         
         let detailLabel = RTLabel(frame: CGRect(x: 0, y: redImgView.maxY + 9, width: 255, height: 10))
-        detailLabel.text = "<font size=16 color='#333333'>单个标的促成满标者可获得</font><font size=16 color='#f6390c'>\(self.paraJson?["amount"] ?? "0")元</font><font size=16 color=#333333''>红包奖励</font>"
+        detailLabel.text = "<font size=16 color='#333333'>单个标的促成满标者可获得</font><font size=16 color='#fa713d'>\(self.paraJson?["amount"] ?? "0")元</font><font size=16 color=#333333''>红包奖励</font>"
         detailLabel.centerX = scrollView.width / 2
         detailLabel.textAlignment = RTTextAlignmentCenter
         detailLabel.height = detailLabel.optimumSize.height
@@ -76,7 +76,7 @@ class GPWDetailFullBiaoViewController: GPWSecBaseViewController {
             let detailLabel = RTLabel(frame: CGRect(x: numLabel.maxX, y: maxY, width: bottomView.width - 19 - numLabel.maxX - 3, height: 10))
             detailLabel.text = "<font size=14 color='#333333'>\(contentArray[i])</font>"
             if i == contentArray.count - 1 {
-                detailLabel.text = detailLabel.text + "<font size=14 color='#f6390c'>400-900-9017</font>"
+                detailLabel.text = detailLabel.text + "<font size=14 color='#fa713d'>400-900-9017</font>"
             }
             
             detailLabel.height = detailLabel.optimumSize.height

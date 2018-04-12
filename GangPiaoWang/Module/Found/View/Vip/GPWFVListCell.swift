@@ -191,13 +191,13 @@ class GPWFVListCell: UITableViewCell {
         }
         balanceLabel.text = "剩余:\(dict["balance_amount"].string ?? "1,000,000")元"
         dateLabel.text = "\(dict["deadline"].int ?? 0)"
-        incomeLabel.text = "<font size=36 color='#f6390c'>\(dict["rate_loaner"])</font><font size=18 color='#f6390c'>%</font>"
+        incomeLabel.text = "<font size=36 color='#fa713d'>\(dict["rate_loaner"])</font><font size=18 color='#fa713d'>%</font>"
         balanceLabel.isHidden = false
         if dict["type"].string == "TIYAN" {
             balanceLabel.isHidden = true
         }else if dict["is_index"].intValue == 1 {
             if GPWUser.sharedInstance().staue == 0 && dict["rate_loaner"].doubleValue > 0 {
-                incomeLabel.text = "<font size=36 color='#f6390c'>\(dict["rate_loaner"])</font><font size=18 color='#f6390c'>%</font><font size=24 color='#f6390c'>+</font><font size=24 color='#f6390c'>\(dict["rate_new"])</font><font size=16 color='#f6390c'>%</font>"
+                incomeLabel.text = "<font size=36 color='#fa713d'>\(dict["rate_loaner"])</font><font size=18 color='#fa713d'>%</font><font size=24 color='#fa713d'>+</font><font size=24 color='#fa713d'>\(dict["rate_new"])</font><font size=16 color='#fa713d'>%</font>"
             }
         }
         

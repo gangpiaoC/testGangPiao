@@ -255,7 +255,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         bankBtn.setTitle("查看支持银行及限额 >", for: .normal)
         bankBtn.addTarget(self, action: #selector(self.bankQ), for: .touchUpInside)
         bankBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
-        bankBtn.setTitleColor(UIColor.hex("f6390c"), for: .normal)
+        bankBtn.setTitleColor(redColor, for: .normal)
         bottomView.addSubview(bankBtn)
 
         let  btn = UIButton(type: .custom)

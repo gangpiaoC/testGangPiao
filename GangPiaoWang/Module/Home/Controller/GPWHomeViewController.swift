@@ -97,15 +97,16 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
             self.bgView.y = 0
             self.bgView.height =   self.bgView.height + 64
         }
-        self.navigationBar.backgroundColor = redTitleColor
+        self.navigationBar.backgroundColor = UIColor.hex("FA713D")
         self.navigationBar.titleLabel.textColor = UIColor.white
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.navigationBar.bounds
-
-        //设置渐变的主颜色
-        gradientLayer.colors = [UIColor.hex("ff790c").cgColor, redTitleColor.cgColor]
-        //将gradientLayer作为子layer添加到主layer上
-        self.navigationBar.layer.addSublayer(gradientLayer)
+        self.navigationBar.isLineHidden = true
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = self.navigationBar.bounds
+//
+//        //设置渐变的主颜色
+//        gradientLayer.colors = [UIColor.hex("ff790c").cgColor, redTitleColor.cgColor]
+//        //将gradientLayer作为子layer添加到主layer上
+//        self.navigationBar.layer.addSublayer(gradientLayer)
         self.navigationBar.insertSubview(self.navigationBar.titleLabel, at: 100)
         
         showTableView = UITableView(frame: self.bgView.bounds, style: .grouped)

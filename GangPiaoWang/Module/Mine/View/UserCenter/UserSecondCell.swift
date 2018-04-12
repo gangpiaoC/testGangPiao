@@ -23,7 +23,7 @@ class UserSecondCell: UITableViewCell {
             btn.centerX = CGFloat(2 * i + 1) * SCREEN_WIDTH / 4
             btn.centerY = 76 / 2
             btn.setImage(UIImage(named: imgArray[i]), for: .normal)
-            btn.tag = 100 + i
+            btn.tag = 1000 + i
             btn.addTarget(self, action: #selector(self.btnClick(_:)), for: .touchUpInside)
             contentView.addSubview(btn)
 
@@ -71,16 +71,17 @@ class UserSecondCell: UITableViewCell {
     }
     
     @objc func btnClick(_ sender:UIButton) {
+        printLog(message: sender.tag)
         if GPWUser.sharedInstance().isLogin == false{
             self.superControl?.navigationController?.pushViewController(GPWLoginViewController(), animated: true)
         }else if GPWUser.sharedInstance().is_idcard == 0{
             self.superControl?.navigationController?.pushViewController(UserReadInfoViewController(), animated: true)
         }else{
-            if sender.tag == 101 {
+            if sender.tag == 1001 {
                 MobClick.event("mine", label: "充值")
                 let control = GPWUserRechargeViewController(money: 0.00)
                 superControl?.navigationController?.pushViewController(control, animated: true)
-            }else if sender.tag == 102{
+            }else if sender.tag == 1000{
                 MobClick.event("mine_withdraw", label: nil)
                 let control = GPWUserTixianViewController()
                 superControl?.navigationController?.pushViewController(control, animated: true)

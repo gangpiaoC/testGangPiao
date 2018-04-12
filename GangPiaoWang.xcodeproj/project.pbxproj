@@ -84,6 +84,7 @@
 		5BD1D1671E1F31FE00C4198F /* GPWExperienceSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D1661E1F31FE00C4198F /* GPWExperienceSuccessViewController.swift */; };
 		5BD1D16B1E1F829A00C4198F /* GPWShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD1D16A1E1F829A00C4198F /* GPWShareView.swift */; };
 		5BE67FD11DE8122C004DA71F /* PublicDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE67FD01DE8122C004DA71F /* PublicDefine.swift */; };
+		5BEB8030207F51AD00F7A71E /* GPWLendSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB802F207F51AD00F7A71E /* GPWLendSuccessViewController.swift */; };
 		8001ED2E1E94C6B1000A2C56 /* GPWADViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001ED2D1E94C6B1000A2C56 /* GPWADViewController.swift */; };
 		8002D1761E76AB02007E7B4C /* SobotLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8002D16D1E76AB02007E7B4C /* SobotLocalizable.strings */; };
 		8002D1771E76AB02007E7B4C /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8002D1701E76AB02007E7B4C /* LaunchScreen.strings */; };
@@ -553,6 +554,7 @@
 		5BD1D1661E1F31FE00C4198F /* GPWExperienceSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWExperienceSuccessViewController.swift; sourceTree = "<group>"; };
 		5BD1D16A1E1F829A00C4198F /* GPWShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWShareView.swift; sourceTree = "<group>"; };
 		5BE67FD01DE8122C004DA71F /* PublicDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicDefine.swift; sourceTree = "<group>"; };
+		5BEB802F207F51AD00F7A71E /* GPWLendSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPWLendSuccessViewController.swift; sourceTree = "<group>"; };
 		8001ED2D1E94C6B1000A2C56 /* GPWADViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPWADViewController.swift; sourceTree = "<group>"; };
 		8002D16E1E76AB02007E7B4C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SobotLocalizable.strings; sourceTree = "<group>"; };
 		8002D1711E76AB02007E7B4C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = LaunchScreen.strings; sourceTree = "<group>"; };
@@ -2121,6 +2123,7 @@
 			children = (
 				80A5705C1E82451100CCB2C7 /* GPWLoginViewController.swift */,
 				80A5705D1E82451100CCB2C7 /* GPWUserRegisterSViewController.swift */,
+				5BEB802F207F51AD00F7A71E /* GPWLendSuccessViewController.swift */,
 				80A5705E1E82451100CCB2C7 /* GPWUserRegisterViewController.swift */,
 			);
 			name = "UserLogin（登录注册）";
@@ -3130,6 +3133,7 @@
 				80A93C231F3ED0760006C1E0 /* AFNetworkReachabilityManager.m in Sources */,
 				5B1FA7BC1E0A2021002E3993 /* GPWFAQCell.swift in Sources */,
 				80D207B21FC5680E00D99C45 /* NSData+Hash.m in Sources */,
+				5BEB8030207F51AD00F7A71E /* GPWLendSuccessViewController.swift in Sources */,
 				5B3EEB6E1E0BA3E80092014C /* GPWAvailableRateCouponViewController.swift in Sources */,
 				80A5707D1E82451100CCB2C7 /* GPWUserMDetailViewController.swift in Sources */,
 				806EDCD31F3AE34D006A06AF /* VierticalScrollView.swift in Sources */,

@@ -140,7 +140,7 @@ class GPWNetwork: NSObject {
                             GPWUser.sharedInstance().outLogin()
                             GPWHelper.gotoLogin()
                         }
-                    }else {
+                    } else {
                         UIApplication.shared.keyWindow?.makeToast("\(msg)")
                         GPWGlobal.sharedInstance().msg = msg.stringValue
                         let error: Error = NSError(domain: "code", code: code.intValue, userInfo: nil)

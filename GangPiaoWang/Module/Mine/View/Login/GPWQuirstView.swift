@@ -112,9 +112,9 @@ class GPWQuirstView: UIView,RTLabelDelegate {
                          UserDefaults.standard.set(acountNum, forKey: USER了OGINPHONE)
                         MobClick.event("__cust_event_3")
                         MobClick.event("__login", attributes:["userid":GPWUser.sharedInstance().user_name ?? "00"])
-                        if json["userinfo"]["zhu"].intValue == 1 {
-                            strongSelf.superController?.navigationController?.pushViewController(GPWUserQSetPWViewController(), animated: true)
-                        }else{
+//                        if json["userinfo"]["zhu"].intValue == 1 {
+//                            strongSelf.superController?.navigationController?.pushViewController(GPWUserQSetPWViewController(), animated: true)
+//                        }else{
                             //获取存储的用户帐号和手势密码
                             let  tempStr = UserDefaults.standard.value(forKey: USERPHONEGETURE)
                             var gesture = ""
@@ -140,7 +140,7 @@ class GPWQuirstView: UIView,RTLabelDelegate {
                                     _ = strongSelf.superController?.navigationController?.popViewController(animated: true)
                                 }
                             }
-                        }
+//                        }
                     }, failure: { (error) in
                         
                     })

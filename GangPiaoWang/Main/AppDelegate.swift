@@ -54,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             GPWGlobal.sharedInstance().initJson = json
             GPWGlobal.sharedInstance().app_accountsred = "\(json["app_accountsred"].intValue)"
             GPWGlobal.sharedInstance().app_exper_amount = "\(json["app_exper_amount"].intValue)"
+            GPWGlobal.sharedInstance().app_exper_income = "\(json["app_exper_accrual"].stringValue)"
+            GPWGlobal.sharedInstance().app_exper_rate = "\(json["app_exper_rate"].intValue)"
             if UserDefaults.standard.value(forKey: "new") as? String == "true" {
                  UIApplication.shared.isStatusBarHidden = false
                 if  let  json = GPWGlobal.sharedInstance().initJson {

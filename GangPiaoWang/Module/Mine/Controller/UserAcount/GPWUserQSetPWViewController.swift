@@ -9,174 +9,255 @@
 import UIKit
 
 class GPWUserQSetPWViewController: GPWSecBaseViewController {
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView(bgColor: UIColor.hex("f2f2f2"))
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    let phoneTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "请输入手机号"
+        textField.font = UIFont.customFont(ofSize: 16)
+        textField.keyboardType = .numberPad
+        textField.isEnabled = false
+        return textField
+    }()
+    let authTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "请输入手机验证码"
+        textField.font = UIFont.customFont(ofSize: 16)
+        textField.keyboardType = .numberPad
+        return textField
+    }()
+    let passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "含字母+数字的6-16个字符"
+        textField.font = UIFont.customFont(ofSize: 16)
+        textField.isSecureTextEntry = true
+        return textField
+    }()
+    
+    let authRTBgView = UIView(bgColor: UIColor.clear)
+    lazy var authRTLabel: RTLabel = {
+        let label = RTLabel(frame: CGRect(x: 0, y: 9, width: 100, height: 0))
+        label.text = "<a href='huoquyanzheng'><font size=16 color='#fa713d'>获取验证码</font></a>"
+        label.delegate = self
+        label.textAlignment = RTTextAlignmentRight
+        label.height = label.optimumSize.height
+        return label
+    }()
+    
+    lazy var completeButton:UIButton = {
+        let button = UIButton(type: .custom)
+        button.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
+        button.addTarget(self, action: #selector(btnClick), for: .touchUpInside)
+        button.setTitle("完成", for: .normal)
+        button.titleLabel?.font = UIFont.customFont(ofSize: 18)
+        return button
+    }()
 
-    //0  不展示填写邀请人  1 显示
-    var  setpwFlag = 1
-    fileprivate var topBgView:UIView!
-    fileprivate var sureBtn:UIButton!
-    fileprivate var yaoCodeTextField:UITextField!
+    var num:Int = 60
+    var authCode: String = ""
+    var timer:Timer?
+    let phoneNum: String
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        timer?.invalidate()
+    }
+    
+    init(phone: String) {
+        phoneNum = phone
+        phoneTextField.text = phone
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "设置密码"
-        self.comminit()
+        title = "设置登录密码"
+        commonInit()
     }
-    func comminit()  {
-        let array = [
-            ["title":"登录密码","place":"含字母+数字和符号的6-16个字符"],
-            ["title":"确认密码","place":"请确认密码"]
-        ]
-
-        topBgView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 0))
-        topBgView.backgroundColor = UIColor.white
-        self.bgView.addSubview(topBgView)
+    func commonInit()  {
+        let topView = UIView(bgColor: UIColor.hex("f2f2f2"))
+        let topLabel = UILabel(title: "此账号还未设置登录密码，请设置登录密码", color: UIColor.hex("b7b7b7"), fontSize: 14, textAlign: .center, numberOfLines: 0)
+        topView.addSubview(topLabel)
+        scrollView.addSubview(topView)
         
-        let  topView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 10))
-        topView.backgroundColor = bgColor
-        self.bgView.addSubview(topView)
+        let middleView = UIView(bgColor: UIColor.white)
+        let phoneTipLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = UIColor.hex("4f4f4f")
+            label.font = UIFont.systemFont(ofSize: 16)
+            label.text = "手机号"
+            return label
+        }()
+        let authTipLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = UIColor.hex("4f4f4f")
+            label.font = UIFont.systemFont(ofSize: 16)
+            label.text = "验证码"
+            return label
+        }()
+        let passwordTipLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = UIColor.hex("4f4f4f")
+            label.font = UIFont.systemFont(ofSize: 16)
+            label.text = "登录密码"
+            return label
+        }()
         
-        var maxHeiht:CGFloat = topView.maxY
+        let phoneLineView = UIView(bgColor: lineColor)
+        let authLineView = UIView(bgColor: lineColor)
+        let authVLineView = UIView(bgColor: lineColor)
         
-        for i in 0 ..< array.count  {
-            let  titleLabel = UILabel(frame: CGRect(x: 16, y: maxHeiht, width: 70, height: 56))
-            titleLabel.font = UIFont.customFont(ofSize: 16)
-            titleLabel.textColor = UIColor.hex("333333")
-            titleLabel.text = array[i]["title"]!
-            self.bgView.addSubview(titleLabel)
-            
-            let  textField = UITextField(frame: CGRect(x: titleLabel.maxX + 5, y: titleLabel.y, width: SCREEN_WIDTH - titleLabel.maxX - 5, height: titleLabel.height))
-            textField.placeholder = array[i]["place"]
-            textField.tag = 100 + i
-            textField.textColor = UIColor.hex("333333")
-            textField.isSecureTextEntry = true
-            textField.font = UIFont.customFont(ofSize: 14)
-            self.bgView.addSubview(textField)
-            
-            let line = UIView(frame: CGRect(x: 16, y: textField.maxY - 0.5, width: SCREEN_WIDTH - 32, height: 0.5))
-            line.backgroundColor = lineColor
-            self.bgView.addSubview(line)
-            maxHeiht = line.maxY
+        middleView.addSubview(phoneTipLabel)
+        middleView.addSubview(authTipLabel)
+        middleView.addSubview(passwordTipLabel)
+        middleView.addSubview(phoneTextField)
+        middleView.addSubview(authTextField)
+        middleView.addSubview(passwordTextField)
+        middleView.addSubview(phoneLineView)
+        middleView.addSubview(authLineView)
+        middleView.addSubview(authVLineView)
+        middleView.addSubview(authRTBgView)
+        authRTBgView.addSubview(authRTLabel)
+        scrollView.addSubview(middleView)
+        
+        scrollView.addSubview(completeButton)
+        
+        bgView.addSubview(scrollView)
+        scrollView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(bgView)
         }
-        maxHeiht = maxHeiht + 12
-        //有邀请人按钮
-        if setpwFlag == 1 {
-            let  yaoBtn = UIButton(type: .custom)
-            yaoBtn.frame = CGRect(x: 0, y: maxHeiht, width: 32 + 70 + 32, height: 20)
-            yaoBtn.setTitle("我有邀请人", for: .normal)
-            yaoBtn.tag = 1000
-            yaoBtn.addTarget(self, action: #selector(self.yaoBtnClick(sender:)), for: .touchUpInside)
-            yaoBtn.setTitleColor(UIColor.hex("fcc30b"), for: .normal)
-            yaoBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
-            self.bgView.addSubview(yaoBtn)
-
-            let yaoImgView = UIImageView(frame: CGRect(x: 16, y: 4, width: 8, height: 12))
-            yaoImgView.image = UIImage(named:"user_q_setpw_normal")
-            yaoImgView.centerY = yaoBtn.titleLabel?.centerY ?? 0
-            yaoImgView.tag = 10000
-            yaoBtn.addSubview(yaoImgView)
-            maxHeiht = yaoBtn.maxY + 14
-
-            yaoCodeTextField = UITextField(frame: CGRect(x: 16, y: maxHeiht, width: SCREEN_WIDTH - 32, height: 17))
-            yaoCodeTextField.placeholder = "请输入邀请码(选填)"
-            yaoCodeTextField.font = UIFont.customFont(ofSize: 16)
-            yaoCodeTextField.textColor = UIColor.hex("333333")
-            self.bgView.addSubview(yaoCodeTextField)
-            maxHeiht = yaoCodeTextField.maxY + 18
-            topBgView.height = yaoCodeTextField.y
-            yaoCodeTextField.isHidden = true
-
-            maxHeiht = yaoBtn.maxY + 40
-        }else{
-            topBgView.height = maxHeiht - 12
-            maxHeiht = maxHeiht + 28
-
+        
+        topView.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalTo(scrollView)
+            maker.width.equalTo(bgView)
         }
 
-        sureBtn = UIButton(type: .custom)
-        sureBtn.frame = CGRect(x: 16, y: maxHeiht, width: SCREEN_WIDTH - 16 * 2, height: 64)
-        sureBtn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
-        sureBtn.addTarget(self, action: #selector(self.btnClick), for: .touchUpInside)
-        sureBtn.setTitle("确定", for: .normal)
-        sureBtn.titleLabel?.font = UIFont.customFont(ofSize: 18)
-        self.bgView.addSubview(sureBtn)
-        maxHeiht = sureBtn.maxY + 21
+        topLabel.snp.makeConstraints { (maker) in
+            maker.left.right.equalTo(topView).inset(16)
+            maker.top.bottom.equalTo(topView).inset(18)
+        }
+        
+        middleView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(topView.snp.bottom)
+            maker.left.right.equalTo(scrollView)
+        }
+        
+        phoneTipLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(middleView).offset(20)
+            maker.left.equalTo(middleView).offset(20)
+            maker.width.equalTo(66)
+        }
+        
+        phoneTextField.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(phoneTipLabel)
+            maker.left.equalTo(phoneTipLabel.snp.right).offset(14)
+            maker.right.equalTo(middleView).offset(-16)
+            maker.height.equalTo(phoneTipLabel)
+        }
+        
+        phoneLineView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(phoneTipLabel.snp.bottom).offset(20)
+            maker.left.equalTo(middleView).offset(16)
+            maker.right.equalTo(middleView)
+            maker.height.equalTo(1)
+        }
+       
+        authTipLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(phoneLineView.snp.bottom).offset(20)
+            maker.left.equalTo(phoneTipLabel)
+            maker.width.equalTo(phoneTipLabel)
+        }
+
+        authTextField.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(authTipLabel)
+            maker.left.height.equalTo(phoneTextField)
+        }
+        
+        authVLineView.snp.makeConstraints { (maker) in
+            maker.left.equalTo(authTextField.snp.right).offset(10)
+            maker.centerY.equalTo(authTipLabel)
+            maker.width.equalTo(1)
+            maker.height.equalTo(20)
+        }
+        
+        authRTBgView.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(authTipLabel)
+            maker.left.equalTo(authVLineView.snp.right).offset(10)
+            maker.right.equalTo(middleView).offset(-16)
+            maker.height.equalTo(40)
+            maker.width.equalTo(100)
+        }
+
+        authLineView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(authTipLabel.snp.bottom).offset(20)
+            maker.left.right.height.equalTo(phoneLineView)
+        }
+
+        passwordTipLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(authLineView.snp.bottom).offset(20)
+            maker.left.width.equalTo(phoneTipLabel)
+        }
+
+        passwordTextField.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(passwordTipLabel)
+            maker.left.right.height.equalTo(phoneTextField)
+            maker.bottom.equalTo(middleView).offset(-20)
+        }
+        
+        completeButton.snp.makeConstraints { (maker) in
+            maker.top.equalTo(middleView.snp.bottom).offset(45)
+            maker.left.right.equalTo(scrollView).inset(16)
+            maker.bottom.equalTo(scrollView).offset(-34)
+        }
     }
-
-    @objc func yaoBtnClick(sender:UIButton) {
-        yaoCodeTextField.resignFirstResponder()
-        let  tempImgView = sender.viewWithTag(10000) as! UIImageView
-        let tempPoint = tempImgView.center
-        var tempImgName = "user_q_setpw_selected"
-        var tempWidth = 12
-        var tempHeight = 8
-        var tempFlag = false
-        var bottomY = yaoCodeTextField.maxY + 27
-        if sender.tag == 1000 {
-            sender.tag = 1001
-        }else{
-            sender.tag = 1000
-            tempFlag = true
-            tempImgName = "user_q_setpw_normal"
-            tempWidth = 8
-            tempHeight = 12
-            bottomY = yaoCodeTextField.y
-        }
-
-        UIView.animate(withDuration: 0.3) {
-             self.topBgView.height = bottomY
-            self.yaoCodeTextField.isHidden = tempFlag
-            tempImgView.width = CGFloat(tempWidth)
-            tempImgView.height = CGFloat(tempHeight)
-            tempImgView.center = tempPoint
-            tempImgView.image = UIImage(named:tempImgName)
-            self.sureBtn.y = self.topBgView.maxY + 40
-        }
-    }
+    
     //网络请求
     @objc func btnClick(){
-        let  temp1Str = (self.bgView.viewWithTag(100) as! UITextField).text
-         let  temp2Str = (self.bgView.viewWithTag(101) as! UITextField).text
-
-        if (temp1Str?.count)! < 6 {
+        guard let authNum = authTextField.text, !authNum.isEmpty else {
+            self.bgView.makeToast("请获取验证码")
+            return
+        }
+        guard let password = passwordTextField.text, password.count >= 6 else {
             self.bgView.makeToast("密码不正确")
             return
         }
 
-        if (temp2Str?.count)! < 6 {
-            self.bgView.makeToast("密码不正确")
-            return
-        }
-
-        if temp1Str != temp2Str {
-            self.bgView.makeToast("两次密码不一致")
-            return
-        }
-         var dic = ["pwd":temp1Str!,"surepwd":temp2Str!]
-        if yaoCodeTextField != nil {
-            dic["invite_code"] = yaoCodeTextField.text ?? ""
-        }
-        GPWNetwork.requetWithPost(url: User_setpwd, parameters: dic, responseJSON: {
+         let dic = [
+            "mobile": phoneNum,
+            "newpwd": password,
+            "news_captcha": authNum
+        ]
+        
+        GPWNetwork.requetWithPost(url: Setup, parameters: dic, responseJSON: {
             [weak self]  (json, msg) in
             guard let strongSelf = self else { return }
             strongSelf.bgView.makeToast(msg)
-            GPWUser.sharedInstance().getUserInfo()
-            if strongSelf.setpwFlag == 0 {
-                strongSelf.navigationController?.popViewController(animated: true)
-            }else{
-                GPWGlobal.sharedInstance().gotoNiceNameFlag = true
-                _ = strongSelf.navigationController?.popToRootViewController(animated: true)
+            GPWUser.sharedInstance().analyUser(dic: json)
+            var viewControllers = self?.navigationController?.viewControllers ?? []
+            for i in 0..<viewControllers.reversed().count {
+                let vc = viewControllers[i]
+                if vc.isKind(of: GPWSafeMangerController.self) {
+                    _ = strongSelf.navigationController?.popToViewController(vc, animated: true)
+                    return
+                }
             }
+            _ = strongSelf.navigationController?.popToRootViewController(animated: true)
         }) { (error) in
-        
+
         }
     }
 
     override func back(sender: GPWButton) {
-        if setpwFlag == 0 {
-            self.navigationController?.popViewController(animated: true)
-        }else{
-            GPWGlobal.sharedInstance().gotoNiceNameFlag = true
-            self.navigationController?.popToRootViewController(animated: true)
-        }
+        self.navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -184,4 +265,59 @@ class GPWUserQSetPWViewController: GPWSecBaseViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension GPWUserQSetPWViewController: RTLabelDelegate {
+    func startTime() {
+    let timer = Timer(timeInterval: 1.0,
+                      target: self,
+                      selector: #selector(updateTimer(timer:)),
+                      userInfo: nil,
+                      repeats: true)
+    self.timer = timer
+        // 将定时器添加到运行循环
+        RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
+    }
+    
+    @objc func updateTimer(timer:Timer) {
+        num  = num - 1
+        if (num == 0) {
+            timer.invalidate()
+            CFRunLoopStop(CFRunLoopGetCurrent())
+            authRTLabel.text = "<a href='huoquyanzheng'><font size=13 color='#fa713d'>获取验证码</font></a>"
+        }else{
+            authRTLabel.text = "<a href='eeee'><font size=13 color='#fa713d'>"+String(describing: num)+"s</font><font size=11 color='#333333'>后重新发送</font></a>"
+        }
+    }
+    func rtLabel(_ rtLabel: Any!, didSelectLinkWithURL url: String!) {
+        if url == "huoquyanzheng"{
+            let phoneNum = phoneTextField.text ?? ""
+            if  GPWHelper.judgePhoneNum(phoneNum) {
+                GPWNetwork.requetWithGet(url: Quick_captcha, parameters: nil, responseJSON: {
+                    [weak self] (json, msg) in
+                    guard let strongSelf = self else { return }
+                    printLog(message: json)
+                    strongSelf.authCode = json.stringValue
+                    strongSelf.getVerificationCode(phone: phoneNum)
+                    strongSelf.num = 60
+                    strongSelf.authRTLabel.text = "<a href='eeee'><font size=13 color='#fa713d'>"+String(describing: strongSelf.num)+"s</font><font size=13 color='#333333'>后重新发送</font></a>"
+                    strongSelf.startTime()
+                }) { (error) in
+                    
+                }
+            }else{
+                self.bgView.makeToast("请输入正确手机号")
+            }
+        }
+    }
+    //获取验证码
+    func getVerificationCode(phone:String)  {
+        printLog(message: self.authCode)
+        GPWNetwork.requetWithPost(url: Get_news_captcha_app, parameters: ["mobile":phone,"check_captcha":self.authCode], responseJSON: { [weak self]  (json, msg) in
+            guard let strongSelf = self else { return }
+            strongSelf.bgView.makeToast(msg)
+        }) { (error) in
+            
+        }
+    }
 }

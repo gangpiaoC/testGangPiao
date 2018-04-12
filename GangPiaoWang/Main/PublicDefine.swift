@@ -296,3 +296,6 @@ let  Net_loan = "net_loan"
 
 //法律法规
 let  Statute = "statute"
+
+//设置登录密码
+let Setup = "setup"

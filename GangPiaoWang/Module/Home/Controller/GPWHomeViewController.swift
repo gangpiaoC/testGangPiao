@@ -117,8 +117,8 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
         self.bgView.addSubview(showTableView)
         if #available(iOS 11.0, *) {
             showTableView.estimatedRowHeight = 143
-            showTableView.estimatedSectionHeaderHeight = 0
-            showTableView.estimatedSectionFooterHeight = 0
+            showTableView.estimatedSectionHeaderHeight = 56
+            showTableView.estimatedSectionFooterHeight = 0.00001
             showTableView.contentInsetAdjustmentBehavior = .never
             showTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)//导航栏如果使用系统原生半透明的，top设置为64
             showTableView.scrollIndicatorInsets = showTableView.contentInset
@@ -171,21 +171,27 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
 extension GPWHomeViewController{
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.dic != nil {
-            return 5 + (adFlag == 0 ? 1 : 0)
+            return 4 + (adFlag == 0 ? 1 : 0) + ( GPWUser.sharedInstance().staue == 0 ? 1 : 0)
         }
        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //是否为新手
+        let staue = GPWUser.sharedInstance().staue == 0 ? 0 : 1
         if section == 0 {
             return 3
         }else if section == 1 - adFlag {
             return 1
-        }else if section == 2 - adFlag{
+        }else if section == 2 - adFlag - staue{
             return 1
-        }else if section == 3 - adFlag{
-            return self.dic!["Item"].count
-        }else if section == 4 - adFlag {
+        }else if section == 3 - adFlag - staue{
+            if GPWUser.sharedInstance().staue == 0 {
+                return self.dic!["Item"].count - 1
+            }else{
+                return self.dic!["Item"].count
+            }
+        }else if section == 4 - adFlag - staue{
             return 1
         }else{
             return 1
@@ -197,15 +203,24 @@ extension GPWHomeViewController{
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 3 - adFlag {
-            return 56
+        //是否为新手
+        let staue = GPWUser.sharedInstance().staue ?? 0
+        if staue == 1 {
+            return 0.0001
+        }else{
+            if section == 3 - adFlag - staue {
+                return 56
+            }
         }
+
         return 0.0001
     }
 
 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //是否为新手
+        let staue = GPWUser.sharedInstance().staue == 0 ? 0 : 1
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                    return pixw(p: 197)
@@ -216,38 +231,46 @@ extension GPWHomeViewController{
             }
         }else if indexPath.section == 1 - adFlag{
             return pixw(p: 120) + 10
-        }else if indexPath.section == 2 - adFlag{
+        }else if indexPath.section == 2 - adFlag - staue{
             return UITableViewAutomaticDimension
-        }else if indexPath.section == 3 - adFlag{
+        }else if indexPath.section == 3 - adFlag - staue{
             return UITableViewAutomaticDimension
-        }else if indexPath.section == 4 - adFlag{
+        }else if indexPath.section == 4 - adFlag - staue{
             return 130
         }else{
             return 301
         }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 3 - adFlag {
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 56))
-            view.backgroundColor = UIColor.white
+        //是否为新手
+        let staue = GPWUser.sharedInstance().staue
+        if GPWUser.sharedInstance().staue == 1 {
+            return nil
+        }else{
+            if section == 3 - adFlag - staue! {
+                let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 56))
+                view.backgroundColor = UIColor.white
 
-            let titleLabel = UILabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH - 32, height: 56))
-            titleLabel.font = UIFont.customFont(ofSize: 18)
-            titleLabel.textColor = UIColor.hex("222222")
-            titleLabel.text = "推荐产品"
-            view.addSubview(titleLabel)
+                let titleLabel = UILabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH - 32, height: 56))
+                titleLabel.font = UIFont.customFont(ofSize: 18)
+                titleLabel.textColor = UIColor.hex("222222")
+                titleLabel.text = "推荐产品"
+                view.addSubview(titleLabel)
 
 
-            let bottomLine = UIView(frame: CGRect(x: 16, y: 55, width: SCREEN_WIDTH - 16, height: 1))
-            bottomLine.backgroundColor = bgColor
-            view.addSubview(bottomLine)
-            return view
+                let bottomLine = UIView(frame: CGRect(x: 16, y: 55, width: SCREEN_WIDTH - 16, height: 1))
+                bottomLine.backgroundColor = bgColor
+                view.addSubview(bottomLine)
+                return view
 
+            }
         }
         return nil
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //是否为新手
+        let staue = GPWUser.sharedInstance().staue == 0 ? 0 : 1
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeTopCell") as? GPWHomeTopCell
@@ -280,21 +303,25 @@ extension GPWHomeViewController{
             cell?.updata((self.dic?["new_banner"])!, self)
             return cell!
 
-        } else  if indexPath.section == 2 - adFlag{
+        } else  if indexPath.section == 2 - adFlag - staue {
             var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHPTopCell") as? GPWHPTopCell
             if cell == nil {
                 cell = GPWHPTopCell(style: .default, reuseIdentifier: "GPWHPTopCell")
             }
             cell?.setupCell(dict: self.dic!["Item"][indexPath.row])
             return cell!
-        }else  if indexPath.section == 3 - adFlag{
+        }else  if indexPath.section == 3 - adFlag - staue {
+            var tempInedx = indexPath.row
+            if GPWUser.sharedInstance().staue == 0 {
+                tempInedx = indexPath.row + 1
+            }
             var cell = tableView.dequeueReusableCell(withIdentifier: "GPWProjectCell") as? GPWProjectCell
             if cell == nil {
                 cell = GPWProjectCell(style: .default, reuseIdentifier: "GPWProjectCell")
             }
-           cell?.setupCell(dict: (self.dic?["Item"][indexPath.row])!)
+           cell?.setupCell(dict: (self.dic?["Item"][tempInedx])!)
             return cell!
-        }else  if indexPath.section == 4 - adFlag{
+        }else  if indexPath.section == 4 - adFlag - staue {
             var cell = tableView.dequeueReusableCell(withIdentifier: "GPWHNowCJCell") as? GPWHNowCJCell
             if cell == nil {
                 cell = GPWHNowCJCell(style: .default, reuseIdentifier: "GPWHNowCJCell")
@@ -310,27 +337,45 @@ extension GPWHomeViewController{
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var arrayIndex = 0
-        if indexPath.section == 2 || indexPath.section == 3{
-            if indexPath.section == 3 {
-                arrayIndex = 1
+        //是否为新手
+        let staue = GPWUser.sharedInstance().staue == 0 ? 0 : 1
+        if  indexPath.section == 0 {
+
+        }else if indexPath.section == 1 - adFlag {
+            self.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: self.dic!["new_banner"]["link"].stringValue), animated: true)
+        }else if indexPath.section == 2 - adFlag - staue{
+            MobClick.event("home", label: "新手标")
+            let vc = GPWProjectDetailViewController(projectID: "\(self.dic?["Item"][0]["auto_id"].stringValue ?? "")")
+            vc.title = self.dic?["Item"][0]["title"].string
+            self.navigationController?.show(vc, sender: nil)
+        }else if indexPath.section == 3 - adFlag - staue{
+            MobClick.event("home", label: "标")
+            var tempInedx = indexPath.row
+            if GPWUser.sharedInstance().staue == 0 {
+                tempInedx = indexPath.row + 1
             }
-            let projectID = self.dic?["Item"][indexPath.row - arrayIndex]["auto_id"]
-            let  type = self.dic?["Item"][indexPath.row - arrayIndex]["is_index"].intValue
-            if type == 2 {
-                MobClick.event("home", label: "体验标")
-                self.navigationController?.pushViewController(GPWHomeTiyanViewController(tiyanID:"\(projectID!)"), animated: true)
-            }else if type == 1 {
-                MobClick.event("home", label: "新手标")
-                let vc = GPWProjectDetailViewController(projectID: "\(projectID!)")
-                vc.title = self.dic?["Item"][indexPath.row - arrayIndex]["title"].string
-                self.navigationController?.show(vc, sender: nil)
-            }else{
-                MobClick.event("home", label: "热门标")
-                let vc = GPWProjectDetailViewController(projectID: "\(projectID!)")
-                vc.title = self.dic?["Item"][indexPath.row - arrayIndex]["title"].string
-                self.navigationController?.show(vc, sender: nil)
+            let vc = GPWProjectDetailViewController(projectID: "\(self.dic?["Item"][tempInedx]["auto_id"].stringValue ?? "")")
+            vc.title = self.dic?["Item"][tempInedx]["title"].string
+            self.navigationController?.show(vc, sender: nil)
+        }else if indexPath.section == 4 - adFlag - staue{
+
+        }
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var navAlpha = self.navigationBar.alpha
+
+        if scrollView.contentOffset.y <= 0 {
+            navAlpha = 0.0
+        }else  if scrollView.contentOffset.y >= 100 {
+            navAlpha = maxAplha
+        }else {
+            if scrollView.contentOffset.y > _scrollviewOffY {
+                navAlpha = navAlpha + maxAplha / 100
+            }else if scrollView.contentOffset.y < _scrollviewOffY {
+                navAlpha = navAlpha - maxAplha / 100
             }
         }
+        self.navigationBar.alpha = navAlpha
+        _scrollviewOffY = scrollView.contentOffset.y
     }
 }

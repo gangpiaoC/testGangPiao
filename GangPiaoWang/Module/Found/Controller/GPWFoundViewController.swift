@@ -11,6 +11,7 @@ import SwiftyJSON
 class GPWFoundViewController: GPWBaseViewController,UITableViewDelegate,UITableViewDataSource {
     fileprivate var showTableView:UITableView!
     fileprivate var dataDic:JSON?
+    var page = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,7 @@ class GPWFoundViewController: GPWBaseViewController,UITableViewDelegate,UITableV
     func initView() {
         self.title = "发现"
 
-        self.addkefuButton()
+//        self.addkefuButton()
         showTableView = UITableView(frame: self.bgView.bounds, style: .plain)
         showTableView.backgroundColor = UIColor.clear
         showTableView.showsVerticalScrollIndicator = false
@@ -35,6 +36,12 @@ class GPWFoundViewController: GPWBaseViewController,UITableViewDelegate,UITableV
         self.bgView.addSubview(showTableView)
         requestNetData()
         showTableView.setUpHeaderRefresh { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.page = 1
+            strongSelf.requestNetData()
+        }
+        showTableView.setUpFooterRefresh {
+            [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.requestNetData()
         }
@@ -99,9 +106,9 @@ extension GPWFoundViewController{
         if indexPath.row == 0 {
             return pixw(p: 138) + 12 + 10
         }else if indexPath.row == 1{
-            return 93 + 10
+            return 93
         }else if indexPath.row == 2{
-            return  44
+            return  56 + 10
         }else{
             return 120
         }
@@ -115,7 +122,6 @@ extension GPWFoundViewController{
             return cell
         }else  if indexPath.row == 1{
             let cell: GPWFoundSecCell = tableView.dequeueReusableCell(withIdentifier: "GPWFoundSecCell", for: indexPath) as! GPWFoundSecCell
-            cell.updata(userStory: self.dataDic?["user_story"].stringValue ?? "111", teamStory: self.dataDic?["team_story"].stringValue ?? "111", superControl: self)
             cell.superControl = self
             return cell
         }else if indexPath.row == 2{
@@ -128,16 +134,13 @@ extension GPWFoundViewController{
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row < 2 {
+        if indexPath.row <= 2 {
             return
         }
-        if indexPath.row == 2 {
-            self.navigationController?.pushViewController(GPWHomeNewListController(), animated: true)
-        }else {
-            let  vc = GPWWebViewController(subtitle: "报道详情", url: "\(HTML_SERVER)/Web/account_newshows.html?auto_id=\(self.dataDic?["coverage"][indexPath.row - 3]["auto_id"].intValue ?? 0)")
-            vc.messageFlag = "1"
-            self.navigationController?.pushViewController( vc, animated: true)
-        }
+       
+        let  vc = GPWWebViewController(subtitle: "报道详情", url: "\(HTML_SERVER)/Web/account_newshows.html?auto_id=\(self.dataDic?["coverage"][indexPath.row - 3]["auto_id"].intValue ?? 0)")
+        vc.messageFlag = "1"
+        self.navigationController?.pushViewController( vc, animated: true)
     }
 }
 

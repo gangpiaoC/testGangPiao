@@ -22,19 +22,19 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         super.viewDidLoad()
         self.title = "提现"
         
-        let  messageBtn = UIButton(type: .custom)
-        messageBtn.tag = 101
-        messageBtn.frame = CGRect(x: SCREEN_WIDTH - 20 - 16, y: 10, width: 15 + 16, height: self.navigationBar.height)
-        messageBtn.setImage(UIImage(named: "user_tixian_yiwen"), for: .normal)
-        messageBtn.addTarget(self, action: #selector(self.helpClick), for: .touchUpInside)
-        self.navigationBar.addSubview(messageBtn)
+//        let  messageBtn = UIButton(type: .custom)
+//        messageBtn.tag = 101
+//        messageBtn.frame = CGRect(x: SCREEN_WIDTH - 20 - 16, y: 10, width: 15 + 16, height: self.navigationBar.height)
+//        messageBtn.setImage(UIImage(named: "user_tixian_yiwen"), for: .normal)
+//        messageBtn.addTarget(self, action: #selector(self.helpClick), for: .touchUpInside)
+//        self.navigationBar.addSubview(messageBtn)
         self.getNetData()
         
     }
     
-    @objc func helpClick() {
-        self.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
-    }
+//    @objc func helpClick() {
+//        self.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
+//    }
     
     func initView()  {
         let scrollView = UIScrollView(frame: self.bgView.bounds)

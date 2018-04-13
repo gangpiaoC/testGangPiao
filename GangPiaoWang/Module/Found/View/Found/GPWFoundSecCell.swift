@@ -13,10 +13,10 @@ class GPWFoundSecCell: UITableViewCell {
     fileprivate var userStory:String?
      fileprivate var teamStory:String?
     let array = [
+                  ["img":"found_sec_help","title":"帮助中心"],
                   ["img":"found_sec_action","title":"热门活动"],
                   ["img":"found_sec_school","title":"钢票学院"],
-                  ["img":"found_sec_user","title":"用户故事"],
-                  ["img":"found_sec_team","title":"团队故事"]
+                  ["img":"found_sec_info","title":"信息披漏"]
                 ]
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,30 +38,24 @@ class GPWFoundSecCell: UITableViewCell {
             titleLabel.text = array[i]["title"]
             titleLabel.font = UIFont.customFont(ofSize: 14)
             titleLabel.textAlignment = .center
-            titleLabel.textColor = UIColor.hex("666666")
+            titleLabel.textColor = titleColor
             btn.addSubview(titleLabel)
         }
     }
     
-    func updata(userStory:String,teamStory:String,superControl:UIViewController) {
-        self.userStory = userStory
-        self.teamStory = teamStory
-        self.superControl = superControl
-    }
-    
     @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
-            MobClick.event("found", label: "菜单-热门活动")
-             self.superControl?.navigationController?.pushViewController(GPWActiveViewController(), animated: true)
+            MobClick.event("found", label: "菜单-帮助中心")
+            self.superControl?.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
         }else if sender.tag == 101 {
-            MobClick.event("found", label: "菜单-钢票学院")
-            self.superControl?.navigationController?.pushViewController(GPWVFschooliewController(), animated: true)
+            MobClick.event("found", label: "菜单-热门活动")
+           self.superControl?.navigationController?.pushViewController(GPWActiveViewController(), animated: true)
         }else if sender.tag == 102 {
-            MobClick.event("found", label: "菜单-用户故事")
-            self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: self.userStory ?? ""), animated: true)
+            MobClick.event("found", label: "菜单-钢票学院")
+           self.superControl?.navigationController?.pushViewController(GPWVFschooliewController(), animated: true)
         }else if sender.tag == 103 {
-            MobClick.event("found", label: "菜单-团队故事")
-                        self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: self.teamStory ?? ""), animated: true)
+            MobClick.event("found", label: "菜单-信息披漏")
+            self.superControl?.navigationController?.pushViewController(GPWXXPLViewController(), animated: true)
         }
     }
     

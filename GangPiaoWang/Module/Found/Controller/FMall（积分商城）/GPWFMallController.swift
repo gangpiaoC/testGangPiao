@@ -108,7 +108,6 @@ extension GPWFMallController{
             return cell
         }else  if indexPath.row == 1{
             let cell: GPWFoundSecCell = tableView.dequeueReusableCell(withIdentifier: "GPWFoundSecCell", for: indexPath) as! GPWFoundSecCell
-            cell.updata(userStory: self.dataDic?["user_story"].stringValue ?? "111", teamStory: self.dataDic?["team_story"].stringValue ?? "111", superControl: self)
             cell.superControl = self
             return cell
         }else if indexPath.row == 2{

@@ -73,9 +73,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
                 let vc = GPWWebViewController(subtitle: "", url: userInfo["link"] as! String)
                 navController?.pushViewController(vc, animated: true)
             }else if tempType == "2"{
-                let ttzController = GPWFTTZHController()
-                ttzController.urlstr = userInfo["link"] as? String
-                navController?.pushViewController(ttzController, animated: true)
+               
             }else if tempType == "3"{
                 navController?.pushViewController(GPWProjectDetailViewController(projectID: userInfo["link"] as! String), animated: true)
             }

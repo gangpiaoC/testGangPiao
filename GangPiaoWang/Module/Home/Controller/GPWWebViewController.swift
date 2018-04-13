@@ -257,18 +257,35 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
                 }else if ((message.body as! String).range(of: "linkReadName") != nil) {
                     //实名
                     self.navigationController?.pushViewController( UserReadInfoViewController(), animated: true)
+                }else if ((message.body as! String).range(of: "linkOpenPDF") != nil) {
+                    //合同
+                    let  array = (message.body as! String).components(separatedBy: "***")
+                    let url = (array[2].components(separatedBy: "url_pdf="))[1] as String
+                    let  control = DownHTongController()
+                    control.urlStr = url
+                    print(control.urlStr)
+                    control.navTitle = "法律政策信息"
+                    control.navigationItem.hidesBackButton = true
+                    self.navigationController?.pushViewController(control, animated: false)
                 }
             }
         }
     }
     
     override func back(sender: GPWButton) {
-        _webView.configuration.userContentController.removeScriptMessageHandler(forName: "NativeMethod")
-        if backRootFlag {
-            _ = self.navigationController?.popToRootViewController(animated: true)
+
+        if self._webView.canGoBack {
+            self._webView.goBack()
         }else{
-            _ = self.navigationController?.popViewController(animated: true)
+            _webView.configuration.userContentController.removeScriptMessageHandler(forName: "NativeMethod")
+            if backRootFlag {
+                _ = self.navigationController?.popToRootViewController(animated: true)
+            }else{
+                _ = self.navigationController?.popViewController(animated: true)
+            }
         }
+
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -277,7 +294,8 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
     
 }
 extension GPWWebViewController{
-    
+
+
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         let alertController:UIAlertController = UIAlertController(title: "提示", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "确认", style: .default, handler: { (action) in

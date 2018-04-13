@@ -29,8 +29,6 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
     //是否为满标  如果>0  则为满标 奖励金额
     fileprivate var prizeNum:Int = 0
     
-    //是否为团团赚vip
-    var  vipFlag:Bool = false
     
     
     init(money: String,shareJson:JSON,shouyi:String,proName:String,prizeNum:Int) {
@@ -49,13 +47,12 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "出借成功"
-        GPWGlobal.sharedInstance().vipSucessFlag = true
         self.leftButton.isHidden = true
         setupViews()
         self.getNetData()
     }
     override func getNetData() {
-        if vipFlag && GPWUser.sharedInstance().identity == 1{
+        if GPWUser.sharedInstance().identity == 1{
             GPWNetwork.requetWithGet(url:Invest_success_share, parameters: ["invest_id":self.sureSucessID], responseJSON: { [weak self] (json, msg) in
                 printLog(message: json)
                 guard let strongSelf = self else { return }
@@ -65,7 +62,7 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
 
             })
         }else{
-            if Int(self.money)! >= self.shareJson?["share_money"].intValue ?? 0 && vipFlag == false {
+            if Int(self.money)! >= self.shareJson?["share_money"].intValue ?? 0{
                 showShareBag()
             }
         }
@@ -239,9 +236,6 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
         if let viewControllers = self.navigationController?.viewControllers {
             for vc in viewControllers {
                 if vc.isKind(of: GPWProjectDetailViewController.self) {
-                    _ = self.navigationController?.popToViewController(vc, animated: true)
-                    return
-                }else if vc.isKind(of: GPWVipPDetailViewController.self) {
                     _ = self.navigationController?.popToViewController(vc, animated: true)
                     return
                 }

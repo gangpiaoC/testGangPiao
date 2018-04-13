@@ -47,9 +47,6 @@ class GPWGlobal {
     
     //首页弹窗使用
     var  homePopDic:JSON?
-    
-    //针对团团赚 (领头人投资成功)
-    var  vipSucessFlag = false
 
     //最新网络接口返回的msg
     var msg = ""
@@ -59,6 +56,9 @@ class GPWGlobal {
 
     //推送字段
     var  pushDic:[String:Any]?
+
+    //邀请是否跳转网页  如果有 就跳转
+    var app_invite_link = ""
 
     //初始化app tabbar
     var gpwbarController:GPWTabBarController?

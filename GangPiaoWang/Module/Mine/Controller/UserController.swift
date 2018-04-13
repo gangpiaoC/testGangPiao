@@ -254,7 +254,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -262,14 +262,8 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
             return 1
         }else if section == 1 {
             return 1
-        }else if section == 2{
-            return 1
         }else{
-            if self.flag == false {
-                return 1
-            }else{
-                return 1 + 2
-            }
+            return 1
         }
     }
     
@@ -294,16 +288,8 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
                     return  76 + 10
                 }
             }
-        }else if indexPath.section == 2{
-            return  290
         }else{
-            if indexPath.row == 0 {
-                return  32 + 50 + 20
-            }else if indexPath.row == 1 {
-                return  29 + 30
-            }else{
-                return  49 + 60
-            }
+            return  290
         }
     }
     
@@ -347,7 +333,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
                 }
             }
             return cell!
-        }else if indexPath.section == 2 {
+        }else {
             var cell = tableView.dequeueReusableCell(withIdentifier: "UserThridCell") as? UserThridCell
             if cell == nil {
                 cell = UserThridCell(style: .default, reuseIdentifier: "UserThridCell")
@@ -355,29 +341,6 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
           let   dicArray = self.getDic()
             cell?.updata(dicArray, superControl: self)
             return cell!
-        }else{
-            if indexPath.row == 0 {
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWUserBottom1Cell") as? GPWUserBottom1Cell
-                if cell == nil {
-                    cell = GPWUserBottom1Cell(style: .default, reuseIdentifier: "GPWUserBottom1Cell")
-                }
-                cell?.superControl = self
-                cell!.lineisHidden(!self.flag)
-                return cell!
-            }else if indexPath.row == 1 {
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWUserBottom2Cell") as? GPWUserBottom2Cell
-                if cell == nil {
-                    cell = GPWUserBottom2Cell(style: .default, reuseIdentifier: "GPWUserBottom2Cell")
-                }
-                cell?.superControl = self
-                return cell!
-            }else{
-                var cell = tableView.dequeueReusableCell(withIdentifier: "GPWUserBottom3Cell") as? GPWUserBottom3Cell
-                if cell == nil {
-                    cell = GPWUserBottom3Cell(style: .default, reuseIdentifier: "GPWUserBottom3Cell")
-                }
-                return cell!
-            }
         }
     }
     

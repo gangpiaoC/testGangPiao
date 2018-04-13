@@ -121,8 +121,12 @@ class UserThridCell: UITableViewCell {
                     self.superControl?.navigationController?.pushViewController(GPWRiskAssessmentViewController(), animated: true)
                 }else{
                     //邀请奖励
-                    MobClick.event("mine", label: "邀请奖励")
-                    self.superControl?.navigationController?.pushViewController(GPWGetFriendRcordController(), animated: true)
+                     MobClick.event("mine", label: "邀请奖励")
+                    if GPWGlobal.sharedInstance().app_invite_link.count > 0 {
+                        self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: GPWGlobal.sharedInstance().app_invite_link), animated: true)
+                    }else{
+                        self.superControl?.navigationController?.pushViewController(GPWGetFriendRcordController(), animated: true)
+                    }
                 }
             break
              case 10005:

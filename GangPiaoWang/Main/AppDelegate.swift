@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         MobClick.start(withConfigure: config)
         MobClick.setEncryptEnabled(true)
         
-        
         //极光注册
         self.registerJG(launchOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0;
@@ -53,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             printLog(message: json)
             GPWGlobal.sharedInstance().initJson = json
             GPWGlobal.sharedInstance().app_accountsred = "\(json["app_accountsred"].intValue)"
+            GPWGlobal.sharedInstance().app_invite_link = json["app_invite_link"].stringValue
             GPWGlobal.sharedInstance().app_exper_amount = "\(json["app_exper_amount"].intValue)"
             GPWGlobal.sharedInstance().app_exper_income = "\(json["app_exper_accrual"].stringValue)"
             GPWGlobal.sharedInstance().app_exper_rate = "\(json["app_exper_rate"].intValue)"
@@ -138,9 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 let vc = GPWWebViewController(subtitle: "", url: userInfo["link"] as! String)
                 navController?.pushViewController(vc, animated: true)
             }else if tempType == "2"{
-                let ttzController = GPWFTTZHController()
-                ttzController.urlstr = userInfo["link"] as? String
-                navController?.pushViewController(ttzController, animated: true)
+
             }else if tempType == "3"{
                 navController?.pushViewController(GPWProjectDetailViewController(projectID: userInfo["link"] as! String), animated: true)
             }

@@ -117,9 +117,6 @@ class GPWFailController: GPWBaseViewController {
                 if vc.isKind(of: GPWProjectDetailViewController.self) {
                     _ = self.navigationController?.popToViewController(vc, animated: true)
                     return
-                }else if vc.isKind(of: GPWVipPDetailViewController.self) {
-                    _ = self.navigationController?.popToViewController(vc, animated: true)
-                    return
                 }
             }
         }

@@ -62,10 +62,6 @@ extension GPWHomeTopCell{
             if(url.count) > 6 {
                 _indexControl?.navigationController?.pushViewController(GPWWebViewController(dic: dic), animated: true)
             }
-        }else if url == "ttz"{
-                let  ttController = GPWFTTZHController()
-                ttController.urlstr = dic["h5_link"].stringValue
-                _ = GPWHelper.selectedNavController()?.pushViewController(ttController, animated: true)
         }else{
               _ = GPWHelper.selectedNavController()?.pushViewController(GPWProjectDetailViewController(projectID: url), animated: true)
         }

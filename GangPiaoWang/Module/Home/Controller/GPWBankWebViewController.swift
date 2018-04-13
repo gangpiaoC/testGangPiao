@@ -40,9 +40,6 @@ class GPWBankWebViewController:  GPWSecBaseViewController,WKUIDelegate,WKNavigat
     //出借满标奖励
     var market_regamount:Int = 0
     
-    //是否为vip领头人（团团赚）
-    var vipFlag = false
-    
     //作废
     fileprivate var subSitle: String?
     
@@ -185,7 +182,6 @@ class GPWBankWebViewController:  GPWSecBaseViewController,WKUIDelegate,WKNavigat
                     strArray = url.components(separatedBy: "invest_id=")
                 }
                 let  vc = GPWInvestSuccessViewController(money: self.moneyStr ?? "0",shareJson:self.sureJson!,shouyi:self.shouyi!,proName:proName ?? "未知",prizeNum:self.market_regamount)
-                vc.vipFlag = self.vipFlag
                 vc.sureSucessID = strArray.count > 1 ? strArray[1]:""
                 self.navigationController?.pushViewController( vc, animated: true)
                 decisionHandler(.cancel)

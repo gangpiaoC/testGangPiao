@@ -87,7 +87,13 @@ class GPWOutRcordView: LazyScrollSubView,UITableViewDelegate,UITableViewDataSour
         GPWNetwork.requetWithGet(url: Invest_record, parameters: ["page":"\(page)","status":type], responseJSON:  {
             [weak self] (json,msg) in
             printLog(message: json)
-            guard let strongSelf = self else { return }
+             guard let strongSelf = self else { return }
+            if json.count == 0 {
+                printLog(message: "eeeeeeeeee")
+                strongSelf.showTableView.endFooterRefreshingWithNoMoreData()
+                return
+            }
+
             strongSelf.showTableView.endFooterRefreshing()
             strongSelf.showTableView.endHeaderRefreshing()
             if strongSelf.page == 1 {

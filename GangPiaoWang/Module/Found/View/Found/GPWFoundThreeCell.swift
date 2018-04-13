@@ -37,11 +37,7 @@ class GPWFoundThreeCell: UITableViewCell {
          MobClick.event("found", label: "广告位")
         if self.dataDic != nil {
             let url = self.dataDic?["link"].string ?? ""
-            if url == "VIP" {
-                let  ttController = GPWFTTZHController()
-                ttController.urlstr = self.dataDic?["h5_link"].string ?? ""
-                 _ = GPWHelper.selectedNavController()?.pushViewController(ttController, animated: true)
-            }else if url == "redpackt" {
+            if url == "redpackt" {
                 if GPWUser.sharedInstance().isLogin {
                     self.superControl?.navigationController?.pushViewController(GPWHomeGetBageController(), animated: true)
                 }else{

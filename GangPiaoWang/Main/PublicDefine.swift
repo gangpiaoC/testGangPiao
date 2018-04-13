@@ -50,7 +50,7 @@ let  BACKGTOUND = "BACKGTOUND"
 //用户登录手机号
 let USER了OGINPHONE = "USER了OGINPHONE"
 let baseColor = UIColor.hex("ffffff")
-let lineColor = UIColor.hex("e6e6e6")
+let lineColor = UIColor.hex("ededed")
 let bgColor = UIColor.hex("f2f2f2")
 let titleColor = UIColor.hex("4f4f4f")
 let subTitleColor = UIColor.hex("666666")

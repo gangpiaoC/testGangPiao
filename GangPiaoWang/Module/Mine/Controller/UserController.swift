@@ -205,27 +205,27 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
         self.bgView.addSubview(noLoginView)
         
         //背景图片
-        let  imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: pixw(p: 463)))
+        let  imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: pixw(p: 450)))
         imgView.image = UIImage(named: "user_nologin_top")
         noLoginView.addSubview(imgView)
         
         //注册
-        let regiterBtn = UIButton(frame: CGRect(x: 16 , y:  imgView.maxY + pixw(p: 8), width:  SCREEN_WIDTH - 16 * 2, height:  pixw(p: 60)))
+        let regiterBtn = UIButton(frame: CGRect(x: 16 , y:  imgView.maxY + 21, width:  SCREEN_WIDTH - 16 * 2, height:  pixw(p: 48)))
         regiterBtn.setBackgroundImage(UIImage(named: "btn_bg"), for: .normal)
         regiterBtn.setTitle("注册领取\(GPWGlobal.sharedInstance().app_exper_amount)元体验金", for: .normal)
         regiterBtn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         regiterBtn.tag = 101
-        regiterBtn.titleLabel?.font = UIFont.customFont(ofSize:  16)
+        regiterBtn.titleLabel?.font = UIFont.customFont(ofSize:  18)
         noLoginView.addSubview(regiterBtn)
         
         //登录
-        let loginBtn = UIButton(frame: CGRect(x: 0, y:  regiterBtn.maxY + 8, width:  SCREEN_WIDTH, height: 20))
+        let loginBtn = UIButton(frame: CGRect(x: 0, y:  regiterBtn.maxY + 18, width:  SCREEN_WIDTH, height: 20))
         loginBtn.tag = 100
         loginBtn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         noLoginView.addSubview(loginBtn)
         
         let titleLabel = UILabel(frame: loginBtn.bounds)
-        titleLabel.attributedText = NSAttributedString.attributedString( "已有帐号?", mainColor: UIColor.hex("666666"), mainFont: 16, second: "立即登录", secondColor: redTitleColor, secondFont: 16)
+        titleLabel.attributedText = NSAttributedString.attributedString( "已有帐号?", mainColor: UIColor.hex("666666"), mainFont: 16, second: "立即登录", secondColor: redColor, secondFont: 16)
         titleLabel.textAlignment = .center
         loginBtn.addSubview(titleLabel)
         
@@ -254,7 +254,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -263,8 +263,6 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
         }else if section == 1 {
             return 1
         }else if section == 2{
-            return 1
-        }else if section == 3{
             return 1
         }else{
             if self.flag == false {
@@ -297,9 +295,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
                 }
             }
         }else if indexPath.section == 2{
-            return 105 + 10
-        }else if indexPath.section == 3{
-            return  283
+            return  290
         }else{
             if indexPath.row == 0 {
                 return  32 + 50 + 20
@@ -351,15 +347,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
                 }
             }
             return cell!
-        } else if indexPath.section == 2 {
-            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWUserYouhuiCell") as? GPWUserYouhuiCell
-            if cell == nil {
-                cell = GPWUserYouhuiCell(style: .default, reuseIdentifier: "GPWUserYouhuiCell")
-            }
-            cell?.updata()
-            cell?.superControl = self
-            return cell!
-        }else if indexPath.section == 3 {
+        }else if indexPath.section == 2 {
             var cell = tableView.dequeueReusableCell(withIdentifier: "UserThridCell") as? UserThridCell
             if cell == nil {
                 cell = UserThridCell(style: .default, reuseIdentifier: "UserThridCell")
@@ -412,16 +400,16 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
     func getDic() -> [[String:String]] {
         var dicArray = [
             [ "img":"user_center_jilu","title":"出借记录","detail":"待收:\(GPWUser.sharedInstance().money_collection)"],
-            [ "img":"user_center_rili","title":"回款日历","detail":"出借规划一目了然"],
-            [ "img":"user_center_liushui","title":"资金流水","detail":"了解资金进出"]
+            [ "img":"user_center_rili","title":"回款日历","detail":"提前做好资金规划"],
+            [ "img":"user_center_liushui","title":"资金流水","detail":"资金流水在这里"],
+            [ "img":"user_center_rg","title":"红包加息券","detail":"\(GPWUser.sharedInstance().data_award)元红包可用"]
         ]
         if GPWUser.sharedInstance().show_iden == 0 {
             dicArray.append( [ "img":"user_center_fengxian","title":"风险测评","detail": (GPWUser.sharedInstance().risk > 0 ? self.checkRiskType() : "检测承受类型")])
         }else{
             dicArray.append( [ "img":"user_center_yaoqing","title":"我的邀请","detail":"查看邀请收益"])
         }
-         dicArray.append( [ "img":"user_center_wdkt","title":"网贷课堂","detail":"金融法律"])
-         dicArray.append( [ "img":"user_center_xxpl","title":"信息披露","detail":"平台信息展示"])
+        dicArray.append( [ "img":"user_center_kefu","title":"我的客服","detail":"您需要帮助吗"])
         return dicArray
     }
 }

@@ -21,20 +21,9 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "提现"
-        
-//        let  messageBtn = UIButton(type: .custom)
-//        messageBtn.tag = 101
-//        messageBtn.frame = CGRect(x: SCREEN_WIDTH - 20 - 16, y: 10, width: 15 + 16, height: self.navigationBar.height)
-//        messageBtn.setImage(UIImage(named: "user_tixian_yiwen"), for: .normal)
-//        messageBtn.addTarget(self, action: #selector(self.helpClick), for: .touchUpInside)
-//        self.navigationBar.addSubview(messageBtn)
         self.getNetData()
         
     }
-    
-//    @objc func helpClick() {
-//        self.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
-//    }
     
     func initView()  {
         let scrollView = UIScrollView(frame: self.bgView.bounds)
@@ -65,19 +54,35 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         temp11Label.font = UIFont.customFont(ofSize: 16)
         tempBgView.addSubview(temp11Label)
 
+
         let  tipView =  UIView(frame: CGRect(x: 0, y: temp11Label.maxY, width: SCREEN_WIDTH, height: 54))
         tipView.backgroundColor = UIColor.hex("ffffff")
         tempBgView.addSubview(tipView)
 
+        var payBtnMaxY = topBlock.maxY + 28
         if (dic?["money_tyj"].doubleValue ?? 0) <= 0 {
             tipView.height = 0
             tipView.isHidden = true
+            payBtnMaxY = temp11Label.centerY
         }
 
         let tiyanLabel = RTLabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH -  32, height: 32))
         tiyanLabel.text = "<font size=14 color='#b7b7b7'>体验金收益</font><font size=14 color='#f6390d'>\(self.dic?["money_tyj"] ?? "0.00")元</font><font size=14 color='#b7b7b7'>\n单笔出借满\(self.dic?["money_quota"].intValue ?? 0)元即可提现</font>"
         tiyanLabel.height = tiyanLabel.optimumSize.height
         tipView.addSubview(tiyanLabel)
+
+        let payBtn = UIButton(type: .custom)
+        payBtn.frame = CGRect(x: SCREEN_WIDTH - 16 - 100, y: payBtnMaxY, width: 100, height: 32)
+        payBtn.setTitle("立即出借", for: .normal)
+        payBtn.setTitleColor(redColor, for: .normal)
+        payBtn.titleLabel?.font = UIFont.customFont(ofSize: 16)
+        payBtn.addTarget(self, action: #selector(payClick(sender:)), for: .touchUpInside)
+        payBtn.layer.cornerRadius = 16
+        payBtn.centerY = payBtnMaxY
+        payBtn.layer.borderColor = redColor.cgColor
+        payBtn.layer.borderWidth = 1
+        tempBgView.addSubview(payBtn)
+
 
         
         let sceBlock = UIView(frame: CGRect(x: 0, y: tipView.maxY, width: SCREEN_WIDTH, height: 10))
@@ -182,6 +187,10 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         btn.addTarget(self, action: #selector(self.btnClick(sender:)), for: .touchUpInside)
         scrollView.addSubview(btn)
         
+    }
+
+    @objc func payClick(sender:UIButton) {
+        GPWHelper.selectTabBar(index: 1)
     }
     
      func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

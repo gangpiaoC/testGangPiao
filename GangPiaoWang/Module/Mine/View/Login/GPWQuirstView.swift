@@ -11,8 +11,6 @@ class GPWQuirstView: UIView,RTLabelDelegate {
     var superController:UIViewController?
     //如何回去  1首页  其他 上一级
     var flag:String?
-    //如果为0 返回  如果未1设置手势密码
-    var setGestureFlag = "0"
     //获取验证码
     private var numRtlabel:RTLabel!
     private var num:Int?
@@ -115,31 +113,19 @@ class GPWQuirstView: UIView,RTLabelDelegate {
 //                        if json["userinfo"]["zhu"].intValue == 1 {
 //                            strongSelf.superController?.navigationController?.pushViewController(GPWUserQSetPWViewController(), animated: true)
 //                        }else{
-                            //获取存储的用户帐号和手势密码
-                            let  tempStr = UserDefaults.standard.value(forKey: USERPHONEGETURE)
-                            var gesture = ""
-                            if tempStr != nil {
-                                let  temArray = (tempStr as! String).components(separatedBy: "@")
-                                for str in temArray {
-                                    let  temSubArray = str.components(separatedBy: "+")
-                                    if temSubArray[0] == acountNum {
-                                        gesture = temSubArray[1]
-                                        GYCircleConst.saveGesture(gesture, key: gestureFinalSaveKey)
-                                    }
-                                }
-                            }
-                            if strongSelf.setGestureFlag == "1" {
-                                let gestureVC = GestureViewController()
-                                gestureVC.type = GestureViewControllerType.setting
-                                gestureVC.flag = true
-                                _ = GPWHelper.selectedNavController()?.pushViewController(gestureVC, animated: true)
-                            }else{
+
+//                            if strongSelf.setGestureFlag == "1" {
+//                                let gestureVC = GestureViewController()
+//                                gestureVC.type = GestureViewControllerType.setting
+//                                gestureVC.flag = true
+//                                _ = GPWHelper.selectedNavController()?.pushViewController(gestureVC, animated: true)
+//                            }else{
                                 if strongSelf.flag == "1" {
                                     _ = strongSelf.superController?.navigationController?.popToRootViewController(animated: true)
                                 }else{
                                     _ = strongSelf.superController?.navigationController?.popViewController(animated: true)
                                 }
-                            }
+//                            }
 //                        }
                     }, failure: { (error) in
                         
@@ -178,23 +164,41 @@ class GPWQuirstView: UIView,RTLabelDelegate {
         if url == "huoquyanzheng"{
             let phoneNum = (self.viewWithTag(1000) as! UITextField).text!
             if  GPWHelper.judgePhoneNum(phoneNum) {
-                GPWNetwork.requetWithGet(url: Quick_captcha, parameters: nil, responseJSON: {
+                GPWNetwork.requetWithPost(url: Num_phone, parameters: ["phone":phoneNum], responseJSON: {
                     [weak self] (json, msg) in
                     guard let strongSelf = self else { return }
                     printLog(message: json)
-                    strongSelf.duanCode = json.string
-                    strongSelf.getVerificationCode(phone: phoneNum)
-                    strongSelf.num = 60
-                    strongSelf.numRtlabel.text = "<a href='eeee'><font size=13 color='#fa713d'>"+String(describing: strongSelf.num!)+"s</font><font size=13 color='#333333'>后重新发送</font></a>"
-                    strongSelf.startTime()
-                }) { (error) in
-                    
-                }
+                    strongSelf.duanCode = json["check_captcha"].stringValue
+                    printLog(message: msg)
+                    if json["phmo"].intValue == 0 {
+                        strongSelf.superController?.view.makeToast(msg)
+                    }else{
+                        strongSelf.getQCode(phoneNum: phoneNum)
+                    }
+                    }, failure: { (error) in
+                })
+
             }else{
                 self.makeToast("请输入正确手机号")
             }
         }else if url == "zhuce" {
             self.superController?.navigationController?.pushViewController(GPWUserRegisterViewController(), animated: true)
+        }
+    }
+
+    //快捷登录获取验证码
+    func getQCode(phoneNum:String) {
+        GPWNetwork.requetWithGet(url: Quick_captcha, parameters: nil, responseJSON: {
+            [weak self] (json, msg) in
+            guard let strongSelf = self else { return }
+            printLog(message: json)
+            strongSelf.duanCode = json.string
+            strongSelf.getVerificationCode(phone: phoneNum)
+            strongSelf.num = 60
+            strongSelf.numRtlabel.text = "<a href='eeee'><font size=13 color='#fa713d'>"+String(describing: strongSelf.num!)+"s</font><font size=13 color='#333333'>后重新发送</font></a>"
+            strongSelf.startTime()
+        }) { (error) in
+
         }
     }
     //获取验证码

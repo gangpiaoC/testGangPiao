@@ -43,13 +43,11 @@ class GPWLoginViewController: GPWSecBaseViewController {
         havePWView = GPWHavePWView(frame: CGRect(x: 0, y: tempBtn.maxY + 20, width: SCREEN_WIDTH, height: 300))
         havePWView.superController = self
         havePWView.flag = flag
-        havePWView.setGestureFlag = flag
         havePWView.isHidden = true
         self.bgView.addSubview(havePWView)
         
         quiretView = GPWQuirstView(frame: CGRect(x: 0, y: tempBtn.maxY + 20, width: SCREEN_WIDTH, height: 300))
         quiretView.superController = self
-        quiretView.setGestureFlag = flag
         quiretView.flag = flag
         self.bgView.addSubview(quiretView)
     }

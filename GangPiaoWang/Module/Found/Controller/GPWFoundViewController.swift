@@ -12,7 +12,15 @@ class GPWFoundViewController: GPWBaseViewController,UITableViewDelegate,UITableV
     fileprivate var showTableView:UITableView!
     fileprivate var dataDic:JSON?
     var page = 1
+    var dataArray: [JSON] = []
+    var banners: [JSON] = []
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        page = 1
+        requestNetData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //初始化界面
@@ -34,7 +42,6 @@ class GPWFoundViewController: GPWBaseViewController,UITableViewDelegate,UITableV
         showTableView.register(GPWFNewsTopCell.self, forCellReuseIdentifier: "GPWFNewsTopCell")
         showTableView.register(GPWHomeNewListCell.self, forCellReuseIdentifier: "GPWHomeNewListCell")
         self.bgView.addSubview(showTableView)
-        requestNetData()
         showTableView.setUpHeaderRefresh { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.page = 1
@@ -66,15 +73,39 @@ class GPWFoundViewController: GPWBaseViewController,UITableViewDelegate,UITableV
     }
 
     func requestNetData() {
-        GPWNetwork.requetWithGet(url: Find, parameters: nil, responseJSON: {
+        GPWNetwork.requetWithGet(url: Find, parameters: ["page": page], responseJSON: {
             [weak self] (json, msg) in
             printLog(message: json)
+            
             guard let strongSelf = self else { return }
             strongSelf.dataDic = json
-            strongSelf.showTableView.reloadData()
+            if strongSelf.page == 1 {
+                strongSelf.banners = json["banner"].arrayValue
+            }
+            strongSelf.showTableView.endFooterRefreshing()
             strongSelf.showTableView.endHeaderRefreshing()
+            let coverage = json["coverage"].arrayValue
+            if strongSelf.page == 1 {
+                strongSelf.dataArray.removeAll()
+                strongSelf.dataArray = coverage
+                if  strongSelf.dataArray.count == 0 {
+                    strongSelf.showTableView.setFooterNoMoreData()
+                } else {
+                    strongSelf.page += 1
+                    strongSelf.showTableView.footerRefresh.isHidden = false
+                }
+            }else{
+                if coverage.count > 0 {
+                    strongSelf.page += 1
+                    strongSelf.dataArray += coverage
+                }else{
+                    strongSelf.showTableView.endFooterRefreshingWithNoMoreData()
+                }
+            }
+            strongSelf.showTableView.reloadData()
         }) {[weak self] error in
             guard let strongSelf = self else { return }
+            strongSelf.showTableView.endFooterRefreshing()
             strongSelf.showTableView.endHeaderRefreshing()
         }
     }
@@ -89,8 +120,8 @@ extension GPWFoundViewController{
         if dataDic == nil {
             return 0
         }
-        printLog(message: self.dataDic?["coverage"].arrayValue.count ?? 0)
-        return 3 +  ( self.dataDic?["coverage"].arrayValue.count ?? 0 )
+        printLog(message: dataArray.count)
+        return 3 + dataArray.count
 
     }
 
@@ -118,7 +149,7 @@ extension GPWFoundViewController{
 
         if indexPath.row == 0 {
             let cell: GPWFoundTopCell = tableView.dequeueReusableCell(withIdentifier: "GPWFoundTopCell", for: indexPath) as! GPWFoundTopCell
-            cell.showInfo(array: (self.dataDic?["banner"].array)!, control: self)
+            cell.showInfo(array: banners, control: self)
             return cell
         }else  if indexPath.row == 1{
             let cell: GPWFoundSecCell = tableView.dequeueReusableCell(withIdentifier: "GPWFoundSecCell", for: indexPath) as! GPWFoundSecCell
@@ -129,7 +160,7 @@ extension GPWFoundViewController{
             return cell
         }else{
             let cell: GPWHomeNewListCell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeNewListCell", for: indexPath) as! GPWHomeNewListCell
-            cell.updata(dic: (self.dataDic?["coverage"][indexPath.row - 3])!)
+            cell.updata(dic: dataArray[indexPath.row - 3])
             return cell
         }
     }
@@ -138,7 +169,7 @@ extension GPWFoundViewController{
             return
         }
        
-        let  vc = GPWWebViewController(subtitle: "报道详情", url: "\(HTML_SERVER)/Web/account_newshows.html?auto_id=\(self.dataDic?["coverage"][indexPath.row - 3]["auto_id"].intValue ?? 0)")
+        let  vc = GPWWebViewController(subtitle: "报道详情", url: "\(HTML_SERVER)/Web/account_newshows.html?auto_id=\(dataArray[indexPath.row - 3]["auto_id"].intValue)")
         vc.messageFlag = "1"
         self.navigationController?.pushViewController( vc, animated: true)
     }

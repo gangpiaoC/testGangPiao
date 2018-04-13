@@ -16,7 +16,7 @@ class GPWFoundSecCell: UITableViewCell {
                   ["img":"found_sec_help","title":"帮助中心"],
                   ["img":"found_sec_action","title":"热门活动"],
                   ["img":"found_sec_school","title":"钢票学院"],
-                  ["img":"found_sec_info","title":"信息披漏"]
+                  ["img":"found_sec_info","title":"信息披露"]
                 ]
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,7 +54,7 @@ class GPWFoundSecCell: UITableViewCell {
             MobClick.event("found", label: "菜单-钢票学院")
            self.superControl?.navigationController?.pushViewController(GPWVFschooliewController(), animated: true)
         }else if sender.tag == 103 {
-            MobClick.event("found", label: "菜单-信息披漏")
+            MobClick.event("found", label: "菜单-信息披露")
             self.superControl?.navigationController?.pushViewController(GPWXXPLViewController(), animated: true)
         }
     }

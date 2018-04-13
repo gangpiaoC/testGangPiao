@@ -165,23 +165,23 @@ class GPWInvestSuccessViewController: GPWSecBaseViewController {
         tempBgView.addSubview(tipLabel)
         var  maxY = tipLabel.maxY + 26
         
-        //满标奖励展示
-        if self.prizeNum > 0 {
-            let  prizeLabel = RTLabel(frame: CGRect(x: 0, y: maxY, width: SCREEN_WIDTH, height: 0))
-            prizeLabel.textAlignment = RTTextAlignmentCenter
-            prizeLabel.text = "<font size=16 color='#888888'>恭喜您获得满标奖励的</font><font size=16 color='#fa713d'>\(self.prizeNum)元</font><font  size=16 color='#888888'>红包</font>"
-            prizeLabel.height = prizeLabel.optimumSize.height
-            tempBgView.addSubview(prizeLabel)
-            maxY = prizeLabel.maxY + 10
-            
-            let goBtn = UIButton(type: .custom)
-            goBtn.frame = CGRect(x: 0, y: maxY, width: SCREEN_WIDTH, height: 17)
-            goBtn.setTitle("请到我的账户查看", for: .normal)
-            goBtn.titleLabel?.font = UIFont.customFont(ofSize: 16)
-            goBtn.setTitleColor(UIColor.hex("888888"), for: .normal)
-            tempBgView.addSubview(goBtn)
-            maxY = goBtn.maxY
-        }
+//        //满标奖励展示
+//        if self.prizeNum > 0 {
+//            let  prizeLabel = RTLabel(frame: CGRect(x: 0, y: maxY, width: SCREEN_WIDTH, height: 0))
+//            prizeLabel.textAlignment = RTTextAlignmentCenter
+//            prizeLabel.text = "<font size=16 color='#888888'>恭喜您获得满标奖励的</font><font size=16 color='#fa713d'>\(self.prizeNum)元</font><font  size=16 color='#888888'>红包</font>"
+//            prizeLabel.height = prizeLabel.optimumSize.height
+//            tempBgView.addSubview(prizeLabel)
+//            maxY = prizeLabel.maxY + 10
+//
+//            let goBtn = UIButton(type: .custom)
+//            goBtn.frame = CGRect(x: 0, y: maxY, width: SCREEN_WIDTH, height: 17)
+//            goBtn.setTitle("请到我的账户查看", for: .normal)
+//            goBtn.titleLabel?.font = UIFont.customFont(ofSize: 16)
+//            goBtn.setTitleColor(UIColor.hex("888888"), for: .normal)
+//            tempBgView.addSubview(goBtn)
+//            maxY = goBtn.maxY
+//        }
        
         maxY = maxY + 30
         let bottomView = UIView(frame: CGRect(x: 0, y: maxY, width: SCREEN_WIDTH, height: 10))

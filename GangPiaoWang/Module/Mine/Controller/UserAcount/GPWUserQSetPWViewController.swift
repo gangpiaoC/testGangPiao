@@ -242,15 +242,18 @@ class GPWUserQSetPWViewController: GPWSecBaseViewController {
             guard let strongSelf = self else { return }
             strongSelf.bgView.makeToast(msg)
             GPWUser.sharedInstance().analyUser(dic: json)
-            var viewControllers = self?.navigationController?.viewControllers ?? []
-            for i in 0..<viewControllers.reversed().count {
+            let viewControllers = self?.navigationController?.viewControllers ?? []
+            var sourceControllers = viewControllers
+            for i in 0..<viewControllers.count {
                 let vc = viewControllers[i]
-                if vc.isKind(of: GPWSafeMangerController.self) {
-                    _ = strongSelf.navigationController?.popToViewController(vc, animated: true)
-                    return
+                if vc.isKind(of: GPWLoginViewController.self) {
+
+                    sourceControllers.removeSubrange(i..<viewControllers.count - 1)
+                    self?.navigationController?.viewControllers = sourceControllers
+                    break
                 }
             }
-            _ = strongSelf.navigationController?.popToRootViewController(animated: true)
+            _ = strongSelf.navigationController?.popViewController(animated: true)
         }) { (error) in
 
         }

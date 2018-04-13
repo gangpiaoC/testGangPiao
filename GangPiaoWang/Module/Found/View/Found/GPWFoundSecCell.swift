@@ -55,7 +55,8 @@ class GPWFoundSecCell: UITableViewCell {
            self.superControl?.navigationController?.pushViewController(GPWVFschooliewController(), animated: true)
         }else if sender.tag == 103 {
             MobClick.event("found", label: "菜单-信息披露")
-            self.superControl?.navigationController?.pushViewController(GPWXXPLViewController(), animated: true)
+           let vc = GPWWebViewController(subtitle: "", url: HTML_SERVER + "/Web/user_xxpl")
+            self.superControl?.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

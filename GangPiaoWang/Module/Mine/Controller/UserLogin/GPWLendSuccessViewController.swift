@@ -148,4 +148,18 @@ class GPWLendSuccessViewController: GPWSecBaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
+    override func back(sender: GPWButton) {
+        let viewControllers = self.navigationController?.viewControllers ?? []
+        var sourceControllers = viewControllers
+        for i in 0..<viewControllers.count {
+            let vc = viewControllers[i]
+            if vc.isKind(of: GPWLoginViewController.self) {
+                sourceControllers.removeSubrange(i..<viewControllers.count - 1)
+                self.navigationController?.viewControllers = sourceControllers
+                break
+            }
+        }
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
 }

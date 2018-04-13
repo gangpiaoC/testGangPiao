@@ -197,7 +197,7 @@ class GPWProjectCell: UITableViewCell {
         case "FINISH", "REPAYING", "FULLSCALE":
             statusLabel.text = ""
             statusImgView.isHidden = false
-            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
             newbieButton.isHidden = true
              incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("b9b9b9"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("b9b9b9"), secondFont: 20, secondFontWeight: .medium)
             titleLabel.textColor = UIColor.hex("b9b9b9")
@@ -212,11 +212,11 @@ class GPWProjectCell: UITableViewCell {
         case "RELEASE":
             statusLabel.text = "即将开放"
             statusImgView.isHidden = true
-            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
         default:
             statusImgView.isHidden = true
             statusLabel.text = "即将开放"
-            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
             break
         }
     }

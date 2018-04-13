@@ -12,8 +12,6 @@ class GPWHavePWView: UIView {
     var superController:UIViewController?
     //如何回去  1首页  其他 上一级
     var flag:String?
-    //如果为0 返回  如果未1设置手势密码
-    var setGestureFlag = "0"
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.comminit()
@@ -146,18 +144,18 @@ class GPWHavePWView: UIView {
                             _ = strongSelf.superController?.navigationController?.pushViewController(gestureVC, animated: true)
                         }
                     }else{
-                        if strongSelf.setGestureFlag == "1" {
-                            let gestureVC = GestureViewController()
-                            gestureVC.type = GestureViewControllerType.setting
-                            gestureVC.flag = true
-                            _ = GPWHelper.selectedNavController()?.pushViewController(gestureVC, animated: true)
-                        }else{
+//                        if strongSelf.setGestureFlag == "1" {
+//                            let gestureVC = GestureViewController()
+//                            gestureVC.type = GestureViewControllerType.setting
+//                            gestureVC.flag = true
+//                            _ = GPWHelper.selectedNavController()?.pushViewController(gestureVC, animated: true)
+//                        }else{
                             if strongSelf.flag == "1" {
                                 _ = strongSelf.superController?.navigationController?.popToRootViewController(animated: true)
                             }else{
                                 _ = strongSelf.superController?.navigationController?.popViewController(animated: true)
                             }
-                        }
+//                        }
                     }
                     
                     }, failure: {[weak self] error in

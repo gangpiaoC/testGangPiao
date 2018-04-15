@@ -49,6 +49,15 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
         button.isEnabled = false
         return button
     }()
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.barStyle = .default
+    }
     
     init(projectID: String) {
         self.projectID = projectID
@@ -61,6 +70,7 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.barStyle = .black
         requestData()
     }
     
@@ -71,8 +81,10 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
         bgView.addSubview(tableView)
         
         let bottomView = UIView(bgColor: .white)
+        let line = UIView(bgColor: UIColor.hex("f4f4f4"))
         bottomView.addSubview(balanceLabel)
         bottomView.addSubview(joinButton)
+        bottomView.addSubview(line)
         bgView.addSubview(bottomView)
         
         tableView.snp.makeConstraints { (maker) in
@@ -83,6 +95,11 @@ class GPWProjectDetailViewController: GPWSecBaseViewController {
         bottomView.snp.makeConstraints { (maker) in
             maker.top.equalTo(tableView.snp.bottom)
             maker.left.right.bottom.equalTo(bgView)
+        }
+
+        line.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalTo(bottomView)
+            maker.height.equalTo(1)
         }
         
         balanceLabel.snp.makeConstraints { (maker) in

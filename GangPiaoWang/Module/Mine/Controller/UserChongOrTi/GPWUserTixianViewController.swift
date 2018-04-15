@@ -60,14 +60,9 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         tempBgView.addSubview(tipView)
 
         var payBtnMaxY = topBlock.maxY + 28
-        if (dic?["money_tyj"].doubleValue ?? 0) <= 0 {
-            tipView.height = 0
-            tipView.isHidden = true
-            payBtnMaxY = temp11Label.centerY
-        }
 
         let tiyanLabel = RTLabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH -  32, height: 32))
-        tiyanLabel.text = "<font size=14 color='#b7b7b7'>体验金收益</font><font size=14 color='#f6390d'>\(self.dic?["money_tyj"] ?? "0.00")元</font><font size=14 color='#b7b7b7'>\n单笔出借满\(self.dic?["money_quota"].intValue ?? 0)元即可提现</font>"
+        tiyanLabel.text = "<font size=14 color='#b7b7b7'>体验金收益</font><font size=14 color='#f6390d'>\(self.dic?["money_tyj"] ?? "0.00")元</font><font size=14 color='#b7b7b7'>\n出借满\(self.dic?["money_quota"].intValue ?? 0)元即可提现</font>"
         tiyanLabel.height = tiyanLabel.optimumSize.height
         tipView.addSubview(tiyanLabel)
 
@@ -82,6 +77,13 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         payBtn.layer.borderColor = redColor.cgColor
         payBtn.layer.borderWidth = 1
         tempBgView.addSubview(payBtn)
+
+        if (dic?["money_tyj"].doubleValue ?? 0) <= 0 {
+            tipView.height = 0
+            tipView.isHidden = true
+            payBtn.isHidden = true
+            payBtnMaxY = temp11Label.centerY
+        }
 
 
         
@@ -188,6 +190,7 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
         scrollView.addSubview(btn)
         
     }
+
 
     @objc func payClick(sender:UIButton) {
         GPWHelper.selectTabBar(index: 1)
@@ -345,9 +348,11 @@ class GPWUserTixianViewController: GPWSecBaseViewController,UITextFieldDelegate,
             //充值未出借
             let money_deposit = Double((self.dic?["money_deposit"].stringValue.replacingOccurrences(of: ",", with: ""))!) ?? 0
             
-            let  doubleMoney = Double(sender.text!)  ?? 0
+            let  doubleMoney = self.notRounding(Double(sender.text!)  ?? 0, afterPoint: 2)
             let tempAll = self.notRounding(money_award + money_return + money_deposit, afterPoint: 2)
+
             if doubleMoney > tempAll {
+                printLog(message: "eeeee====\(doubleMoney) ====== \(tempAll)")
                 let index =  sender.text?.index( (sender.text?.endIndex)!, offsetBy: -1)
                 sender.text = sender.text?.substring(to: index!)
                 sender.text = self.dic?["money_cash"].string ?? "0.00"

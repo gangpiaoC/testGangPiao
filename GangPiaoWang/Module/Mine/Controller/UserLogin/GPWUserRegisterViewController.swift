@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
+class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate,UIScrollViewDelegate {
 
     //获取验证码
     var numRtlabel:RTLabel!
@@ -39,37 +39,50 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         return button
     }()
 
+
+    /// 除了顶部视图以外的内容
+    fileprivate let contentView:UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "快速注册"
+        //键盘监听
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         self.bgView.backgroundColor = UIColor.white
         bgView.addSubview(scrollView)
-        
-        var maxheight:CGFloat = 0
+        scrollView.delegate = self
         
         let  topImgView = UIImageView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: pixw(p: 98)))
         topImgView.image = UIImage(named: "user_zhuce_bottom")
         scrollView.addSubview(topImgView)
-        
+
+        contentView.y = topImgView.maxY
+        scrollView.addSubview(contentView)
+        var maxheight:CGFloat = 0
         let array = [
             ["tip":"手机号","place":"请输入手机号"],
             ["tip":"验证码","place":"请输入手机验证码"],
             ["tip":"登录密码","place":"含字母+数字的6-16个字符"]
         ]
-        maxheight = topImgView.maxY
         for i in 0 ..< array.count {
             
             let tipLabel = UILabel(frame: CGRect(x: 16, y: maxheight + 21, width: 66, height: 21))
             tipLabel.textColor = titleColor
             tipLabel.font = UIFont.systemFont(ofSize: 16)
             tipLabel.text = array[i]["tip"]
-            scrollView.addSubview(tipLabel)
+            contentView.addSubview(tipLabel)
             
             let  textField = UITextField(frame: CGRect(x: tipLabel.maxX + 14, y: tipLabel.y, width: 200, height: tipLabel.height))
             textField.placeholder = array[i]["place"]
             textField.tag = 100 + i
             textField.font = UIFont.customFont(ofSize: 16)
-            scrollView.addSubview(textField)
+            contentView.addSubview(textField)
             
             if i == 1 {
                 textField.width = SCREEN_WIDTH / 2
@@ -79,11 +92,11 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
                 numRtlabel.textAlignment = RTTextAlignmentRight
                 numRtlabel.height = numRtlabel.optimumSize.height
                 numRtlabel.centerY = textField.centerY
-                scrollView.addSubview(numRtlabel)
+                contentView.addSubview(numRtlabel)
                 
                 let line = UIView(frame: CGRect(x: numRtlabel.x, y: maxheight + 22, width: 1, height: 20))
                 line.backgroundColor = lineColor
-                scrollView.addSubview(line)
+                contentView.addSubview(line)
             }
 
             if i != 2 {
@@ -94,12 +107,12 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
             maxheight = textField.maxY + 20
             let line = UIView(frame: CGRect(x: tipLabel.x, y: maxheight, width: SCREEN_WIDTH - tipLabel.x * 2, height: 1))
             line.backgroundColor = lineColor
-            scrollView.addSubview(line)
+            contentView.addSubview(line)
             maxheight = line.maxY
         }
         
         inviterBgView.frame = CGRect(x: 0, y: maxheight, width: SCREEN_WIDTH, height: 0)
-        scrollView.addSubview(inviterBgView)
+        contentView.addSubview(inviterBgView)
         
         let yaoCodeLabel = UILabel(frame: CGRect(x: 16, y: 21, width: 66, height: 21))
         yaoCodeLabel.textColor = titleColor
@@ -122,7 +135,7 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         
         bottomView = UIView(frame: CGRect(x: 0, y: maxheight, width: SCREEN_WIDTH, height: 0))
         bottomView.backgroundColor = UIColor.white
-        scrollView.addSubview(bottomView)
+        contentView.addSubview(bottomView)
         //有邀请人按钮
         let  yaoBtn = UIButton(type: .custom)
         yaoBtn.frame = CGRect(x: 0, y: 12, width: 32 + 70 + 32, height: 20)
@@ -305,5 +318,31 @@ class GPWUserRegisterViewController: GPWSecBaseViewController,RTLabelDelegate {
         }) { (error) in
             
         }
+    }
+
+    //键盘的出现
+    @objc func keyBoardWillShow(_ notification: Notification){
+        UIView.animate(withDuration: 0.3) {
+            self.contentView.y = 0
+        }
+
+    }
+
+    //键盘的隐藏
+    @objc func keyBoardWillHide(_ notification: Notification){
+        UIView.animate(withDuration: 0.3) {
+            self.contentView.y = pixw(p: 98)
+        }
+    }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        for subView in contentView.subviews {
+            if subView.isKind(of: UITextField.self){
+                subView.resignFirstResponder()
+            }
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 }

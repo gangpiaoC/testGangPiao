@@ -14,7 +14,7 @@ class GPWUserRBCell: UITableViewCell {
     var bgImgView:UIImageView!
     
     //红包
-    var bagLabel:RTLabel!
+    var bagLabel:UILabel!
     
     //过期图片
     var  timeImgView:UIImageView!
@@ -58,30 +58,31 @@ class GPWUserRBCell: UITableViewCell {
         conBgImgView.addSubview(selectImgView)
         
         
-        bagLabel = RTLabel(frame: CGRect(x: 0, y: 36, width: bgImgView.width, height: 24))
-        bagLabel.text = "<font size=24 color='#ffffff'>￥200</font>"
-        bagLabel.textAlignment = RTTextAlignmentCenter
-        bagLabel.height = bagLabel.optimumSize.height
+        bagLabel = UILabel(frame: CGRect(x: 0, y: 38, width: bgImgView.width, height: 24))
+        bagLabel.textAlignment = .center
+        let attrText = NSMutableAttributedString()
+        attrText.append(NSAttributedString.attributedString("￥", mainColor: UIColor.hex("ffffff"), mainFont: 18, mainFontWeight: .medium, second: "298", secondColor: UIColor.hex("ffffff"), secondFont: 24, secondFontWeight: .medium))
+        bagLabel.attributedText = attrText
         bgImgView.addSubview(bagLabel)
        
         timeImgView = UIImageView(frame: CGRect(x: 50, y: 35, width: 65, height: 46))
         conBgImgView.addSubview(timeImgView)
         
-        temp1Label = UILabel(frame: CGRect(x:pixw(p: 163), y: 26, width: conBgImgView.width - bagLabel.maxX - 64 - 16, height: 15))
+        temp1Label = UILabel(frame: CGRect(x:pixw(p: 163), y: 24, width: conBgImgView.width - bagLabel.maxX - 64 - 16, height: 20))
         temp1Label.text = "单笔出借满10000元"
-        temp1Label.textColor = UIColor.hex("333333")
+        temp1Label.textColor = UIColor.hex("4f4f4f")
         temp1Label.font = UIFont.customFont(ofSize: 14)
         conBgImgView.addSubview(temp1Label)
         
-        temp2Label = UILabel(frame: CGRect(x: temp1Label.x, y: temp1Label.maxY + 5, width: temp1Label.width, height: 15))
+        temp2Label = UILabel(frame: CGRect(x: temp1Label.x, y: temp1Label.maxY + 2, width: temp1Label.width, height: 20))
         temp2Label.text = "仅限≥30天产品"
-        temp2Label.textColor = UIColor.hex("333333")
+        temp2Label.textColor = UIColor.hex("4f4f4f")
         temp2Label.font = UIFont.customFont(ofSize: 14)
         conBgImgView.addSubview(temp2Label)
         
-        temp3Label = UILabel(frame: CGRect(x: temp1Label.x, y: temp2Label.maxY + 10, width: temp1Label.width, height: 15))
+        temp3Label = UILabel(frame: CGRect(x: temp1Label.x, y: temp2Label.maxY + 10, width: temp1Label.width, height: 20))
         temp3Label.text = "有效期至2016-07-05"
-        temp3Label.textColor = UIColor.hex("999999")
+        temp3Label.textColor = UIColor.hex("b9b9b9")
         temp3Label.font = UIFont.customFont(ofSize: 14)
         conBgImgView.addSubview(temp3Label)
     }
@@ -89,7 +90,9 @@ class GPWUserRBCell: UITableViewCell {
     func setInfo(dic:JSON,superC:UIViewController) {
         self.selectImgView.isHidden = true
         self.superControl = superC
-        bagLabel.text = "<font size=24 color='#ffffff'>￥\(dic["amount"])</font>"
+        let attrText = NSMutableAttributedString()
+        attrText.append(NSAttributedString.attributedString("￥", mainColor: UIColor.hex("ffffff"), mainFont: 18, mainFontWeight: .medium, second: "\(dic["amount"])", secondColor: UIColor.hex("ffffff"), secondFont: 24, secondFontWeight: .medium))
+        bagLabel.attributedText = attrText
         temp1Label.text = "单笔出借满\(dic["restrict_amount"])元"
         temp2Label.text = "\(dic["limitse"])"
 
@@ -131,7 +134,9 @@ class GPWUserRBCell: UITableViewCell {
     
     func setupCell(_ redCoupon: RedEnvelop, selectFlag:Bool) {
         self.selectImgView.isHidden = false
-        bagLabel.text = "<font size=24 color='#ffffff'>￥\(redCoupon.amount)</font>"
+        let attrText = NSMutableAttributedString()
+        attrText.append(NSAttributedString.attributedString("￥", mainColor: UIColor.hex("ffffff"), mainFont: 18, mainFontWeight: .medium, second: "\(redCoupon.amount)", secondColor: UIColor.hex("ffffff"), secondFont: 24, secondFontWeight: .medium))
+        bagLabel.attributedText = attrText
         temp1Label.text = "单笔出借满\(redCoupon.restrict_amount)元"
         temp2Label.text = redCoupon.limitse
         temp3Label.text = "有效期至" + GPWHelper.strFromDate(redCoupon.expire, format: "yyyy-MM-dd")

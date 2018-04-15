@@ -27,7 +27,7 @@ class GPWFirstDetailCell1: UITableViewCell {
         let label = UILabel()
         label.text = "产品期限"
         label.textColor = UIColor.hex("fdc3a7")
-        label.font = UIFont.customFont(ofSize: 14.0)
+        label.font = UIFont.customFont(ofSize: 12.0)
         return label
     }()
     
@@ -40,7 +40,7 @@ class GPWFirstDetailCell1: UITableViewCell {
         let label = UILabel()
         label.text = "起投金额"
         label.textColor = UIColor.hex("fdc3a7")
-        label.font = UIFont.customFont(ofSize: 14.0)
+        label.font = UIFont.customFont(ofSize: 12.0)
         return label
     }()
     private let startInvestLabel: UILabel = {
@@ -139,12 +139,12 @@ class GPWFirstDetailCell1: UITableViewCell {
         
         staticDateLabel.snp.makeConstraints { (maker) in
             maker.bottom.equalTo(incomeLabel)
-            maker.width.equalTo(60)
+            maker.width.equalTo(50)
         }
         
         dateLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(staticDateLabel)
-            maker.left.equalTo(staticDateLabel.snp.right).offset(6)
+            maker.left.equalTo(staticDateLabel.snp.right).offset(4)
             maker.right.equalTo(topBgView).offset(-21)
             maker.width.equalTo(55)
         }
@@ -164,7 +164,7 @@ class GPWFirstDetailCell1: UITableViewCell {
         progressView.snp.makeConstraints { (maker) in
             maker.top.equalTo(staticIncomeLabel.snp.bottom).offset(37)
             maker.left.right.equalTo(topBgView).inset(16)
-            maker.height.equalTo(6)
+            maker.height.equalTo(3)
         }
         
         progressImgView.snp.makeConstraints { (maker) in
@@ -187,7 +187,7 @@ class GPWFirstDetailCell1: UITableViewCell {
         bottomLeftDotImgView.snp.makeConstraints { (maker) in
             maker.top.equalTo(bottomGuide).offset(23)
             maker.centerX.equalTo(bottomLeftTitleLabel)
-            maker.width.height.equalTo(9)
+            maker.width.height.equalTo(11)
         }
         bottomLeftLineView.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(bottomLeftDotImgView)
@@ -213,7 +213,7 @@ class GPWFirstDetailCell1: UITableViewCell {
             maker.left.equalTo(bottomGuide).offset(19)
         }
         bottomLeftSubtitleLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(bottomLeftTitleLabel.snp.bottom).offset(8)
+            maker.top.equalTo(bottomLeftTitleLabel.snp.bottom).offset(7)
             maker.centerX.equalTo(bottomLeftTitleLabel)
             maker.bottom.equalTo(bottomGuide).offset(-20)
         }

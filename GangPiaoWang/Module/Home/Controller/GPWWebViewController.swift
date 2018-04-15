@@ -46,6 +46,9 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
     fileprivate var url:String?
     fileprivate var _webView:WKWebView!
 
+    //是否从原生跳出
+    fileprivate var goFlag =  true
+
     // 创建配置
      fileprivate var config:WKWebViewConfiguration?
 
@@ -91,7 +94,11 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
             }
             printLog(message: tempUrl)
             if let url = URL(string:tempUrl) {
-                _webView.load(URLRequest(url: url))
+                if goFlag {
+                    _webView.load(URLRequest(url: url))
+                }else{
+                    goFlag = true
+                }
             }
         }
     }
@@ -266,6 +273,7 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
                     print(control.urlStr)
                     control.navTitle = "法律政策信息"
                     control.navigationItem.hidesBackButton = true
+                    self.goFlag = false
                     self.navigationController?.pushViewController(control, animated: false)
                 }
             }

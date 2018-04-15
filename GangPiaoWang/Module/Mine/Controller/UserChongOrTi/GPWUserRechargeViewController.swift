@@ -27,13 +27,6 @@ class GPWUserRechargeViewController: GPWSecBaseViewController ,UITextFieldDelega
         super.viewDidLoad()
         self.title = "充值"
         
-        let  messageBtn = UIButton(type: .custom)
-        messageBtn.tag = 101
-        messageBtn.frame = CGRect(x: SCREEN_WIDTH - 20 - 16, y: 10, width: 15 + 16, height: self.navigationBar.height)
-        messageBtn.setImage(UIImage(named: "user_tixian_yiwen"), for: .normal)
-        messageBtn.addTarget(self, action: #selector(self.helpClick), for: .touchUpInside)
-        self.navigationBar.addSubview(messageBtn)
-        
         let topBgView = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 135 + 32 +  46  +  30))
         topBgView.backgroundColor = UIColor.white
         self.bgView.addSubview(topBgView)
@@ -153,10 +146,7 @@ class GPWUserRechargeViewController: GPWSecBaseViewController ,UITextFieldDelega
 
         })
     }
-    
-    @objc func helpClick() {
-        self.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
-    }
+
 
     @objc func btnClick(sender:UIButton)  {
         if sender.tag == 100 {

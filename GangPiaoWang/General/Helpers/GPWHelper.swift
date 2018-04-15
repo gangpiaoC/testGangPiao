@@ -276,7 +276,7 @@ class GPWHelper {
         
         //取消
         let cancelBtn = UIButton(type: .custom)
-        cancelBtn.frame = CGRect(x: 0, y: tempBgView.maxY + 28, width: 38, height: 38)
+        cancelBtn.frame = CGRect(x: 0, y: tempBgView.maxY + 28, width: 45, height: 45)
         cancelBtn.setImage(UIImage(named: "ad_cancel"), for: .normal)
         cancelBtn.imageView?.contentMode = .scaleAspectFill 
         cancelBtn.centerX = tempBgView.centerX

@@ -144,8 +144,6 @@ let  Useraccounts_myred = "useraccounts_myred"
 //我的加息券
 let User_ticket = "user_ticket"
 
-//我的体验金
-let  User_experient = "user_experient"
 
 //日历
 let  Api_refund_calendar = "api_refund_calendar"

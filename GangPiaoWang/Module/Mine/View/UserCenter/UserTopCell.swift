@@ -72,7 +72,7 @@ class UserTopCell: UITableViewCell {
         moneyBgView.layer.cornerRadius = 5
         moneyBgView.backgroundColor = UIColor.white
         moneyBgView.layer.shadowColor = UIColor.black.cgColor
-        moneyBgView.layer.shadowOpacity = 0.2
+        moneyBgView.layer.shadowOpacity = 0.18
         moneyBgView.layer.shadowRadius = 6
         moneyBgView.layer.shadowOffset = CGSize(width: 2, height: 2)
         contentView.addSubview(moneyBgView)

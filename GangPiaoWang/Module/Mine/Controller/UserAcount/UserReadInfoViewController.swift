@@ -301,7 +301,7 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
         //银行卡
         let temp3Str = (self.tempBgView.viewWithTag(BANKTAG) as! UITextField).text ?? ""
 
-        if temp3Str.count >= 15 && temp3Str.characters.count <= 19 {
+        if temp3Str.count >= 15 && temp3Str.count <= 19 {
             dic["banck"] = temp3Str
         }else{
             bgView.makeToast("不支持或错误的银行卡号")
@@ -346,15 +346,21 @@ class UserReadInfoViewController: GPWSecBaseViewController,UITextFieldDelegate,U
             guard let strongSelf = self else { return }
             printLog(message: json)
             GPWUser.sharedInstance().getUserInfo()
-            //实名认证成功
-            GPWHelper.authNameSucess()
-            for vc in strongSelf.navigationController!.viewControllers {
-                if vc.isKind(of: GPWProjectDetailViewController.self) {
-                    _ = strongSelf.navigationController?.popToViewController(vc, animated: true)
-                    return
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.4) {
+                for vc in strongSelf.navigationController!.viewControllers {
+                    if vc.isKind(of: GPWProjectDetailViewController.self) {
+                        _ = strongSelf.navigationController?.popToViewController(vc, animated: true)
+                        return
+                    }
+                }
+                _ = strongSelf.navigationController?.popToRootViewController(animated: true)
+                //实名认证成功
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.4) {
+                    //实名认证成功
+                    GPWHelper.authNameSucess()
                 }
             }
-            _ = strongSelf.navigationController?.popToRootViewController(animated: true)
+
             }, failure: {
                 [weak self] (error) in
                 guard let strongSelf = self else { return }

@@ -230,12 +230,12 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
         loginBtn.addSubview(titleLabel)
         
         //图标
-        let  botomImgView = UIImageView(frame: CGRect(x: pixw(p: 125), y: SCREEN_HEIGHT - 40 - 44, width: 11, height: 13))
+        let  botomImgView = UIImageView(frame: CGRect(x:( SCREEN_WIDTH - 90 - 3 - 11 ) / 2, y: SCREEN_HEIGHT - 40 - 44, width: 11, height: 13))
         botomImgView.image = UIImage(named: "home_bottom")
         noLoginView.addSubview(botomImgView)
         
         //标题
-        let  bottomTitleLabel = UILabel(frame: CGRect(x: botomImgView.maxX + 3, y: 0, width: 200, height: 12))
+        let  bottomTitleLabel = UILabel(frame: CGRect(x: botomImgView.maxX + 3, y: 0, width: 108, height: 12))
         bottomTitleLabel.font = UIFont.customFont(ofSize: 12)
         bottomTitleLabel.text = "资金由银行存管"
         bottomTitleLabel.centerY = botomImgView.centerY
@@ -365,14 +365,10 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
             [ "img":"user_center_jilu","title":"出借记录","detail":"待收:\(GPWUser.sharedInstance().money_collection)"],
             [ "img":"user_center_rili","title":"回款日历","detail":"提前做好资金规划"],
             [ "img":"user_center_liushui","title":"资金流水","detail":"资金流水在这里"],
-            [ "img":"user_center_rg","title":"红包加息券","detail":"\(GPWUser.sharedInstance().data_award)元红包可用"]
+            [ "img":"user_center_rg","title":"红包加息券","detail":"0元红包可用"]
         ]
-        if GPWUser.sharedInstance().show_iden == 0 {
-            dicArray.append( [ "img":"user_center_fengxian","title":"风险测评","detail": (GPWUser.sharedInstance().risk > 0 ? self.checkRiskType() : "检测承受类型")])
-        }else{
-            dicArray.append( [ "img":"user_center_yaoqing","title":"我的邀请","detail":"查看邀请收益"])
-        }
-        dicArray.append( [ "img":"user_center_kefu","title":"我的客服","detail":"您需要帮助吗"])
+        dicArray.append( [ "img":"user_center_yaoqing","title":"我的邀请","detail":"查看邀请收益"])
+        dicArray.append( [ "img":"user_center_kefu","title":"我的客服","detail":"有问题点这里"])
         return dicArray
     }
 }

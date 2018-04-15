@@ -47,6 +47,10 @@ class GPWSecondDetailViewController: UIViewController, UIScrollViewDelegate {
             _currentIndex = newValue
         }
     }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

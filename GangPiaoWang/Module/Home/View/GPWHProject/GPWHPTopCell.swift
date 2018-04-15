@@ -14,10 +14,38 @@ class GPWHPTopCell: UITableViewCell {
     fileprivate let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.hex("222222")
-        titleLabel.font = UIFont.customFont(ofSize: 18.0)
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         titleLabel.text = "新手专享"
         return titleLabel
     }()
+
+    let newbieButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.titleLabel?.font = UIFont.customFont(ofSize: 14.0)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitle("新手加息", for: .normal)
+        button.backgroundColor = UIColor.hex("f5a623")
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 11
+        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .highlighted)
+        button.adjustsImageWhenHighlighted = false
+        button.isUserInteractionEnabled = false
+        return button
+    }()
+
+    let rightArrowImgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "project_rightArrow"))
+    var newbieButtonWidthConstraint: Constraint!
+
+    let  statusLabel: UILabel = {
+        let label = UILabel()
+        label.text = "即将开放"
+        label.textColor = UIColor.hex("b7b7b7")
+        label.font = UIFont.customFont(ofSize: 12.0)
+        label.textAlignment = .right
+        return label
+    }()
+
 
     fileprivate let btn: UIButton = {
         let btn = UIButton(type: UIButtonType.custom)
@@ -47,13 +75,13 @@ class GPWHPTopCell: UITableViewCell {
         let label = UILabel()
         label.text = "期限"
         label.textColor = titleColor
-        label.font = UIFont.customFont(ofSize: 18.0)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         return label
     }()
     let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = redColor
-        label.font = UIFont.customFont(ofSize: 18.0)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         label.text = "30天"
         return label
     }()
@@ -82,6 +110,9 @@ class GPWHPTopCell: UITableViewCell {
 
     private func commonInitialize() {
         contentView.addSubview(titleLabel)
+        contentView.addSubview(newbieButton)
+        contentView.addSubview(statusLabel)
+        contentView.addSubview(rightArrowImgView)
         contentView.addSubview(lineView)
         contentView.addSubview(staticIncomeLabel)
         contentView.addSubview(incomeLabel)
@@ -96,6 +127,24 @@ class GPWHPTopCell: UITableViewCell {
             maker.top.equalTo(contentView).offset(22)
             maker.left.equalTo(16)
         }
+        newbieButton.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(titleLabel)
+            maker.left.equalTo(titleLabel.snp.right).offset(8)
+            newbieButtonWidthConstraint = maker.width.equalTo(90).constraint
+            maker.height.equalTo(22)
+        }
+        rightArrowImgView.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(titleLabel)
+            maker.right.equalTo(contentView).offset(-16)
+        }
+        statusLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .horizontal)
+        statusLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 755), for: .horizontal)
+        statusLabel.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(rightArrowImgView)
+            maker.right.equalTo(rightArrowImgView.snp.left).offset(-4)
+            maker.left.equalTo(newbieButton.snp.right).offset(5)
+        }
+
         lineView.snp.makeConstraints { (maker) in
             maker.top.equalTo(titleLabel.snp.bottom).offset(16)
             maker.left.equalTo(titleLabel)
@@ -104,19 +153,19 @@ class GPWHPTopCell: UITableViewCell {
         }
 
         incomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(lineView.snp.bottom).offset(22)
+            maker.top.equalTo(lineView.snp.bottom).offset(18)
             maker.left.equalTo(lineView)
         }
         staticDateLabel.snp.makeConstraints { (maker) in
             maker.bottom.equalTo(incomeLabel).offset(-3)
-            maker.left.equalTo(contentView.centerX)
+            maker.left.equalTo(SCREEN_WIDTH / 2)
         }
         dateLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(staticDateLabel)
             maker.left.equalTo(staticDateLabel.snp.right).offset(3)
         }
         staticIncomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(incomeLabel.snp.bottom).offset(7)
+            maker.top.equalTo(incomeLabel.snp.bottom).offset(3)
             maker.left.equalTo(contentView).offset(16)
         }
         balanceLabel.snp.makeConstraints { (maker) in
@@ -125,7 +174,7 @@ class GPWHPTopCell: UITableViewCell {
             maker.right.equalTo(contentView).offset(-16)
         }
         btn.snp.makeConstraints { (maker) in
-            maker.top.equalTo(balanceLabel.snp.bottom).offset(32)
+            maker.top.equalTo(balanceLabel.snp.bottom).offset(29)
             maker.left.equalTo(16)
             maker.right.equalTo(contentView).offset(-16)
             maker.height.equalTo(46)
@@ -164,6 +213,8 @@ class GPWHPTopCell: UITableViewCell {
         switch state {
         case "FINISH", "REPAYING", "FULLSCALE":
             btn.setBackgroundImage(UIImage(named: "home_p_no"), for: UIControlState.normal)
+            btn.setTitle("已满标", for: UIControlState.normal)
+            statusLabel.text = ""
             balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
             incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("b9b9b9"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("b9b9b9"), secondFont: 20, secondFontWeight: .medium)
             balanceLabel.textColor = UIColor.hex("b9b9b9")
@@ -172,15 +223,17 @@ class GPWHPTopCell: UITableViewCell {
             staticIncomeLabel.textColor = UIColor.hex("b9b9b9")
         case "COLLECTING":
             btn.setBackgroundImage(UIImage(named: "home_p_pay"), for: UIControlState.normal)
-            btn.setTitle("新手加息，立即加入", for: UIControlState.normal)
+            btn.setTitle("新手加息 立即加入", for: UIControlState.normal)
+            statusLabel.text = "仅限首次加入"
             balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
         case "RELEASE":
             btn.setBackgroundImage(UIImage(named: "home_p_right"), for: UIControlState.normal)
-            btn.setTitle("即将开放", for: UIControlState.normal)
+            btn.setTitle("即将开放 敬请期待", for: UIControlState.normal)
+            statusLabel.text = "即将开放"
             balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
         default:
             btn.setBackgroundImage(UIImage(named: "home_p_right"), for: UIControlState.normal)
-            btn.setTitle("即将开放", for: UIControlState.normal)
+            btn.setTitle("即将开放  敬请期待", for: UIControlState.normal)
             balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
             break
         }

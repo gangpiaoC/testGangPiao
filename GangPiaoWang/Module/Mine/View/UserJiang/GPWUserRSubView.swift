@@ -115,23 +115,13 @@ class GPWUserRSubView: LazyScrollSubView,UITableViewDelegate,UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if type == Useraccounts_myred || type == User_experient{
-            return 120 + 16
-        }
-        return 116
+        return 120 + 16
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if type == Useraccounts_myred {
             var cell = tableView.dequeueReusableCell(withIdentifier: "GPWUserRBCell") as? GPWUserRBCell
             if cell == nil {
                 cell = GPWUserRBCell(style: .default, reuseIdentifier: "GPWUserRBCell")
-            }
-            cell?.setInfo(dic: self.dataArr[indexPath.row],superC:self.inCtl)
-            return cell!
-        }else if type == User_experient {
-            var cell = tableView.dequeueReusableCell(withIdentifier: "GPWUserExpCell") as? GPWUserExpCell
-            if cell == nil {
-                cell = GPWUserExpCell(style: .default, reuseIdentifier: "GPWUserExpCell")
             }
             cell?.setInfo(dic: self.dataArr[indexPath.row],superC:self.inCtl)
             return cell!

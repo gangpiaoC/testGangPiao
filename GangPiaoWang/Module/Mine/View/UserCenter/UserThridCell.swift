@@ -35,7 +35,7 @@ class UserThridCell: UITableViewCell {
     func updata(_ dicArray:[[String:String]],superControl:UserController) {
         self.superControl = superControl
         for subview in contentView.subviews {
-            if subview.tag >= 10000 {
+            if subview.tag >= 100000 {
                 subview.removeFromSuperview()
             }
         }
@@ -44,14 +44,14 @@ class UserThridCell: UITableViewCell {
             for j in 0 ..< 2 {
                 let  btn = UIButton(type: .custom)
                 btn.frame = CGRect(x: SCREEN_WIDTH / 2 * CGFloat(j), y: 189 / 2 * CGFloat(i), width: SCREEN_WIDTH / 2, height: 189 / 2)
-                btn.tag = 10000 + i * 2 + j
+                btn.tag = 100000 + i * 2 + j
                 btn.setTitle(dicArray[i * 2 + j]["title"]!, for: .normal)
                 btn.setTitleColor(UIColor.clear, for: .normal)
                 btn.addTarget(self, action: #selector(btnClick(_:)), for: .touchUpInside)
                 btn.backgroundColor = UIColor.clear
                 contentView.addSubview(btn)
                 
-                let  tiImgView = UIImageView(frame: CGRect(x: 16, y: 24, width: 26, height: 26))
+                let  tiImgView = UIImageView(frame: CGRect(x: 16, y: 24, width: 28, height: 30))
                 tiImgView.image = UIImage(named: dicArray[i * 2 + j]["img"]!)
                 btn.addSubview(tiImgView)
                 
@@ -67,10 +67,18 @@ class UserThridCell: UITableViewCell {
                 detailLabel.textColor = UIColor.hex("b7b7b7")
                 btn.addSubview(detailLabel)
 
-                if btn.tag == 10003 {
+                if btn.tag == 100003 {
                     detailLabel.textColor = UIColor.hex("fa713d")
+                    if GPWUser.sharedInstance().data_award != "" {
+                        detailLabel.text = "\(GPWUser.sharedInstance().data_award)元红包可用"
+                    }else if GPWUser.sharedInstance().data_ticket != "" {
+                        detailLabel.text = "\(GPWUser.sharedInstance().data_ticket)张加息券可用"
+                    }else{
+                        detailLabel.textColor = UIColor.hex("b7b7b7")
+                        detailLabel.text = "真金白银免费送"
+                    }
                 }
-                if btn.tag == 10000 {
+                if btn.tag == 100000 {
                     let temp = UserDefaults.standard.value(forKey: "eyeFlag") as? String ?? "0"
                     if temp == "1" {
                         self.changLabelNum(detailLabel, detailLabel.text!)
@@ -91,45 +99,38 @@ class UserThridCell: UITableViewCell {
 
     @objc func btnClick(_ sender:UIButton) {
         switch sender.tag {
-        case 10000:
+        case 100000:
             //出借记录
             MobClick.event("mine", label: "出借记录")
             self.superControl?.navigationController?.pushViewController(GPWOutRcordController(), animated: true)
              break
-        case 10001:
+        case 100001:
             //回款日历
             MobClick.event("mine", label: "回款日历")
             self.superControl?.navigationController?.pushViewController(GPWUserBCalendarController(), animated: true)
             break
-        case 10002:
+        case 100002:
             //资金流水
             MobClick.event("mine", label: "资金流水")
             self.superControl?.navigationController?.pushViewController(GPWUserMoneyToViewController(), animated: true)
             break
-            break
-        case 10003:
+        case 100003:
             //优惠券
             MobClick.event("mine", label: "优惠券")
             let  tempControl = UserRewardViewController()
             tempControl._startIndex = 0
             self.superControl?.navigationController?.pushViewController(tempControl, animated: true)
             break
-             case 10004:
-                if sender.title(for: .normal) == "风险测评" {
-                    //风险测评
-                    MobClick.event("mine", label: "风险测评")
-                    self.superControl?.navigationController?.pushViewController(GPWRiskAssessmentViewController(), animated: true)
-                }else{
-                    //邀请奖励
-                     MobClick.event("mine", label: "邀请奖励")
-                    if GPWGlobal.sharedInstance().app_invite_link.count > 0 {
-                        self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: GPWGlobal.sharedInstance().app_invite_link), animated: true)
-                    }else{
-                        self.superControl?.navigationController?.pushViewController(GPWGetFriendRcordController(), animated: true)
-                    }
-                }
+        case 100004:
+            //邀请奖励
+            MobClick.event("mine", label: "邀请奖励")
+            if GPWGlobal.sharedInstance().app_invite_link.count > 0 {
+                self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: GPWGlobal.sharedInstance().app_invite_link), animated: true)
+            }else{
+                self.superControl?.navigationController?.pushViewController(GPWGetFriendRcordController(), animated: true)
+            }
             break
-             case 10005:
+             case 100005:
                 //信息披露
                 self.superControl?.navigationController?.pushViewController(GPWFHelpViewController(), animated: true)
             break

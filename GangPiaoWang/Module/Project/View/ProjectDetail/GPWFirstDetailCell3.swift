@@ -60,7 +60,7 @@ class GPWFirstDetailCell3: UITableViewCell {
         returnLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .horizontal)
         returnLabel.snp.makeConstraints { (maker) in
             maker.left.equalTo(titleLabel)
-            maker.top.equalTo(titleLabel.snp.bottom).offset(26)
+            maker.top.equalTo(titleLabel.snp.bottom).offset(18)
             maker.bottom.equalTo(contentView).offset(-24)
             maker.right.equalTo(contentView)
         }

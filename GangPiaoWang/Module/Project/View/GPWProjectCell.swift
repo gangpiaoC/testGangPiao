@@ -14,7 +14,7 @@ class GPWProjectCell: UITableViewCell {
     fileprivate let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textColor = titleColor
-        titleLabel.font = UIFont.customFont(ofSize: 16.0)
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         titleLabel.text = "新手专享"
         return titleLabel
     }()
@@ -66,13 +66,13 @@ class GPWProjectCell: UITableViewCell {
         let label = UILabel()
         label.text = "期限"
         label.textColor = titleColor
-        label.font = UIFont.customFont(ofSize: 18.0)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         return label
     }()
     let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = redColor
-        label.font = UIFont.customFont(ofSize: 18.0)
+        label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         label.text = "30天"
         return label
     }()
@@ -110,7 +110,7 @@ class GPWProjectCell: UITableViewCell {
         titleLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 755), for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 249), for: .horizontal)
         titleLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(contentView).offset(28)
+            maker.top.equalTo(contentView).offset(26)
             maker.left.equalTo(staticIncomeLabel)
         }
         newbieButton.snp.makeConstraints { (maker) in
@@ -135,7 +135,7 @@ class GPWProjectCell: UITableViewCell {
             maker.top.equalTo(titleLabel.snp.bottom).offset(12)
         }
         incomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(titleLabel.snp.bottom).offset(18)
+            maker.top.equalTo(titleLabel.snp.bottom).offset(8)
             maker.left.equalTo(staticIncomeLabel)
         }
         staticDateLabel.snp.makeConstraints { (maker) in
@@ -147,7 +147,7 @@ class GPWProjectCell: UITableViewCell {
             maker.left.equalTo(staticDateLabel.snp.right).offset(3)
         }
         staticIncomeLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(incomeLabel.snp.bottom).offset(7)
+            maker.top.equalTo(incomeLabel.snp.bottom).offset(2)
             maker.left.equalTo(contentView).offset(16)
         }
         balanceLabel.snp.makeConstraints { (maker) in

@@ -29,8 +29,6 @@ class GPWLendSuccessViewController: GPWSecBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "出借成功"
-//        MobClick.event("__cust_event_1")
-//        MobClick.event("__register", attributes:["userid":GPWUser.sharedInstance().user_name ?? "00"])
         
         let topImgView = UIImageView(image: #imageLiteral(resourceName: "project_investSucess") )
         let titleLabel: UILabel = {
@@ -124,13 +122,13 @@ class GPWLendSuccessViewController: GPWSecBaseViewController {
         }
         
         identityImgView.snp.makeConstraints { (maker) in
-            maker.left.equalTo(contentBgView).offset(40)
+            maker.left.equalTo(contentBgView).offset(37)
             maker.centerY.equalTo(redCouponLabel)
         }
         redCouponLabel.snp.makeConstraints { (maker) in
             maker.top.equalTo(contentBgView).offset(pixw(p: 59))
-            maker.left.equalTo(identityImgView.snp.right).offset(8)
-            maker.right.equalTo(contentBgView).offset(-40)
+            maker.left.equalTo(identityImgView.snp.right).offset(6)
+            maker.right.equalTo(contentBgView).offset(-24)
         }
         
         verifyIdentityButton.snp.makeConstraints { (maker) in

@@ -26,6 +26,7 @@ class GPWProjectTypeController: GPWBaseViewController, GPWTableViewDelegate {
     }
     
     private func commonInit() {
+         self.navigationBar.title = "产品列表"
         self.tableView = GPWTableView(frame: self.bgView.bounds, delegate: self)
         self.tableView.register(GPWProjectCell.self, forCellReuseIdentifier: "cell")
         self.bgView.addSubview(self.tableView)

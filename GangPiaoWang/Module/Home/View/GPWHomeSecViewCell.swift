@@ -56,6 +56,7 @@ class GPWHomeSecViewCell: UITableViewCell {
     @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
             MobClick.event("home", label: "菜单栏-新手指引")
+            //self.superControl?.navigationController?.pushViewController(GPWLendSuccessViewController(), animated: true)
            self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: HTML_SERVER +  (self.dataDic?["new_head"].string)!), animated: true)
         }else if sender.tag == 101 {
             MobClick.event("home", label: "菜单栏-安全保障")
@@ -65,7 +66,11 @@ class GPWHomeSecViewCell: UITableViewCell {
             self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["invite_courtesy"].string)!), animated: true)
         }else if sender.tag == 103 {
             MobClick.event("home", label: "菜单栏-拼手气")
-            self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["insurance"].string)!), animated: true)
+            if (self.dataDic?["insurance"].stringValue ?? "").count > 6 {
+                 self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["insurance"].string)!), animated: true)
+            }else{
+                self.superControl?.navigationController?.pushViewController(GPWHomeGetBageController(), animated: true)
+            }
         }
     }
     required init?(coder aDecoder: NSCoder) {

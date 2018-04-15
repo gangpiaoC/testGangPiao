@@ -20,7 +20,7 @@ class GPWFNewsTopCell: UITableViewCell {
         titleLabel = UILabel(frame: CGRect(x: 16, y: 28, width:  200,height:  20))
         titleLabel.textColor = UIColor.hex("222222")
         titleLabel.text = "媒体报道"
-        titleLabel.font = UIFont.customFont(ofSize: 18)
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         self.contentView.addSubview(titleLabel)
 
 

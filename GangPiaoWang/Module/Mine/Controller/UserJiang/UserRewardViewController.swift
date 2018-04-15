@@ -16,12 +16,11 @@ class UserRewardViewController: GPWSecBaseViewController,LazyScrollViewDelegate 
     private var button:UIButton!
     let contentArray = [
         ["title":"红包","type":Useraccounts_myred],
-        ["title":"加息券","type":User_ticket],
-         ["title":"体验金","type":User_experient]
+        ["title":"加息券","type":User_ticket]
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "我的奖励"
+        self.title = "优惠券"
         self.addRightButton()
         let lazyScrollView = LazyScrollView(frame: self.bgView.bounds, delegate: self, dataArray: contentArray)
         lazyScrollView?.setTopOffSetWith(Int32(_startIndex))

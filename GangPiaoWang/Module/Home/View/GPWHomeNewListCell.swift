@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 class GPWHomeNewListCell: UITableViewCell {
     private var iconImgView:UIImageView!
-    private var titleLabel:RTLabel!
+    private var titleLabel:UILabel!
     private var fromAndTimeLabel:RTLabel!
     let clickNumButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -26,9 +26,9 @@ class GPWHomeNewListCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         
-        titleLabel = RTLabel(frame: CGRect(x:16, y: 17, width:  SCREEN_WIDTH - 16 * 2 - 120 - 12, height: 30))
-        titleLabel.text = "<font size=16 color='#4f4f4f'>专注于钢铁产业金融，\"钢票网\"将挺进互联网理财市场</font>"
-        titleLabel.height = titleLabel.optimumSize.height
+        titleLabel = UILabel(frame: CGRect(x:16, y: 17, width:  SCREEN_WIDTH - 16 * 2 - 120 - 12, height: 60))
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.numberOfLines = 0
         self.contentView.addSubview(titleLabel)
         
         iconImgView = UIImageView(frame: CGRect(x: titleLabel.maxX + 12, y: 20, width: 120, height: 80))
@@ -51,10 +51,18 @@ class GPWHomeNewListCell: UITableViewCell {
     func updata(dic:JSON)  {
         printLog(message: dic)
         iconImgView.downLoadImg(imgUrl: dic["media_logo"].string ?? "")
-        titleLabel.text = dic["title"].string ?? ""
-        fromAndTimeLabel.text = "<font size=12 color='#b7b7b7'>\(GPWHelper.strFromDate(dic["add_time"].doubleValue, format: "yyyy-MM-dd"))</font>"
+        titleLabel.attributedText = self.getAttributeStringWithString(dic["title"].string ?? "", lineSpace: 5)
+        fromAndTimeLabel.text = "<font size=12 color='#b7b7b7'><>\(GPWHelper.strFromDate(dic["add_time"].doubleValue, format: "yyyy-MM-dd"))</font>"
         fromAndTimeLabel.height = fromAndTimeLabel.optimumSize.height
         clickNumButton.setTitle(dic["cai"].stringValue, for: .normal)
+    }
+
+    fileprivate func getAttributeStringWithString(_ string: String,lineSpace:CGFloat
+        ) -> NSAttributedString{
+        let paraph = NSMutableParagraphStyle()
+        paraph.lineSpacing = lineSpace
+        let mainAttr = NSAttributedString(string: string, attributes: [NSAttributedStringKey.paragraphStyle: paraph,NSAttributedStringKey.foregroundColor: titleColor, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16, weight: .regular)])
+        return mainAttr
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

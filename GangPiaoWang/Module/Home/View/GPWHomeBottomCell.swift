@@ -24,7 +24,7 @@ class GPWHomeBottomCell: UITableViewCell {
         let topTitleLabel = UILabel(frame: CGRect(x: 16, y: 22, width: 300, height: 18))
         topTitleLabel.text = "靠谱的互联网金融平台"
         topTitleLabel.textColor = UIColor.hex("222222")
-        topTitleLabel.font = UIFont.customFont(ofSize: 18)
+        topTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         contentView.addSubview(topTitleLabel)
 
         let topLine = UIView(frame: CGRect(x: topTitleLabel.x, y: topTitleLabel.maxY + 16, width: SCREEN_WIDTH - 16, height: 1))
@@ -40,7 +40,7 @@ class GPWHomeBottomCell: UITableViewCell {
 
         for i in 0 ..< logoArray.count {
             let tempView = UIView(frame: CGRect(x: i == 0 ? 16 : (SCREEN_WIDTH / 2 + 12), y: topLine.maxY + 20, width: 160, height: 87))
-            tempView.backgroundColor = bgColor
+            tempView.backgroundColor = UIColor.hex("f5f5f5")
             tempView.layer.cornerRadius = 4
             contentView.addSubview(tempView)
 
@@ -64,7 +64,7 @@ class GPWHomeBottomCell: UITableViewCell {
             "中国互联网金融企业家俱乐部副理事长单位"
         ]
 
-        maxY = maxY + 8
+        maxY = maxY + 16
 
         for i in 0 ..< contentArray.count {
 

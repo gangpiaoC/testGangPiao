@@ -23,6 +23,9 @@ class GPWProjectDetailAddRecordViewController: GPWSecBaseViewController, UITable
         super.viewWillDisappear(animated)
         MobClick.endLogPageView("\(self.classForCoder)")
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     init(projectID: String) {
         self.projectID = projectID

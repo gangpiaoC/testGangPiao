@@ -37,7 +37,7 @@ class GPWAvailableRateCouponViewController: GPWSecBaseViewController {
         self.title = "优惠券"
        
         tableView = GPWTableView(frame: self.bgView.bounds, delegate: self)
-        tableView.register(GPWAvailableRateCouponCell.self, forCellReuseIdentifier: "RateCouponCell")
+        tableView.register(GPWUserRCell.self, forCellReuseIdentifier: "GPWUserRCell")
         tableView.register(GPWUserRBCell.self, forCellReuseIdentifier: "GPWUserRBCell")
         let headView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 70))
         headView.backgroundColor = UIColor.clear
@@ -94,7 +94,7 @@ extension GPWAvailableRateCouponViewController: GPWTableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-       return 120
+       return 120 + 16
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -103,7 +103,7 @@ extension GPWAvailableRateCouponViewController: GPWTableViewDelegate {
             cell.setupCell(redEnvelops[indexPath.row], selectFlag: currentRedEnvelop == nil ? false : (currentRedEnvelop?.auto_id == redEnvelops[indexPath.row].auto_id ? true : false))
             return cell
         }else{
-            let cell: GPWAvailableRateCouponCell = tableView.dequeueReusableCell(withIdentifier: "RateCouponCell", for: indexPath) as! GPWAvailableRateCouponCell
+            let cell: GPWUserRCell = tableView.dequeueReusableCell(withIdentifier: "GPWUserRCell", for: indexPath) as! GPWUserRCell
             cell.setupCell(rateCoupons[indexPath.row], selectFlag: currentRateCoupon == nil ? false : (currentRateCoupon?.auto_id == rateCoupons[indexPath.row].auto_id ? true : false))
             return cell
         }

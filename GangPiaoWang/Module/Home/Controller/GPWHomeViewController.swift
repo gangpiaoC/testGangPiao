@@ -98,13 +98,6 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
         self.navigationBar.backgroundColor = UIColor.hex("FA713D")
         self.navigationBar.titleLabel.textColor = UIColor.white
         self.navigationBar.isLineHidden = true
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = self.navigationBar.bounds
-//
-//        //设置渐变的主颜色
-//        gradientLayer.colors = [UIColor.hex("ff790c").cgColor, redTitleColor.cgColor]
-//        //将gradientLayer作为子layer添加到主layer上
-//        self.navigationBar.layer.addSublayer(gradientLayer)
         self.navigationBar.insertSubview(self.navigationBar.titleLabel, at: 100)
         
         showTableView = UITableView(frame: self.bgView.bounds, style: .grouped)
@@ -125,11 +118,10 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
         self.bgView.addSubview(showTableView)
 
         showTableView.estimatedRowHeight = 143
-        showTableView.estimatedSectionHeaderHeight = 56
-        showTableView.estimatedSectionFooterHeight = 0.00001
 
         if #available(iOS 11.0, *) {
-
+            showTableView.estimatedSectionHeaderHeight = 56
+            showTableView.estimatedSectionFooterHeight = 0.00001
             showTableView.contentInsetAdjustmentBehavior = .never
             showTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)//导航栏如果使用系统原生半透明的，top设置为64
             showTableView.scrollIndicatorInsets = showTableView.contentInset
@@ -149,12 +141,13 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
                 guard let strongSelf = self else { return }
                 strongSelf.showTableView.endHeaderRefreshing()
                 strongSelf.dic = json
-            if json["new_banner"].dictionaryObject?.count ?? 0 > 0 {
+            if json["new_banner"].dictionaryObject?.count ?? 0 > 0 && GPWUser.sharedInstance().staue == 0{
                 strongSelf.adFlag = 0
             }else{
                 strongSelf.adFlag = 1
             }
-                strongSelf.showTableView.reloadData()
+            strongSelf.showTableView.reloadData()
+
             }, failure:  {[weak self] error in
                 printLog(message: error.localizedDescription)
                 guard let strongSelf = self else { return }
@@ -215,16 +208,12 @@ extension GPWHomeViewController{
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         //是否为新手
-        let staue = GPWUser.sharedInstance().staue ?? 0
-        if staue == 1 {
-            return 0.0001
+        let staue = GPWUser.sharedInstance().staue == 0 ? 0 : 1
+        if section == 3 - adFlag - staue {
+            return 56
         }else{
-            if section == 3 - adFlag - staue {
-                return 56
-            }
+            return 0.0001
         }
-
-        return 0.0001
     }
 
 
@@ -249,32 +238,28 @@ extension GPWHomeViewController{
         }else if indexPath.section == 4 - adFlag - staue{
             return 130
         }else{
-            return 301
+            return 290
         }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         //是否为新手
         let staue = GPWUser.sharedInstance().staue
-        if GPWUser.sharedInstance().staue == 1 {
-            return nil
-        }else{
-            if section == 3 - adFlag - staue! {
-                let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 56))
-                view.backgroundColor = UIColor.white
+        if section == 3 - adFlag - staue! {
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 56))
+            view.backgroundColor = UIColor.white
 
-                let titleLabel = UILabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH - 32, height: 56))
-                titleLabel.font = UIFont.customFont(ofSize: 18)
-                titleLabel.textColor = UIColor.hex("222222")
-                titleLabel.text = "推荐产品"
-                view.addSubview(titleLabel)
+            let titleLabel = UILabel(frame: CGRect(x: 16, y: 0, width: SCREEN_WIDTH - 32, height: 56))
+            titleLabel.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
+            titleLabel.textColor = UIColor.hex("222222")
+            titleLabel.text = "推荐产品"
+            view.addSubview(titleLabel)
 
 
-                let bottomLine = UIView(frame: CGRect(x: 16, y: 55, width: SCREEN_WIDTH - 16, height: 1))
-                bottomLine.backgroundColor = bgColor
-                view.addSubview(bottomLine)
-                return view
+            let bottomLine = UIView(frame: CGRect(x: 16, y: 55, width: SCREEN_WIDTH - 16, height: 1))
+            bottomLine.backgroundColor = bgColor
+            view.addSubview(bottomLine)
+            return view
 
-            }
         }
         return nil
     }

@@ -3,55 +3,55 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "20X20@2x.png",
+      "filename" : "钢票网启动图标40x40.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "20X20@3x.png",
+      "filename" : "钢票网启动图标60x60.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "29X29@2x.png",
+      "filename" : "钢票网启动图标58x58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "29X29@3x.png",
+      "filename" : "钢票网启动图标87x87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "40X40@2x.png",
+      "filename" : "钢票网启动图标80x80.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "40X40@3x.png",
+      "filename" : "钢票网启动图标120x120.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "60X60@2x.png",
+      "filename" : "钢票网启动图标120x120-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "60X60@3x.png",
+      "filename" : "钢票网启动图标180x180.png",
       "scale" : "3x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "钢票网启动图标.png",
+      "filename" : "1024x1024.png",
       "scale" : "1x"
     }
   ],

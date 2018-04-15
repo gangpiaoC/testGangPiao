@@ -21,15 +21,8 @@ class GPWProjectCell: UITableViewCell {
     
     let newbieButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.titleLabel?.font = UIFont.customFont(ofSize: 14.0)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitle("新手加息", for: .normal)
-        button.backgroundColor = UIColor.hex("f5a623")
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 11
-        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .normal)
-        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .highlighted)
-        button.adjustsImageWhenHighlighted = false
+        button.setBackgroundImage(#imageLiteral(resourceName: "project_xszx_enable"), for: .normal)
+        button.setBackgroundImage(#imageLiteral(resourceName: "project_xszx_disable"), for: .disabled)
         button.isUserInteractionEnabled = false
         return button
     }()
@@ -169,8 +162,8 @@ class GPWProjectCell: UITableViewCell {
     }
     
     func setupCell(dict: JSON) {
-        titleLabel.text = dict["title"].string ?? "钢票宝20161226"
         if dict["is_index"].intValue == 1 && GPWUser.sharedInstance().staue == 0 {   //新手标
+            titleLabel.text = "新手专享"
             newbieButton.isHidden = false
             newbieButtonWidthConstraint.update(offset: 90)
             let attrText = NSMutableAttributedString()
@@ -178,12 +171,14 @@ class GPWProjectCell: UITableViewCell {
             attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium), NSAttributedStringKey.foregroundColor: redColor]))
             incomeLabel.attributedText = attrText
         } else {
+            titleLabel.text = dict["title"].string ?? "钢票宝20161226"
             newbieButton.isHidden = true
             newbieButtonWidthConstraint.update(offset: 0)
             incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: redColor, mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: redColor, secondFont: 20, secondFontWeight: .medium)
         }
         dateLabel.text = "\(dict["deadline"].int ?? 0)天"
        
+        newbieButton.isEnabled = true
         statusLabel.text = "即将开放"
         statusImgView.isHidden = true
         balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000"))元"
@@ -198,8 +193,15 @@ class GPWProjectCell: UITableViewCell {
             statusLabel.text = ""
             statusImgView.isHidden = false
             balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
-            newbieButton.isHidden = true
-             incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("b9b9b9"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("b9b9b9"), secondFont: 20, secondFontWeight: .medium)
+            newbieButton.isEnabled = false
+            if dict["is_index"].intValue == 1 && GPWUser.sharedInstance().staue == 0 {   //新手标
+                let attrText = NSMutableAttributedString()
+                attrText.append(NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("b9b9b9"), mainFont: 40, mainFontWeight: .medium, second: "+\(dict["rate_new"])", secondColor: UIColor.hex("b9b9b9"), secondFont: 26, secondFontWeight: .medium))
+                attrText.append(NSAttributedString(string: "%", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium), NSAttributedStringKey.foregroundColor: UIColor.hex("b9b9b9")]))
+                incomeLabel.attributedText = attrText
+            } else {
+                incomeLabel.attributedText = NSAttributedString.attributedString("\(dict["rate_loaner"])", mainColor: UIColor.hex("b9b9b9"), mainFont: 40, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("b9b9b9"), secondFont: 20, secondFontWeight: .medium)
+            }
             titleLabel.textColor = UIColor.hex("b9b9b9")
             balanceLabel.textColor = UIColor.hex("b9b9b9")
             staticDateLabel.textColor = UIColor.hex("b9b9b9")

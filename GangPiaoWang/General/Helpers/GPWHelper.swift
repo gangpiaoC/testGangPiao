@@ -106,9 +106,7 @@ class GPWHelper {
 
         //哪个版本
         let versionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: contentBgView.width, height: 19))
-        let infoDictionary = Bundle.main.infoDictionary
-        let majorVersion  = infoDictionary!["CFBundleShortVersionString"] as! String
-        versionLabel.text = "V\(majorVersion)发现新版本"
+        versionLabel.text = "发现新版本V\(version)"
         versionLabel.textColor = UIColor.hex("333333")
         versionLabel.textAlignment = .center
         versionLabel.font = UIFont.customFont(ofSize: 18)

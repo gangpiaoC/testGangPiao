@@ -22,20 +22,17 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
 
     //未登录背景
     var noLoginView:UIView!
-    
-    let imgArray = ["user_jilu","user_liushui","user_jiangli","user_yaoqing","user_fankui"]
-    let titleArray = ["出借记录","资金流水","我的奖励","我的邀请","意见反馈"]
     override func viewWillAppear(_ animated: Bool) { 
         super.viewWillAppear(animated)
         self.getMessageNum()
-       self.navigationController?.navigationBar.barStyle = .black
+        self.navigationController?.navigationBar.barStyle = .black
         if GPWUser.sharedInstance().isLogin {
-            if noLoginView != nil {
-                noLoginView.isHidden = true
+            if self.noLoginView != nil {
+                self.noLoginView.isHidden = true
+                self.showTableView.reloadData()
             }
-           self.showTableView.reloadData()
         }else{
-            noLoginView.isHidden = false
+            self.noLoginView.isHidden = false
         }
 
         //开通存管
@@ -44,11 +41,12 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
             self.showQuireInfo()
         }
     }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.barStyle = .default
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -367,7 +365,7 @@ class UserController: GPWBaseViewController,UITableViewDelegate,UITableViewDataS
             [ "img":"user_center_liushui","title":"资金流水","detail":"资金流水在这里"],
             [ "img":"user_center_rg","title":"红包加息券","detail":"0元红包可用"]
         ]
-        dicArray.append( [ "img":"user_center_yaoqing","title":"我的邀请","detail":"查看邀请收益"])
+        dicArray.append( [ "img":"user_center_yaoqing","title":"我的好友","detail":"查看邀请收益"])
         dicArray.append( [ "img":"user_center_kefu","title":"我的客服","detail":"有问题点这里"])
         return dicArray
     }

@@ -15,7 +15,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
     fileprivate var showTableView:UITableView!
     fileprivate var  messageImgView:UIImageView!
     fileprivate var adFlag = 1 //是否有广告位  0 有  1没有
-    
+    fileprivate var postDataFalg = 0 //  0 有  1没有
     //首页出现此时
     var  showNum = 0
     override func viewWillAppear(_ animated: Bool) {
@@ -130,6 +130,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
         showTableView.setUpHeaderRefresh {
             [weak self] in
             guard let self1 = self else {return}
+            self1.postDataFalg = 1
             self1.getNetData()
         }
     }
@@ -304,7 +305,11 @@ extension GPWHomeViewController{
             return cell!
         }else  if indexPath.section == 4 - adFlag - staue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHNowCJCell") as? GPWHNowCJCell
-            cell?.updata((self.dic?["invest"].arrayValue)!)
+            if self.postDataFalg == 1 {
+                cell?.updata((self.dic?["invest"].arrayValue)!)
+                self.postDataFalg = 0
+            }
+
             return cell!
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "GPWHomeBottomCell") as? GPWHomeBottomCell

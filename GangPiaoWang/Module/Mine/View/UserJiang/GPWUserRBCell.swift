@@ -65,7 +65,7 @@ class GPWUserRBCell: UITableViewCell {
         bagLabel.attributedText = attrText
         bgImgView.addSubview(bagLabel)
        
-        timeImgView = UIImageView(frame: CGRect(x: 50, y: 35, width: 65, height: 46))
+        timeImgView = UIImageView(frame: CGRect(x: 14, y: 23, width: 65, height: 46))
         conBgImgView.addSubview(timeImgView)
         
         temp1Label = UILabel(frame: CGRect(x:pixw(p: 163), y: 24, width: conBgImgView.width - bagLabel.maxX - 64 - 16, height: 20))
@@ -105,7 +105,7 @@ class GPWUserRBCell: UITableViewCell {
             bgImgView.image = UIImage(named: "user_reward_use")
             temp1Label.textColor = UIColor.hex("333333")
             temp2Label.textColor = UIColor.hex("333333")
-             timeImgView.image = UIImage(named: "")
+            timeImgView.image = UIImage(named: "")
         }else if status == "ACTIVATE" {
             
             //已使用

@@ -55,21 +55,25 @@ class GPWHomeSecViewCell: UITableViewCell {
     
     @objc func btnClick(sender:UIButton) {
         if sender.tag == 100 {
-            MobClick.event("home", label: "菜单栏-新手指引")
+            MobClick.event("home", label: "菜单栏-平台实力")
             //self.superControl?.navigationController?.pushViewController(GPWLendSuccessViewController(), animated: true)
            self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url: HTML_SERVER +  (self.dataDic?["new_head"].string)!), animated: true)
         }else if sender.tag == 101 {
             MobClick.event("home", label: "菜单栏-安全保障")
             self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["insurance"].string)!), animated: true)
         }else if sender.tag == 102 {
-            MobClick.event("home", label: "菜单栏-邀请有礼")
+            MobClick.event("home", label: "菜单栏-邀请赚钱")
             self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["invite_courtesy"].string)!), animated: true)
         }else if sender.tag == 103 {
-            MobClick.event("home", label: "菜单栏-拼手气")
-            if (self.dataDic?["insurance"].stringValue ?? "").count > 6 {
-                 self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["insurance"].string)!), animated: true)
+            MobClick.event("home", label: "菜单栏-签到有奖")
+            if (self.dataDic?["invitation"].stringValue ?? "").count > 6 {
+                 self.superControl?.navigationController?.pushViewController(GPWWebViewController(subtitle: "", url:  HTML_SERVER +  (self.dataDic?["invitation"].string)!), animated: true)
             }else{
-                self.superControl?.navigationController?.pushViewController(GPWHomeGetBageController(), animated: true)
+                if GPWUser.sharedInstance().isLogin {
+                     self.superControl?.navigationController?.pushViewController(GPWHomeGetBageController(), animated: true)
+                }else{
+                    self.superControl?.navigationController?.pushViewController(GPWLoginViewController(), animated: true)
+                }
             }
         }
     }

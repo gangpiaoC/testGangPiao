@@ -112,10 +112,11 @@ extension GPWAvailableRateCouponViewController: GPWTableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 { //红包
             let redEnvelop = redEnvelops[indexPath.row]
-            if Int(redEnvelop.limit) ?? 300 >= deadLine && currentAmount >= Double(redEnvelop.restrict_amount) {
+printLog(message: "eeeeee====\(redEnvelop.limit) qqqq===\(deadLine)    aaaaa===\(currentAmount)   ==== \(redEnvelop.restrict_amount)")
+            if Int(redEnvelop.limit) ?? 300 <= deadLine && currentAmount >= Double(redEnvelop.restrict_amount) {
                 handleCoupon?(redEnvelops[indexPath.row], nil)
             } else {
-                bgView.makeToast("红包不可用")
+                bgView.makeToast("单笔出借满\(redEnvelop.restrict_amount)元可用")
                 return
             }
         } else {  //加息

@@ -41,6 +41,8 @@ class UserSecondCell: UITableViewCell {
         cunBtn.backgroundColor = UIColor.hex("fff4e1")
         cunBtn.titleLabel?.font = UIFont.customFont(ofSize: 14)
         cunBtn.setTitle("开通恒丰银行存管账户，立即领取618红包 >", for: .normal)
+        cunBtn.contentHorizontalAlignment = .left
+        cunBtn.contentEdgeInsets = UIEdgeInsetsMake(0,16, 0, 0)
         cunBtn.addTarget(self, action: #selector(btnClick(_:)), for: .touchUpInside)
         cunBtn.setTitleColor(UIColor.hex("f6a623"), for: .normal)
         contentView.addSubview(cunBtn)
@@ -50,6 +52,7 @@ class UserSecondCell: UITableViewCell {
         self.contentView.addSubview(block)
     }
     func updata(flag:Bool) {
+        cunBtn.setTitle("开通恒丰银行存管账户，立即领取618红包 >", for: .normal)
         cunBtn.isHidden = flag
         if flag {
                 block.y = 76

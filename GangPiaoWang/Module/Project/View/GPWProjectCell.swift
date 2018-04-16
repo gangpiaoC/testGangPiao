@@ -214,11 +214,11 @@ class GPWProjectCell: UITableViewCell {
         case "RELEASE":
             statusLabel.text = "即将开放"
             statusImgView.isHidden = true
-            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
         default:
             statusImgView.isHidden = true
             statusLabel.text = "即将开放"
-            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
             break
         }
     }

@@ -49,9 +49,6 @@ class GPWOutRcordView: LazyScrollSubView,UITableViewDelegate,UITableViewDataSour
         showTableView.estimatedSectionHeaderHeight = 0
         showTableView.estimatedSectionFooterHeight = 0
         if #available(iOS 11.0, *) {
-            showTableView.estimatedRowHeight = 0
-            showTableView.estimatedSectionHeaderHeight = 0
-            showTableView.estimatedSectionFooterHeight = 0
             showTableView.contentInsetAdjustmentBehavior = .never
             showTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)//导航栏如果使用系统原生半透明的，top设置为64
             showTableView.scrollIndicatorInsets = showTableView.contentInset
@@ -88,8 +85,13 @@ class GPWOutRcordView: LazyScrollSubView,UITableViewDelegate,UITableViewDataSour
             [weak self] (json,msg) in
             printLog(message: json)
              guard let strongSelf = self else { return }
-            if json.count == 0 {
+            if json.isEmpty {
                 printLog(message: "eeeeeeeeee")
+                if strongSelf.page <= 1 {
+                    strongSelf.superControl?.noDataImgView.isHidden = false
+                }
+                strongSelf.showTableView.endFooterRefreshing()
+                strongSelf.showTableView.endHeaderRefreshing()
                 strongSelf.showTableView.endFooterRefreshingWithNoMoreData()
                 return
             }

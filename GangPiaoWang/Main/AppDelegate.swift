@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         //初始化全局
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = UIColor.white
-        self.window?.rootViewController = GPWGlobal.sharedInstance().gpwbarController
+        self.window?.rootViewController = UIViewController()
         self.window!.makeKeyAndVisible()
         self.getAppInit()
         

@@ -52,15 +52,9 @@ class GPWUserRSubView: LazyScrollSubView,UITableViewDelegate,UITableViewDataSour
     
     func getNetData() {
         flag = false
-        let date = NSDate()
-        let timeInterval = date.timeIntervalSince1970 * 1000
-        printLog(message: "wwwww===\(timeInterval)")
         GPWNetwork.requetWithPost(url: type, parameters: ["page":self.page], responseJSON:  {
             [weak self] (json, msg) in
             guard let strongSelf = self else { return }
-            let date = NSDate()
-            let timeInterval2 = date.timeIntervalSince1970 * 1000
-            printLog(message: "wwwwweee===\(timeInterval2)")
             strongSelf.showTableView.endFooterRefreshing()
             strongSelf.showTableView.endHeaderRefreshing()
             if strongSelf.page == 1 {

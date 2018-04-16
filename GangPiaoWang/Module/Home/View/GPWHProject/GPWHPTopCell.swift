@@ -19,23 +19,7 @@ class GPWHPTopCell: UITableViewCell {
         return titleLabel
     }()
 
-    let newbieButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.titleLabel?.font = UIFont.customFont(ofSize: 14.0)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitle("新手加息", for: .normal)
-        button.backgroundColor = UIColor.hex("f5a623")
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 11
-        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .normal)
-        button.setImage(#imageLiteral(resourceName: "project_xinshouzhuanxiang"), for: .highlighted)
-        button.adjustsImageWhenHighlighted = false
-        button.isUserInteractionEnabled = false
-        return button
-    }()
-
     let rightArrowImgView:UIImageView = UIImageView(image: #imageLiteral(resourceName: "project_rightArrow"))
-    var newbieButtonWidthConstraint: Constraint!
 
     let  statusLabel: UILabel = {
         let label = UILabel()
@@ -110,7 +94,6 @@ class GPWHPTopCell: UITableViewCell {
 
     private func commonInitialize() {
         contentView.addSubview(titleLabel)
-        contentView.addSubview(newbieButton)
         contentView.addSubview(statusLabel)
         contentView.addSubview(rightArrowImgView)
         contentView.addSubview(lineView)
@@ -127,12 +110,6 @@ class GPWHPTopCell: UITableViewCell {
             maker.top.equalTo(contentView).offset(22)
             maker.left.equalTo(16)
         }
-        newbieButton.snp.makeConstraints { (maker) in
-            maker.centerY.equalTo(titleLabel)
-            maker.left.equalTo(titleLabel.snp.right).offset(8)
-            newbieButtonWidthConstraint = maker.width.equalTo(90).constraint
-            maker.height.equalTo(22)
-        }
         rightArrowImgView.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(titleLabel)
             maker.right.equalTo(contentView).offset(-16)
@@ -142,7 +119,7 @@ class GPWHPTopCell: UITableViewCell {
         statusLabel.snp.makeConstraints { (maker) in
             maker.centerY.equalTo(rightArrowImgView)
             maker.right.equalTo(rightArrowImgView.snp.left).offset(-4)
-            maker.left.equalTo(newbieButton.snp.right).offset(5)
+            maker.left.equalTo(titleLabel.snp.right).offset(5)
         }
 
         lineView.snp.makeConstraints { (maker) in
@@ -230,7 +207,7 @@ class GPWHPTopCell: UITableViewCell {
             btn.setBackgroundImage(UIImage(named: "home_p_right"), for: UIControlState.normal)
             btn.setTitle("即将开放 敬请期待", for: UIControlState.normal)
             statusLabel.text = "即将开放"
-            balanceLabel.text = "\(dict["begin_amount"])元起投 总额:\(dict["amount"].string ?? "1,000,000")元"
+            balanceLabel.text = "\(dict["begin_amount"])元起投 剩余:\(dict["balance_amount"].string ?? dict["left_amount"].string ?? "10000")元"
         default:
             btn.setBackgroundImage(UIImage(named: "home_p_right"), for: UIControlState.normal)
             btn.setTitle("即将开放  敬请期待", for: UIControlState.normal)

@@ -13,10 +13,10 @@ public class GPWUser:NSObject {
     fileprivate static var userAccount: GPWUser?
 
     //红包钱数
-    var  data_award:String = ""
+    var  data_award:Int = 0
 
     //加息券个数
-    var  data_ticket:String = ""
+    var  data_ticket:Int = 0
 
     //体验金
     var  data_exper:String = ""
@@ -159,8 +159,8 @@ public class GPWUser:NSObject {
         printLog(message: dic)
         self.isLogin = true
         
-        self.data_award = dic["data_award"].stringValue
-        self.data_ticket = dic["data_ticket"].stringValue
+        self.data_award = dic["data_award"].intValue
+        self.data_ticket = dic["data_ticket"].intValue
         self.data_exper = dic["data_exper"].stringValue
 
         self.userTiyanMoney = dic["tiyan_amount"].intValue
@@ -277,8 +277,8 @@ public class GPWUser:NSObject {
         self.userTiyanMoney = 58888
         self.show_iden = 0
         self.real_money = "0.00"
-        self.data_award = ""
-        self.data_ticket = ""
+        self.data_award = 0
+        self.data_ticket = 0
         self.data_exper = ""
     }
 }

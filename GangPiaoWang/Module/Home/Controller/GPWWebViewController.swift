@@ -268,10 +268,11 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
                     //合同
                     let  array = (message.body as! String).components(separatedBy: "***")
                     let url = (array[2].components(separatedBy: "url_pdf="))[1] as String
+                    let title = (array[3].components(separatedBy: "url_pdfName="))[1] as String
                     let  control = DownHTongController()
                     control.urlStr = url
                     print(control.urlStr)
-                    control.navTitle = "法律政策信息"
+                    control.navTitle = title
                     control.navigationItem.hidesBackButton = true
                     self.goFlag = false
                     self.navigationController?.pushViewController(control, animated: false)

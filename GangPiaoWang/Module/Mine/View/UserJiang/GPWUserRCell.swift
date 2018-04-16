@@ -16,6 +16,9 @@ class GPWUserRCell: UITableViewCell {
     //背景图
     var bgImgView:UIImageView!
 
+    //过期图片
+    var  timeImgView:UIImageView!
+
     //是否被选择（确认出资中选择红包使用）
     fileprivate var  selectImgView:UIImageView!
     
@@ -40,6 +43,9 @@ class GPWUserRCell: UITableViewCell {
         bgImgView.centerY = conBgImgView.height / 2
         conBgImgView.addSubview(bgImgView)
 
+        timeImgView = UIImageView(frame: CGRect(x: 11, y: block.maxY + 5, width: 65, height: 46))
+        conBgImgView.addSubview(timeImgView)
+
         selectImgView = UIImageView(frame: CGRect(x: conBgImgView.width - 16 - 18, y: 0, width: 18, height: 18))
         selectImgView.image = UIImage(named: "project_sure_select")
         selectImgView.centerY = bgImgView.centerY
@@ -48,23 +54,25 @@ class GPWUserRCell: UITableViewCell {
         lilvLabel = UILabel(frame: CGRect(x: 0, y: 0, width: bgImgView.width, height: bgImgView.height))
         lilvLabel.textAlignment = .center
         let attrText = NSMutableAttributedString()
-        attrText.append(NSAttributedString.attributedString("   3", mainColor: UIColor.hex("ffffff"), mainFont: 30, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("ffffff"), secondFont: 18, secondFontWeight: .medium))
+        attrText.append(NSAttributedString.attributedString("   3", mainColor: UIColor.hex("ffffff"), mainFont: 27, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("ffffff"), secondFont: 16, secondFontWeight: .medium))
         lilvLabel.attributedText = attrText
         bgImgView.addSubview(lilvLabel)
         
-        temp1Label = UILabel(frame: CGRect(x: pixw(p: 157), y: 30, width: conBgImgView.width - 157 - 16, height: 14))
+        temp1Label = UILabel(frame: CGRect(x: pixw(p: 157), y: 35, width: conBgImgView.width - 157 - 16, height: 20))
         temp1Label.text = "试用所有产品"
         temp1Label.textColor = UIColor.hex("4f4f4f")
         temp1Label.font = UIFont.customFont(ofSize: 14)
         conBgImgView.addSubview(temp1Label)
         
-        temp2Label = UILabel(frame: CGRect(x: temp1Label.x, y: temp1Label.maxY + 9, width: temp1Label.width, height: 14))
+        temp2Label = UILabel(frame: CGRect(x: temp1Label.x, y: temp1Label.maxY + 10, width: temp1Label.width, height: 20))
         temp2Label.text = "有效期至2016-07-05"
         temp2Label.textColor = UIColor.hex("4f4f4f")
         temp2Label.font = UIFont.customFont(ofSize: 14)
         conBgImgView.addSubview(temp2Label)
     }
     func setInfo(dic:JSON,superC:UIViewController) {
+        temp1Label.textColor = UIColor.hex("4f4f4f")
+        temp2Label.textColor = UIColor.hex("4f4f4f")
         self.superControl = superC
         self.selectImgView.isHidden = true
         let attrText = NSMutableAttributedString()
@@ -76,15 +84,25 @@ class GPWUserRCell: UITableViewCell {
         if status == "AVAILABLE" {
             //立即使用
             bgImgView.image = UIImage(named: "user_inc_use")
+            timeImgView.image = UIImage(named: "")
         }else if status == "IN_USE" {
             //加息中
+            timeImgView.image = UIImage(named: "")
             bgImgView.image = UIImage(named: "user_inc_using")
+            timeImgView.image = UIImage(named: "user_reward_using")
+            
         }else if status == "HAS_USED" {
             //已使用
+            temp1Label.textColor = UIColor.hex("999999")
+            temp2Label.textColor = UIColor.hex("999999")
+            timeImgView.image = UIImage(named: "user_reward_usedd")
             bgImgView.image = UIImage(named: "user_inc_overuse")
         }else if status == "PAST_DUE" {
             //已失效
+            temp1Label.textColor = UIColor.hex("999999")
+            temp2Label.textColor = UIColor.hex("999999")
             bgImgView.image = UIImage(named: "user_inc_overtime")
+            timeImgView.image = UIImage(named: "user_reward_overtime")
         }
     }
 

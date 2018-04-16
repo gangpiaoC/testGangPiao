@@ -35,7 +35,7 @@ class GPWBaseViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
         self.view.backgroundColor = UIColor.white
-        
+        GPWUser.sharedInstance().getUserInfo()
         commonUI()
         // Do any additional setup after loading the view.
     }

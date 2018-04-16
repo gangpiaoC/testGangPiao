@@ -69,9 +69,10 @@ class UserThridCell: UITableViewCell {
 
                 if btn.tag == 100003 {
                     detailLabel.textColor = UIColor.hex("fa713d")
-                    if GPWUser.sharedInstance().data_award != "" {
+                    printLog(message: GPWUser.sharedInstance().data_award)
+                    if GPWUser.sharedInstance().data_award > 0{
                         detailLabel.text = "\(GPWUser.sharedInstance().data_award)元红包可用"
-                    }else if GPWUser.sharedInstance().data_ticket != "" {
+                    }else if GPWUser.sharedInstance().data_ticket > 0 {
                         detailLabel.text = "\(GPWUser.sharedInstance().data_ticket)张加息券可用"
                     }else{
                         detailLabel.textColor = UIColor.hex("b7b7b7")

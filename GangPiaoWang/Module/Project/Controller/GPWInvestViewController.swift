@@ -537,6 +537,7 @@ extension GPWInvestViewController {
         textField.resignFirstResponder()
 
         let vc = GPWAvailableRateCouponViewController(redEnvelops: redEnvelops, rateCoupons: rateCoupons, currentRedEnvelop: currentRedEnvelop, currentRateCoupon: currentRateCoupon, currentAmount: currentAmount, deadLine: dicJson["deadline"].intValue)
+        printLog(message: dicJson)
         vc.handleCoupon =  { [weak self] (redEnvelop, rateCoupon) in
             guard let strongSelf = self else {
                 return

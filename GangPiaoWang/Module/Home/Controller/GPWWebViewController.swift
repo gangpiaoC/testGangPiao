@@ -235,7 +235,14 @@ class GPWWebViewController: GPWSecBaseViewController,WKUIDelegate,WKNavigationDe
                 printLog(message: "eeee====\(message.body)")
             }else{
                 printLog(message: "eeee====\(message.body)")
-                if ((message.body as! String).range(of: "linkShare") != nil){
+                if (message.body as! String).hasPrefix("hmShareDesc") {
+                    let  array = (message.body as! String).components(separatedBy: "***")
+                    let title = (array[1].components(separatedBy: "title="))[1]
+                    let subtitle = (array[2].components(separatedBy: "content="))[1]
+                    let toUrl = (array[3].components(separatedBy: "url="))[1]
+                    let logo = (array[4].components(separatedBy: "urlicon="))[1]
+                    GPWShare.shared.show(title: title, subtitle: subtitle, imgUrl: logo, toUrl: toUrl)
+                }else if ((message.body as! String).range(of: "linkShare") != nil){
 
                     //分享
                     let  array = (message.body as! String).components(separatedBy: "***")

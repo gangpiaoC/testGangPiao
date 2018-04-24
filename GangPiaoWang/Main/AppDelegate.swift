@@ -165,6 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func applicationWillEnterForeground(_ application: UIApplication) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         GPWUser.sharedInstance().getUserInfo()
+        self.getAppInit()
         let timeInterval = UserDefaults.standard.value(forKey: BACKGTOUND)
         if timeInterval == nil {
             return

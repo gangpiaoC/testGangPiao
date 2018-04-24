@@ -15,7 +15,7 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
     fileprivate var showTableView:UITableView!
     fileprivate var  messageImgView:UIImageView!
     fileprivate var adFlag = 1 //是否有广告位  0 有  1没有
-    fileprivate var postDataFalg = 0 //  0 有  1没有
+    fileprivate var postDataFalg = 1 //  0 有  1没有
     //首页出现此时
     var  showNum = 0
     override func viewWillAppear(_ animated: Bool) {
@@ -45,16 +45,15 @@ class GPWHomeViewController: GPWBaseViewController,UITableViewDelegate,UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        GPWHelper.showgestureView(flag: true)
         //初始化界面
         initView()
         //获取数据
         getNetData()
         if GPWGlobal.sharedInstance().pushDic != nil {
-            UIApplication.shared.keyWindow?.makeToast("\(String(describing: GPWGlobal.sharedInstance().pushDic!))")
            self.dealMessageFromXG(GPWGlobal.sharedInstance().pushDic!)
             GPWGlobal.sharedInstance().pushDic = nil
         }
+        GPWHelper.showgestureView(flag: true)
     }
     // 接收到推送实现的方法
     func dealMessageFromXG(_ userInfo : [String:Any]) {

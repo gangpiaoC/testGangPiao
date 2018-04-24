@@ -76,7 +76,7 @@ class GPWUserRCell: UITableViewCell {
         self.superControl = superC
         self.selectImgView.isHidden = true
         let attrText = NSMutableAttributedString()
-        attrText.append(NSAttributedString.attributedString("   \(dic["rate"])", mainColor: UIColor.hex("ffffff"), mainFont: 30, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("ffffff"), secondFont: 18, secondFontWeight: .medium))
+        attrText.append(NSAttributedString.attributedString("   \(dic["rate"])", mainColor: UIColor.hex("ffffff"), mainFont: 25, mainFontWeight: .medium, second: "%", secondColor: UIColor.hex("ffffff"), secondFont: 14, secondFontWeight: .medium))
         lilvLabel.attributedText = attrText
         temp1Label.text = dic["restrict_item"].stringValue
         temp2Label.text = "有效期至" + GPWHelper.strFromDate(dic["due_time"].doubleValue, format: "yyyy-MM-dd")

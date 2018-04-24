@@ -23,11 +23,11 @@ class GPWHNowCJCell: UITableViewCell {
         rightImgView.image = UIImage(named:"home_bottom_right")
         contentView.addSubview(rightImgView)
 
-        let shuLine = UIView(frame: CGRect(x: rightImgView.maxX + 16, y: topView.maxY + 24, width: 0.5, height: 54))
+        let shuLine = UIView(frame: CGRect(x: rightImgView.maxX + 14, y: topView.maxY + 24, width: 0.5, height: 54))
         shuLine.backgroundColor = UIColor.hex("d8d8d8")
         contentView.addSubview(shuLine)
 
-        scrollview = InvestScrollView(frame: CGRect(x: shuLine.maxX + 6, y: topView.maxY + 20, width: SCREEN_WIDTH - shuLine.maxX - 6 - 16, height: 62))
+        scrollview = InvestScrollView(frame: CGRect(x: shuLine.maxX + 8, y: topView.maxY + 18, width: SCREEN_WIDTH - shuLine.maxX - 6 - 16, height: 66))
         let  gradientLayer = CAGradientLayer()
         gradientLayer.frame = scrollview.bounds
         //设置渐变的主颜色
@@ -64,7 +64,7 @@ class GPWHNowCJCell: UITableViewCell {
     func updata(_ inveArray:[JSON])  {
         var titleArray = [[String]]()
         for tempJson in inveArray {
-            titleArray.append([ "<font size=13 color='#333333'>\(tempJson["telephone"])</font>", "<font size=13 color='#333333'>\(tempJson["title"])</font>","<font size=13 color='#f6390c'>\(tempJson["amount"])元</font>"])
+            titleArray.append([ "<font size=13 color='#333333'>\(tempJson["telephone"])</font>", "<font size=12 color='#333333'>\(tempJson["title"])</font>","<font size=12 color='#f6390c'>\(tempJson["amount"])元</font>"])
         }
         scrollview.push(titleArray, withW: scrollview.width)
     }

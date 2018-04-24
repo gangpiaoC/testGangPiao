@@ -122,11 +122,11 @@
             [self.ccpScrollView addSubview:projectLabel];
 
             if (j >0 && j < tempArray.count - 1) {
-                //projectLabel.textAlignment = RTTextAlignmentCenter;
                 projectLabel.width *= 1.5;
-                projectLabel.x = projectLabel.x - 20;
+                projectLabel.x = projectLabel.x - 13;
             }else if (j == tempArray.count - 1){
                 projectLabel.textAlignment = RTTextAlignmentRight;
+                projectLabel.y = self.labelH*i + 2 ;
             }
         }
     }

@@ -142,7 +142,7 @@ class GPWHelper {
         contentBgView.addSubview(btn)
         maxHeight = btn.maxY + 34
         
-        if flag == 1 {
+        if flag == 0 {
             let  cancelBtn = UIButton(type: .custom)
             cancelBtn.frame = CGRect(x: 0, y: contentBgView.maxY + 28, width: 30, height: 30)
             cancelBtn.setImage(UIImage(named:"version_cancel"), for: .normal)
